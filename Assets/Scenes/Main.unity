@@ -593,18 +593,6 @@ PrefabInstance:
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3576984300062097906, guid: 9663a6192d7b5d7469957d501bb2361c, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.010416667
-      objectReference: {fileID: 0}
-    - target: {fileID: 3576984300062097906, guid: 9663a6192d7b5d7469957d501bb2361c, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.010416667
-      objectReference: {fileID: 0}
-    - target: {fileID: 3576984300062097906, guid: 9663a6192d7b5d7469957d501bb2361c, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.010416667
-      objectReference: {fileID: 0}
-    - target: {fileID: 3576984300062097906, guid: 9663a6192d7b5d7469957d501bb2361c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -656,27 +644,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: PopupTextInput
       objectReference: {fileID: 0}
-    - target: {fileID: 3926211810432998613, guid: 9663a6192d7b5d7469957d501bb2361c, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8615348757555044386, guid: 9663a6192d7b5d7469957d501bb2361c, type: 3}
+    - target: {fileID: 7710984102233923174, guid: 9663a6192d7b5d7469957d501bb2361c, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
     - target: {fileID: 8615348757555044386, guid: 9663a6192d7b5d7469957d501bb2361c, type: 3}
-      propertyPath: m_SortingOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8615348757555044386, guid: 9663a6192d7b5d7469957d501bb2361c, type: 3}
-      propertyPath: m_SortingLayerID
-      value: -1733060417
-      objectReference: {fileID: 0}
-    - target: {fileID: 8615348757555044386, guid: 9663a6192d7b5d7469957d501bb2361c, type: 3}
-      propertyPath: m_OverrideSorting
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 519420031}
+    m_RemovedComponents:
+    - {fileID: 7710984102233923174, guid: 9663a6192d7b5d7469957d501bb2361c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1020,7 +997,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5050090478807142969, guid: b43f942ee2dbff54a9bee286007f2acb, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5050090478807142969, guid: b43f942ee2dbff54a9bee286007f2acb, type: 3}
       propertyPath: m_TagString
@@ -1430,18 +1407,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3085316137070815990, guid: f38b569947288b7438e92d4227028340, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3085316137070815990, guid: f38b569947288b7438e92d4227028340, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3085316137070815990, guid: f38b569947288b7438e92d4227028340, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3085316137070815990, guid: f38b569947288b7438e92d4227028340, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -1493,21 +1458,13 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
-    - target: {fileID: 5944949186198313594, guid: f38b569947288b7438e92d4227028340, type: 3}
-      propertyPath: m_RenderMode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5944949186198313594, guid: f38b569947288b7438e92d4227028340, type: 3}
-      propertyPath: m_SortingOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5944949186198313594, guid: f38b569947288b7438e92d4227028340, type: 3}
-      propertyPath: m_SortingLayerID
-      value: 1309224533
-      objectReference: {fileID: 0}
     - target: {fileID: 7960619550848443554, guid: f38b569947288b7438e92d4227028340, type: 3}
       propertyPath: m_Name
       value: Background
+      objectReference: {fileID: 0}
+    - target: {fileID: 7960619550848443554, guid: f38b569947288b7438e92d4227028340, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1520,8 +1477,8 @@ SceneRoots:
   m_Roots:
   - {fileID: 619394802}
   - {fileID: 519420032}
-  - {fileID: 1985961039}
   - {fileID: 9155104881786679509}
+  - {fileID: 1985961039}
   - {fileID: 985269927221861639}
   - {fileID: 1142419025}
   - {fileID: 1895111445}
