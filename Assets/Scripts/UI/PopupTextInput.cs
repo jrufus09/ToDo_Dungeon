@@ -31,7 +31,9 @@ public class PopupTextInput : MonoBehaviour
                 if (okBtn.interactable == false) {
                     okBtn.interactable = true;
                 }
-            } // if unique = false, passes to else
+            } else {
+                okBtn.interactable = false;
+            }
         } else { // not valid input
             okBtn.interactable = false;
         }
