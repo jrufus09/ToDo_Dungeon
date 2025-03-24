@@ -23,7 +23,10 @@
 ### 21-Mar-2025
 - fixes to above
 
-### 25-Mar-2025
+### 23-Mar-2025
 - if no save data exists, makes a new one; if save data does exist, loads boards
 - new board, new list, new item functions exist
 - hash set to quick lookup/check unique board names
+
+### 24-Mar-2025
+- new board only allows unique board names. (fixed)

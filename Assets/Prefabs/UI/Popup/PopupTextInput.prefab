@@ -410,7 +410,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Name your new board:'
+  m_text: 'Name your new board something unique:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -612,8 +612,7 @@ MonoBehaviour:
   okBtnObj: {fileID: 8382760476195896743}
   cancelBtnObj: {fileID: 2472933885995998116}
   inputFieldObj: {fileID: 5818740857892939517}
-  okBtn: {fileID: 387819395945058535}
-  inputField: {fileID: 5818740857892939517}
+  inputField: {fileID: 4761511418208467334}
 --- !u!1 &5818740857892939517
 GameObject:
   m_ObjectHideFlags: 0
@@ -968,17 +967,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff462703b4aeefd4bb852201eb18b248, type: 3}
---- !u!114 &387819395945058535 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2165779410422208754, guid: ff462703b4aeefd4bb852201eb18b248, type: 3}
-  m_PrefabInstance: {fileID: 1976987094418835477}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8382760476195896743}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &4993660526807210812 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6783160473633559337, guid: ff462703b4aeefd4bb852201eb18b248, type: 3}
