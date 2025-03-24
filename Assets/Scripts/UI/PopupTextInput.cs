@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting.Dependencies.Sqlite;
 
 public class PopupTextInput : MonoBehaviour
 {
@@ -25,10 +26,12 @@ public class PopupTextInput : MonoBehaviour
     }
 
     private void checkInput(string value) {
-        if (value.Length >= 1) { // 1+  character - valid input
-           if (okBtn.interactable == false) {
-            okBtn.interactable = true;
-           }
+        if (value.Length >= 1) { // 1+  character AND board name is unique
+            if (BoardDataManager.Instance.IsBoardNameUnique(value)) { // unique = true.
+                if (okBtn.interactable == false) {
+                    okBtn.interactable = true;
+                }
+            } // if unique = false, passes to else
         } else { // not valid input
             okBtn.interactable = false;
         }
@@ -36,7 +39,7 @@ public class PopupTextInput : MonoBehaviour
 
     private void onClickOK() {
         //Debug.Log(inputField.text);
-        //BoardDataManager.Instance.NewSaveData(inputField.text); // input field value -> new save data
+        BoardDataManager.Instance.NewBoard(inputField.text); // input field value -> new save data
         selfDestruct();
     }
 

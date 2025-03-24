@@ -2,14 +2,14 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AddNewBoard : MonoBehaviour {
+public class AddNewBoard : MonoBehaviour { // for the BUTTON
 
     private BoardDataManager dataManager;
     private PopupManager popupManager;
 
     void Awake() {
 
-        // Assign if inspector hasn't done so
+        // assign if inspector hasn't done so
         if (dataManager == null) {
             dataManager = Object.FindFirstObjectByType<BoardDataManager>();
         }
@@ -22,10 +22,10 @@ public class AddNewBoard : MonoBehaviour {
     }
 
     public void OnClick() {
-        Debug.Log("Button clicked: " + gameObject.name);
-        popupManager.ShowInputPopup("Enter Your Name", (inputText) => 
+        //Debug.Log("Button clicked: " + gameObject.name);
+        popupManager.ShowInputPopup("Enter a board name", (inputText) => 
         {
-            Debug.Log("User entered: " + inputText);
+            Debug.Log("return: " + inputText);
         });
     }
     

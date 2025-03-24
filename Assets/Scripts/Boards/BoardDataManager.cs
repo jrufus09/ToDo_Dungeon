@@ -11,18 +11,19 @@ public class BoardDataManager : MonoBehaviour {
     void Start() {
         Debug.Log($"persistent data path on {Application.platform} is: {Application.persistentDataPath}");
         
-        currentBoardData = LoadData(folderPath);
+        currentSessionData = LoadData(folderPath);
         
         // should probably have a more robust system dealing with corruption and missing boards
         // for the time being, the Load function below resets it.
         // let's check how boards are in the save data we got.
-        if (currentBoardData.boards.Count == 0) {
+        if (currentSessionData.boards.Count == 0) {
             Debug.Log("no boards found in this save data.");
             // Make a new save data
             NewSaveData();
         } else {
-            Debug.Log($"loaded {currentBoardData.boards.Count} boards.");
-            boards = currentBoardData.boards;
+            Debug.Log($"loaded {currentSessionData.boards.Count} boards.");
+            //boards = currentSessionData.boards;
+            LoadBoardNames();
         }
     }
 
@@ -32,8 +33,8 @@ public class BoardDataManager : MonoBehaviour {
     [Tooltip("save every x seconds")]
     public float saveInterval = 30f;
 
-    public BoardData currentBoardData; // this is ALL boards loaded to the current session
-    [SerializeField] private List<Board> boards; // for checking in inspector
+    public BoardData currentSessionData; // this is ALL boards loaded to the current session
+    //[SerializeField] private List<Board> boards; // for checking in inspector
 
     void Awake() {
         // initiate instance
@@ -53,17 +54,28 @@ public class BoardDataManager : MonoBehaviour {
 
     public void NewSaveData() {
         //String filePath = GetFilePath(boardName);
-        this.SaveData(this.folderPath, new BoardData());
+        this.SaveData(true);
     }
 
     // public String GetFilePath(String boardName) {
     //     return Path.Combine(this.folderPath, boardName);
     // }
 
-    public void SaveData(String filePath, BoardData data) {  //SaveData(folderPath, currentBoardData);
-        string json = JsonUtility.ToJson(data, true);
-        File.WriteAllText(filePath, json);
-        Debug.Log("Data saved to " + filePath);
+    //public void SaveData(String filePath, BoardData data) {  //SaveData(folderPath, currentSessionData);
+        // string json = JsonUtility.ToJson(data, true);
+        // File.WriteAllText(filePath, json);
+        // Debug.Log("Data saved to " + filePath);
+    // since this class manages the session, and all boards are kept in the same file,
+    // FILEPATH isn't necessary: they reach into the same class-wide variables
+    public void SaveData(bool overwrite = false) {
+        BoardData saveThis = currentSessionData;
+        if (overwrite == true) {
+            saveThis = new BoardData();
+        }
+        string json = JsonUtility.ToJson(saveThis, true);
+        File.WriteAllText(folderPath, json);
+        Debug.Log("data saved to " + folderPath);
+        LoadBoardNames();
     }
 
     public BoardData LoadData(String filePath) {
@@ -82,15 +94,57 @@ public class BoardDataManager : MonoBehaviour {
         }
     }
 
+    private HashSet<string> boardNamesSet; // for quick lookup
+
+    private void LoadBoardNames() { // call this whenever json is loaded / updated
+        boardNamesSet = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        foreach (Board board in currentSessionData.boards) {
+            boardNamesSet.Add(board.name);
+        }
+    }
+
+    public bool IsBoardNameUnique(string newBoardName) {
+        return !boardNamesSet.Contains(newBoardName);
+    }
+
     public void NewBoard(string boardName) {
         Board newBoard = new Board { name = boardName };
-        currentBoardData.boards.Add(newBoard);
+        currentSessionData.boards.Add(newBoard);
+        SaveData();
+    }
+
+    public void NewList(string boardName, string listName) {
+        Board board = currentSessionData.boards.Find(b => b.name == boardName); // find board
+        if (board != null) {
+            board.lists.Add(new ListData { name = listName });
+            SaveData();
+        }
+        else {
+            Debug.LogError($"board not found'{boardName}'");
+        }
+    }
+
+    public void NewItem(string boardName, string listName, string itemName, string dueDate, bool isCompleted = false)
+    {
+        Board board = currentSessionData.boards.Find(b => b.name == boardName);
+        if (board != null) {
+            ListData list = board.lists.Find(l => l.name == listName);
+            if (list != null) {
+                list.items.Add(new Item { name = itemName, dueDate = dueDate, isCompleted = isCompleted });
+                SaveData();
+            }
+            else {
+                Debug.LogError($"list not found: '{listName}'");
+            }
+        } else {
+            Debug.LogError($"board not found:'{boardName}'");
+        }
     }
 
     private IEnumerator AutoSaveRoutine() {
         while (true) {
             yield return new WaitForSeconds(saveInterval);
-            SaveData(folderPath, currentBoardData);
+            SaveData();
             Debug.Log("autosaved at " + System.DateTime.Now);
         }
     }
