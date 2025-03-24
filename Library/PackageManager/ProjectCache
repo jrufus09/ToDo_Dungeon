@@ -1,6 +1,6 @@
 m_ProjectFiles:
   m_ManifestFileStatus:
-    m_FilePath: C:/Users/jessr/Documents/GitHub/ToDo_Dungeon/Packages/manifest.json
+    m_FilePath: C:/Users/jessr/GitHub/ToDo_Dungeon/Packages/manifest.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
@@ -8,7 +8,7 @@ m_ProjectFiles:
       ticks: 638755033258767424
     m_Hash: 591373482
   m_LockFileStatus:
-    m_FilePath: C:/Users/jessr/Documents/GitHub/ToDo_Dungeon/Packages/packages-lock.json
+    m_FilePath: C:/Users/jessr/GitHub/ToDo_Dungeon/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
@@ -19,7 +19,7 @@ m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_LocalPackages:
   m_LocalFileStatus: []
-m_ProjectPath: C:/Users/jessr/Documents/GitHub/ToDo_Dungeon/Packages
+m_ProjectPath: C:/Users/jessr/GitHub/ToDo_Dungeon/Packages
 m_EditorVersion: 6000.0.38f1 (82314a941f2d)
 m_ResolvedPackages:
 - packageId: com.unity.collab-proxy@2.6.0
@@ -27,7 +27,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 2.6.0
   source: 1
-  resolvedPath: C:\Users\jessr\Documents\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.collab-proxy@001b54a8988a
+  resolvedPath: C:\Users\jessr\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.collab-proxy@001b54a8988a
   assetPath: Packages/com.unity.collab-proxy
   name: com.unity.collab-proxy
   displayName: Version Control
@@ -153,7 +153,7 @@ m_ResolvedPackages:
     configSource: 0
   hideInEditor: 1
   entitlements:
-    licensingModel: 0
+    licensingModel: 1
   isAssetStorePackage: 0
   datePublishedTicks: 638684801569990000
   documentationUrl: https://docs.unity3d.com/Packages/com.unity.collab-proxy@2.6/manual/index.html
@@ -217,7 +217,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 2.0.1
   source: 2
-  resolvedPath: C:\Users\jessr\Documents\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.feature.2d@dd1ea8910f12
+  resolvedPath: C:\Users\jessr\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.feature.2d@dd1ea8910f12
   assetPath: Packages/com.unity.feature.2d
   name: com.unity.feature.2d
   displayName: 2D
@@ -262,32 +262,32 @@ m_ResolvedPackages:
     version: 10.1.4
   - name: com.unity.2d.common
     version: 9.0.7
-  - name: com.unity.2d.sprite
-    version: 1.0.0
+  - name: com.unity.burst
+    version: 1.8.19
   - name: com.unity.mathematics
     version: 1.3.2
+  - name: com.unity.modules.jsonserialize
+    version: 1.0.0
+  - name: com.unity.2d.sprite
+    version: 1.0.0
+  - name: com.unity.modules.animation
+    version: 1.0.0
   - name: com.unity.modules.uielements
     version: 1.0.0
   - name: com.unity.modules.ui
     version: 1.0.0
   - name: com.unity.modules.imgui
     version: 1.0.0
-  - name: com.unity.modules.jsonserialize
-    version: 1.0.0
   - name: com.unity.modules.hierarchycore
     version: 1.0.0
-  - name: com.unity.modules.animation
-    version: 1.0.0
-  - name: com.unity.burst
-    version: 1.8.19
   - name: com.unity.collections
     version: 2.5.1
-  - name: com.unity.nuget.mono-cecil
-    version: 1.11.4
   - name: com.unity.test-framework
     version: 1.4.6
   - name: com.unity.ext.nunit
     version: 2.0.5
+  - name: com.unity.nuget.mono-cecil
+    version: 1.11.4
   - name: com.unity.test-framework.performance
     version: 3.0.3
   - name: com.unity.2d.pixel-perfect
@@ -351,7 +351,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 3.0.31
   source: 1
-  resolvedPath: C:\Users\jessr\Documents\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.ide.rider@7921be93db40
+  resolvedPath: C:\Users\jessr\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.ide.rider@7921be93db40
   assetPath: Packages/com.unity.ide.rider
   name: com.unity.ide.rider
   displayName: JetBrains Rider Editor
@@ -360,7 +360,7 @@ m_ResolvedPackages:
     email: 
     url: 
   category: 
-  type: 
+  type: assets
   description: The JetBrains Rider Editor package provides an integration for using
     the JetBrains Rider IDE as a code editor for Unity. It adds support for generating
     .csproj files for code completion and auto-discovery of installations.
@@ -433,7 +433,7 @@ m_ResolvedPackages:
     configSource: 0
   hideInEditor: 1
   entitlements:
-    licensingModel: 0
+    licensingModel: 1
   isAssetStorePackage: 0
   datePublishedTicks: 638548308080000000
   documentationUrl: https://docs.unity3d.com/Packages/com.unity.ide.rider@3.0/manual/index.html
@@ -470,7 +470,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 2.0.22
   source: 1
-  resolvedPath: C:\Users\jessr\Documents\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.ide.visualstudio@8140e851d83e
+  resolvedPath: C:\Users\jessr\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.ide.visualstudio@8140e851d83e
   assetPath: Packages/com.unity.ide.visualstudio
   name: com.unity.ide.visualstudio
   displayName: Visual Studio Editor
@@ -479,7 +479,7 @@ m_ResolvedPackages:
     email: 
     url: 
   category: 
-  type: 
+  type: assets
   description: Code editor integration for supporting Visual Studio as code editor
     for unity. Adds support for generating csproj files for intellisense purposes,
     auto discovery of installations, etc.
@@ -537,7 +537,7 @@ m_ResolvedPackages:
     configSource: 0
   hideInEditor: 1
   entitlements:
-    licensingModel: 0
+    licensingModel: 1
   isAssetStorePackage: 0
   datePublishedTicks: 638326061910000000
   documentationUrl: https://docs.unity3d.com/Packages/com.unity.ide.visualstudio@2.0/manual/index.html
@@ -576,7 +576,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.13.0
   source: 1
-  resolvedPath: C:\Users\jessr\Documents\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.inputsystem@ea5ab5b33a26
+  resolvedPath: C:\Users\jessr\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.inputsystem@ea5ab5b33a26
   assetPath: Packages/com.unity.inputsystem
   name: com.unity.inputsystem
   displayName: Input System
@@ -683,7 +683,7 @@ m_ResolvedPackages:
     configSource: 0
   hideInEditor: 1
   entitlements:
-    licensingModel: 0
+    licensingModel: 1
   isAssetStorePackage: 0
   datePublishedTicks: 638743646788680000
   documentationUrl: https://docs.unity3d.com/Packages/com.unity.inputsystem@1.13/manual/index.html
@@ -731,7 +731,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\jessr\Documents\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.multiplayer.center@f502d8ac613f
+  resolvedPath: C:\Users\jessr\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.multiplayer.center@f502d8ac613f
   assetPath: Packages/com.unity.multiplayer.center
   name: com.unity.multiplayer.center
   displayName: Multiplayer Center
@@ -821,7 +821,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 17.0.3
   source: 2
-  resolvedPath: C:\Users\jessr\Documents\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.render-pipelines.universal@1e752e39e60c
+  resolvedPath: C:\Users\jessr\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.render-pipelines.universal@1e752e39e60c
   assetPath: Packages/com.unity.render-pipelines.universal
   name: com.unity.render-pipelines.universal
   displayName: Universal RP
@@ -912,12 +912,12 @@ m_ResolvedPackages:
     version: 1.0.0
   - name: com.unity.collections
     version: 2.5.1
-  - name: com.unity.nuget.mono-cecil
-    version: 1.11.4
   - name: com.unity.test-framework
     version: 1.4.6
   - name: com.unity.ext.nunit
     version: 2.0.5
+  - name: com.unity.nuget.mono-cecil
+    version: 1.11.4
   - name: com.unity.test-framework.performance
     version: 3.0.3
   - name: com.unity.modules.physics
@@ -983,7 +983,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.4.6
   source: 1
-  resolvedPath: C:\Users\jessr\Documents\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.test-framework@5ac417e07314
+  resolvedPath: C:\Users\jessr\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.test-framework@5ac417e07314
   assetPath: Packages/com.unity.test-framework
   name: com.unity.test-framework
   displayName: Test Framework
@@ -1086,7 +1086,7 @@ m_ResolvedPackages:
     configSource: 0
   hideInEditor: 1
   entitlements:
-    licensingModel: 0
+    licensingModel: 1
   isAssetStorePackage: 0
   datePublishedTicks: 638743524358990000
   documentationUrl: https://docs.unity3d.com/Packages/com.unity.test-framework@1.4/manual/index.html
@@ -1135,7 +1135,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.8.7
   source: 1
-  resolvedPath: C:\Users\jessr\Documents\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.timeline@c58b4ee65782
+  resolvedPath: C:\Users\jessr\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.timeline@c58b4ee65782
   assetPath: Packages/com.unity.timeline
   name: com.unity.timeline
   displayName: Timeline
@@ -1144,7 +1144,7 @@ m_ResolvedPackages:
     email: 
     url: 
   category: 
-  type: 
+  type: assets
   description: Use Unity Timeline to create cinematic content, game-play sequences,
     audio sequences, and complex particle effects.
   errors: []
@@ -1228,6 +1228,7 @@ m_ResolvedPackages:
     - 1.7.4
     - 1.7.5
     - 1.7.6
+    - 1.7.7
     - 1.8.0
     - 1.8.1
     - 1.8.2
@@ -1243,18 +1244,18 @@ m_ResolvedPackages:
     recommended: 1.8.8
     deprecated: []
   dependencies:
+  - name: com.unity.modules.audio
+    version: 1.0.0
   - name: com.unity.modules.director
     version: 1.0.0
   - name: com.unity.modules.animation
     version: 1.0.0
-  - name: com.unity.modules.audio
-    version: 1.0.0
   - name: com.unity.modules.particlesystem
     version: 1.0.0
   resolvedDependencies:
-  - name: com.unity.modules.director
-    version: 1.0.0
   - name: com.unity.modules.audio
+    version: 1.0.0
+  - name: com.unity.modules.director
     version: 1.0.0
   - name: com.unity.modules.animation
     version: 1.0.0
@@ -1276,7 +1277,7 @@ m_ResolvedPackages:
     configSource: 0
   hideInEditor: 1
   entitlements:
-    licensingModel: 0
+    licensingModel: 1
   isAssetStorePackage: 0
   datePublishedTicks: 638524833900000000
   documentationUrl: https://docs.unity3d.com/Packages/com.unity.timeline@1.8/manual/index.html
@@ -1320,7 +1321,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 2.0.0
   source: 2
-  resolvedPath: C:\Users\jessr\Documents\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.ugui@03407c6d8751
+  resolvedPath: C:\Users\jessr\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.ugui@03407c6d8751
   assetPath: Packages/com.unity.ugui
   name: com.unity.ugui
   displayName: Unity UI
@@ -1412,7 +1413,7 @@ m_ResolvedPackages:
   isDirectDependency: 1
   version: 1.9.5
   source: 1
-  resolvedPath: C:\Users\jessr\Documents\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.visualscripting@1b53f46e931b
+  resolvedPath: C:\Users\jessr\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.visualscripting@1b53f46e931b
   assetPath: Packages/com.unity.visualscripting
   name: com.unity.visualscripting
   displayName: Visual Scripting
@@ -1459,9 +1460,11 @@ m_ResolvedPackages:
     - 1.9.2
     - 1.9.4
     - 1.9.5
+    - 1.9.6
     compatible:
     - 1.9.5
-    recommended: 1.9.5
+    - 1.9.6
+    recommended: 1.9.6
     deprecated:
     - 1.8.0-pre.1
   dependencies:
@@ -1489,7 +1492,7 @@ m_ResolvedPackages:
     configSource: 0
   hideInEditor: 1
   entitlements:
-    licensingModel: 0
+    licensingModel: 1
   isAssetStorePackage: 0
   datePublishedTicks: 638659692270900000
   documentationUrl: 
@@ -3950,7 +3953,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 2.0.5
   source: 1
-  resolvedPath: C:\Users\jessr\Documents\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.ext.nunit@60ef35ffd3cd
+  resolvedPath: C:\Users\jessr\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.ext.nunit@60ef35ffd3cd
   assetPath: Packages/com.unity.ext.nunit
   name: com.unity.ext.nunit
   displayName: Custom NUnit
@@ -3959,7 +3962,7 @@ m_ResolvedPackages:
     email: 
     url: 
   category: Libraries
-  type: 
+  type: assets
   description: A custom version of NUnit used by Unity Test Framework. Based on NUnit
     version 3.5 and works with all platforms, il2cpp and Mono AOT.
   errors: []
@@ -3995,7 +3998,7 @@ m_ResolvedPackages:
     configSource: 0
   hideInEditor: 1
   entitlements:
-    licensingModel: 0
+    licensingModel: 1
   isAssetStorePackage: 0
   datePublishedTicks: 638236642220000000
   documentationUrl: https://docs.unity3d.com/Packages/com.unity.ext.nunit@2.0/manual/index.html
@@ -4029,7 +4032,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 17.0.3
   source: 2
-  resolvedPath: C:\Users\jessr\Documents\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.render-pipelines.core@38fdc9b96878
+  resolvedPath: C:\Users\jessr\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.render-pipelines.core@38fdc9b96878
   assetPath: Packages/com.unity.render-pipelines.core
   name: com.unity.render-pipelines.core
   displayName: Core RP Library
@@ -4184,12 +4187,12 @@ m_ResolvedPackages:
     version: 1.0.0
   - name: com.unity.collections
     version: 2.5.1
-  - name: com.unity.nuget.mono-cecil
-    version: 1.11.4
   - name: com.unity.test-framework
     version: 1.4.6
   - name: com.unity.ext.nunit
     version: 2.0.5
+  - name: com.unity.nuget.mono-cecil
+    version: 1.11.4
   - name: com.unity.test-framework.performance
     version: 3.0.3
   - name: com.unity.modules.physics
@@ -4243,7 +4246,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 17.0.3
   source: 2
-  resolvedPath: C:\Users\jessr\Documents\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.shadergraph@e4a21741cda9
+  resolvedPath: C:\Users\jessr\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.shadergraph@e4a21741cda9
   assetPath: Packages/com.unity.shadergraph
   name: com.unity.shadergraph
   displayName: Shader Graph
@@ -4385,12 +4388,12 @@ m_ResolvedPackages:
     version: 1.0.0
   - name: com.unity.collections
     version: 2.5.1
-  - name: com.unity.nuget.mono-cecil
-    version: 1.11.4
   - name: com.unity.test-framework
     version: 1.4.6
   - name: com.unity.ext.nunit
     version: 2.0.5
+  - name: com.unity.nuget.mono-cecil
+    version: 1.11.4
   - name: com.unity.test-framework.performance
     version: 3.0.3
   - name: com.unity.modules.physics
@@ -4446,7 +4449,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 17.0.3
   source: 2
-  resolvedPath: C:\Users\jessr\Documents\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.render-pipelines.universal-config@fa63c96d3e1a
+  resolvedPath: C:\Users\jessr\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.render-pipelines.universal-config@fa63c96d3e1a
   assetPath: Packages/com.unity.render-pipelines.universal-config
   name: com.unity.render-pipelines.universal-config
   displayName: Universal RP Config
@@ -4485,12 +4488,12 @@ m_ResolvedPackages:
     version: 1.0.0
   - name: com.unity.collections
     version: 2.5.1
-  - name: com.unity.nuget.mono-cecil
-    version: 1.11.4
   - name: com.unity.test-framework
     version: 1.4.6
   - name: com.unity.ext.nunit
     version: 2.0.5
+  - name: com.unity.nuget.mono-cecil
+    version: 1.11.4
   - name: com.unity.test-framework.performance
     version: 3.0.3
   - name: com.unity.modules.physics
@@ -4544,7 +4547,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 10.1.4
   source: 1
-  resolvedPath: C:\Users\jessr\Documents\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.2d.animation@494a3b4e73a9
+  resolvedPath: C:\Users\jessr\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.2d.animation@494a3b4e73a9
   assetPath: Packages/com.unity.2d.animation
   name: com.unity.2d.animation
   displayName: 2D Animation
@@ -4707,32 +4710,32 @@ m_ResolvedPackages:
   resolvedDependencies:
   - name: com.unity.2d.common
     version: 9.0.7
-  - name: com.unity.2d.sprite
-    version: 1.0.0
+  - name: com.unity.burst
+    version: 1.8.19
   - name: com.unity.mathematics
     version: 1.3.2
+  - name: com.unity.modules.jsonserialize
+    version: 1.0.0
+  - name: com.unity.2d.sprite
+    version: 1.0.0
+  - name: com.unity.modules.animation
+    version: 1.0.0
   - name: com.unity.modules.uielements
     version: 1.0.0
   - name: com.unity.modules.ui
     version: 1.0.0
   - name: com.unity.modules.imgui
     version: 1.0.0
-  - name: com.unity.modules.jsonserialize
-    version: 1.0.0
   - name: com.unity.modules.hierarchycore
     version: 1.0.0
-  - name: com.unity.modules.animation
-    version: 1.0.0
-  - name: com.unity.burst
-    version: 1.8.19
   - name: com.unity.collections
     version: 2.5.1
-  - name: com.unity.nuget.mono-cecil
-    version: 1.11.4
   - name: com.unity.test-framework
     version: 1.4.6
   - name: com.unity.ext.nunit
     version: 2.0.5
+  - name: com.unity.nuget.mono-cecil
+    version: 1.11.4
   - name: com.unity.test-framework.performance
     version: 3.0.3
   keywords:
@@ -4748,7 +4751,7 @@ m_ResolvedPackages:
     configSource: 0
   hideInEditor: 1
   entitlements:
-    licensingModel: 0
+    licensingModel: 1
   isAssetStorePackage: 0
   datePublishedTicks: 638654459075740000
   documentationUrl: https://docs.unity3d.com/Packages/com.unity.2d.animation@10.1/manual/index.html
@@ -4794,7 +4797,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 5.0.3
   source: 1
-  resolvedPath: C:\Users\jessr\Documents\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.2d.pixel-perfect@e3ae982b672d
+  resolvedPath: C:\Users\jessr\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.2d.pixel-perfect@e3ae982b672d
   assetPath: Packages/com.unity.2d.pixel-perfect
   name: com.unity.2d.pixel-perfect
   displayName: 2D Pixel Perfect
@@ -4855,7 +4858,7 @@ m_ResolvedPackages:
     configSource: 0
   hideInEditor: 1
   entitlements:
-    licensingModel: 0
+    licensingModel: 1
   isAssetStorePackage: 0
   datePublishedTicks: 638023910590000000
   documentationUrl: 
@@ -4889,7 +4892,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 9.0.3
   source: 1
-  resolvedPath: C:\Users\jessr\Documents\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.2d.psdimporter@676bae148e11
+  resolvedPath: C:\Users\jessr\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.2d.psdimporter@676bae148e11
   assetPath: Packages/com.unity.2d.psdimporter
   name: com.unity.2d.psdimporter
   displayName: 2D PSD Importer
@@ -4898,7 +4901,7 @@ m_ResolvedPackages:
     email: 
     url: 
   category: 2D
-  type: 
+  type: assets
   description: A ScriptedImporter for importing Adobe Photoshop PSB (Photoshop Big)
     file format. The ScriptedImporter is currently targeted for users who wants to
     create multi Sprite character animation using Unity 2D Animation Package.
@@ -4997,24 +5000,24 @@ m_ResolvedPackages:
   resolvedDependencies:
   - name: com.unity.2d.common
     version: 9.0.7
-  - name: com.unity.2d.sprite
-    version: 1.0.0
+  - name: com.unity.burst
+    version: 1.8.19
   - name: com.unity.mathematics
     version: 1.3.2
+  - name: com.unity.modules.jsonserialize
+    version: 1.0.0
+  - name: com.unity.2d.sprite
+    version: 1.0.0
+  - name: com.unity.modules.animation
+    version: 1.0.0
   - name: com.unity.modules.uielements
     version: 1.0.0
   - name: com.unity.modules.ui
     version: 1.0.0
   - name: com.unity.modules.imgui
     version: 1.0.0
-  - name: com.unity.modules.jsonserialize
-    version: 1.0.0
   - name: com.unity.modules.hierarchycore
     version: 1.0.0
-  - name: com.unity.modules.animation
-    version: 1.0.0
-  - name: com.unity.burst
-    version: 1.8.19
   keywords:
   - 2d
   - psdimporter
@@ -5029,7 +5032,7 @@ m_ResolvedPackages:
     configSource: 0
   hideInEditor: 1
   entitlements:
-    licensingModel: 0
+    licensingModel: 1
   isAssetStorePackage: 0
   datePublishedTicks: 638489453630000000
   documentationUrl: https://docs.unity3d.com/Packages/com.unity.2d.psdimporter@9.0/manual/index.html
@@ -5065,7 +5068,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\jessr\Documents\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.2d.sprite@072d7bd355e5
+  resolvedPath: C:\Users\jessr\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.2d.sprite@072d7bd355e5
   assetPath: Packages/com.unity.2d.sprite
   name: com.unity.2d.sprite
   displayName: 2D Sprite
@@ -5135,7 +5138,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 10.0.7
   source: 1
-  resolvedPath: C:\Users\jessr\Documents\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.2d.spriteshape@9e35352ae135
+  resolvedPath: C:\Users\jessr\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.2d.spriteshape@9e35352ae135
   assetPath: Packages/com.unity.2d.spriteshape
   name: com.unity.2d.spriteshape
   displayName: 2D SpriteShape
@@ -5246,18 +5249,24 @@ m_ResolvedPackages:
     recommended: 10.0.7
     deprecated: []
   dependencies:
-  - name: com.unity.mathematics
-    version: 1.1.0
   - name: com.unity.2d.common
     version: 9.0.7
+  - name: com.unity.mathematics
+    version: 1.1.0
   - name: com.unity.modules.physics2d
     version: 1.0.0
   resolvedDependencies:
-  - name: com.unity.mathematics
-    version: 1.3.2
   - name: com.unity.2d.common
     version: 9.0.7
+  - name: com.unity.burst
+    version: 1.8.19
+  - name: com.unity.mathematics
+    version: 1.3.2
+  - name: com.unity.modules.jsonserialize
+    version: 1.0.0
   - name: com.unity.2d.sprite
+    version: 1.0.0
+  - name: com.unity.modules.animation
     version: 1.0.0
   - name: com.unity.modules.uielements
     version: 1.0.0
@@ -5265,14 +5274,8 @@ m_ResolvedPackages:
     version: 1.0.0
   - name: com.unity.modules.imgui
     version: 1.0.0
-  - name: com.unity.modules.jsonserialize
-    version: 1.0.0
   - name: com.unity.modules.hierarchycore
     version: 1.0.0
-  - name: com.unity.modules.animation
-    version: 1.0.0
-  - name: com.unity.burst
-    version: 1.8.19
   - name: com.unity.modules.physics2d
     version: 1.0.0
   keywords:
@@ -5292,7 +5295,7 @@ m_ResolvedPackages:
     configSource: 0
   hideInEditor: 1
   entitlements:
-    licensingModel: 0
+    licensingModel: 1
   isAssetStorePackage: 0
   datePublishedTicks: 638654459104040000
   documentationUrl: https://docs.unity3d.com/Packages/com.unity.2d.spriteshape@10.0/manual/index.html
@@ -5327,7 +5330,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 1.0.0
   source: 2
-  resolvedPath: C:\Users\jessr\Documents\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.2d.tilemap@578c7061e96d
+  resolvedPath: C:\Users\jessr\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.2d.tilemap@578c7061e96d
   assetPath: Packages/com.unity.2d.tilemap
   name: com.unity.2d.tilemap
   displayName: 2D Tilemap Editor
@@ -5414,7 +5417,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 4.1.0
   source: 1
-  resolvedPath: C:\Users\jessr\Documents\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.2d.tilemap.extras@13634da7dbe0
+  resolvedPath: C:\Users\jessr\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.2d.tilemap.extras@13634da7dbe0
   assetPath: Packages/com.unity.2d.tilemap.extras
   name: com.unity.2d.tilemap.extras
   displayName: 2D Tilemap Extras
@@ -5487,18 +5490,18 @@ m_ResolvedPackages:
     recommended: 4.1.0
     deprecated: []
   dependencies:
-  - name: com.unity.modules.tilemap
-    version: 1.0.0
   - name: com.unity.2d.tilemap
+    version: 1.0.0
+  - name: com.unity.modules.tilemap
     version: 1.0.0
   - name: com.unity.modules.jsonserialize
     version: 1.0.0
   resolvedDependencies:
+  - name: com.unity.2d.tilemap
+    version: 1.0.0
   - name: com.unity.modules.tilemap
     version: 1.0.0
   - name: com.unity.modules.physics2d
-    version: 1.0.0
-  - name: com.unity.2d.tilemap
     version: 1.0.0
   - name: com.unity.modules.uielements
     version: 1.0.0
@@ -5522,7 +5525,7 @@ m_ResolvedPackages:
     configSource: 0
   hideInEditor: 1
   entitlements:
-    licensingModel: 0
+    licensingModel: 1
   isAssetStorePackage: 0
   datePublishedTicks: 638654459126220000
   documentationUrl: https://docs.unity3d.com/Packages/com.unity.2d.tilemap.extras@4.1/manual/index.html
@@ -5559,7 +5562,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 1.1.8
   source: 1
-  resolvedPath: C:\Users\jessr\Documents\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.2d.aseprite@1f731787b516
+  resolvedPath: C:\Users\jessr\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.2d.aseprite@1f731787b516
   assetPath: Packages/com.unity.2d.aseprite
   name: com.unity.2d.aseprite
   displayName: 2D Aseprite Importer
@@ -5591,40 +5594,41 @@ m_ResolvedPackages:
     - 1.1.8
     - 1.2.0
     - 1.2.1
+    - 1.2.2
     compatible:
     - 1.1.8
     recommended: 1.1.8
     deprecated: []
   dependencies:
-  - name: com.unity.2d.sprite
-    version: 1.0.0
   - name: com.unity.2d.common
     version: 6.0.6
+  - name: com.unity.2d.sprite
+    version: 1.0.0
   - name: com.unity.mathematics
     version: 1.2.6
   - name: com.unity.modules.animation
     version: 1.0.0
   resolvedDependencies:
-  - name: com.unity.2d.sprite
-    version: 1.0.0
   - name: com.unity.2d.common
     version: 9.0.7
+  - name: com.unity.burst
+    version: 1.8.19
   - name: com.unity.mathematics
     version: 1.3.2
+  - name: com.unity.modules.jsonserialize
+    version: 1.0.0
+  - name: com.unity.2d.sprite
+    version: 1.0.0
+  - name: com.unity.modules.animation
+    version: 1.0.0
   - name: com.unity.modules.uielements
     version: 1.0.0
   - name: com.unity.modules.ui
     version: 1.0.0
   - name: com.unity.modules.imgui
     version: 1.0.0
-  - name: com.unity.modules.jsonserialize
-    version: 1.0.0
   - name: com.unity.modules.hierarchycore
     version: 1.0.0
-  - name: com.unity.modules.animation
-    version: 1.0.0
-  - name: com.unity.burst
-    version: 1.8.19
   keywords:
   - 2d
   - Aseprite
@@ -5641,7 +5645,7 @@ m_ResolvedPackages:
     configSource: 0
   hideInEditor: 1
   entitlements:
-    licensingModel: 0
+    licensingModel: 1
   isAssetStorePackage: 0
   datePublishedTicks: 638725312306540000
   documentationUrl: https://docs.unity3d.com/Packages/com.unity.2d.aseprite@1.1/manual/index.html
@@ -5678,7 +5682,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 4.9.2
   source: 1
-  resolvedPath: C:\Users\jessr\Documents\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.searcher@90d011a70418
+  resolvedPath: C:\Users\jessr\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.searcher@90d011a70418
   assetPath: Packages/com.unity.searcher
   name: com.unity.searcher
   displayName: Searcher
@@ -5687,7 +5691,7 @@ m_ResolvedPackages:
     email: 
     url: 
   category: 
-  type: 
+  type: asset
   description: General search window for use in the Editor. First target use is for
     GraphView node search.
   errors: []
@@ -5730,7 +5734,7 @@ m_ResolvedPackages:
     configSource: 0
   hideInEditor: 1
   entitlements:
-    licensingModel: 0
+    licensingModel: 1
   isAssetStorePackage: 0
   datePublishedTicks: 637831252240000000
   documentationUrl: 
@@ -5764,7 +5768,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 1.8.19
   source: 1
-  resolvedPath: C:\Users\jessr\Documents\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.burst@7a907cf5a459
+  resolvedPath: C:\Users\jessr\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.burst@7a907cf5a459
   assetPath: Packages/com.unity.burst
   name: com.unity.burst
   displayName: Burst
@@ -5938,7 +5942,7 @@ m_ResolvedPackages:
     configSource: 0
   hideInEditor: 1
   entitlements:
-    licensingModel: 0
+    licensingModel: 1
   isAssetStorePackage: 0
   datePublishedTicks: 638731397665570000
   documentationUrl: https://docs.unity3d.com/Packages/com.unity.burst@1.8/manual/index.html
@@ -5988,7 +5992,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 1.3.2
   source: 1
-  resolvedPath: C:\Users\jessr\Documents\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.mathematics@8017b507cc74
+  resolvedPath: C:\Users\jessr\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.mathematics@8017b507cc74
   assetPath: Packages/com.unity.mathematics
   name: com.unity.mathematics
   displayName: Mathematics
@@ -5997,7 +6001,7 @@ m_ResolvedPackages:
     email: 
     url: 
   category: 
-  type: 
+  type: assets
   description: Unity's C# SIMD math library providing vector types and math functions
     with a shader like syntax.
   errors: []
@@ -6040,7 +6044,7 @@ m_ResolvedPackages:
     configSource: 0
   hideInEditor: 1
   entitlements:
-    licensingModel: 0
+    licensingModel: 1
   isAssetStorePackage: 0
   datePublishedTicks: 638409134840000000
   documentationUrl: https://docs.unity3d.com/Packages/com.unity.mathematics@1.3/manual/index.html
@@ -6077,7 +6081,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 2.5.1
   source: 1
-  resolvedPath: C:\Users\jessr\Documents\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.collections@56bff8827a7e
+  resolvedPath: C:\Users\jessr\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.collections@56bff8827a7e
   assetPath: Packages/com.unity.collections
   name: com.unity.collections
   displayName: Collections
@@ -6163,18 +6167,20 @@ m_ResolvedPackages:
     - 2.5.0-pre.2
     - 2.5.1
     - 2.5.2
+    - 2.5.3
     compatible:
     - 2.5.1
     - 2.5.2
-    recommended: 2.5.2
+    - 2.5.3
+    recommended: 2.5.3
     deprecated: []
   dependencies:
   - name: com.unity.burst
     version: 1.8.17
-  - name: com.unity.nuget.mono-cecil
-    version: 1.11.4
   - name: com.unity.test-framework
     version: 1.4.5
+  - name: com.unity.nuget.mono-cecil
+    version: 1.11.4
   - name: com.unity.test-framework.performance
     version: 3.0.3
   resolvedDependencies:
@@ -6184,14 +6190,14 @@ m_ResolvedPackages:
     version: 1.3.2
   - name: com.unity.modules.jsonserialize
     version: 1.0.0
-  - name: com.unity.nuget.mono-cecil
-    version: 1.11.4
   - name: com.unity.test-framework
     version: 1.4.6
   - name: com.unity.ext.nunit
     version: 2.0.5
   - name: com.unity.modules.imgui
     version: 1.0.0
+  - name: com.unity.nuget.mono-cecil
+    version: 1.11.4
   - name: com.unity.test-framework.performance
     version: 3.0.3
   keywords:
@@ -6208,7 +6214,7 @@ m_ResolvedPackages:
     configSource: 0
   hideInEditor: 1
   entitlements:
-    licensingModel: 0
+    licensingModel: 1
   isAssetStorePackage: 0
   datePublishedTicks: 638621282722800000
   documentationUrl: https://docs.unity3d.com/Packages/com.unity.collections@2.5/manual/index.html
@@ -6245,7 +6251,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 1.0.1
   source: 2
-  resolvedPath: C:\Users\jessr\Documents\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.rendering.light-transport@307bc27a498f
+  resolvedPath: C:\Users\jessr\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.rendering.light-transport@307bc27a498f
   assetPath: Packages/com.unity.rendering.light-transport
   name: com.unity.rendering.light-transport
   displayName: Unity Light Transport Library
@@ -6281,14 +6287,14 @@ m_ResolvedPackages:
     version: 1.3.2
   - name: com.unity.modules.jsonserialize
     version: 1.0.0
-  - name: com.unity.nuget.mono-cecil
-    version: 1.11.4
   - name: com.unity.test-framework
     version: 1.4.6
   - name: com.unity.ext.nunit
     version: 2.0.5
   - name: com.unity.modules.imgui
     version: 1.0.0
+  - name: com.unity.nuget.mono-cecil
+    version: 1.11.4
   - name: com.unity.test-framework.performance
     version: 3.0.3
   - name: com.unity.modules.terrain
@@ -6341,7 +6347,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 9.0.7
   source: 1
-  resolvedPath: C:\Users\jessr\Documents\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.2d.common@bb1fc9b3d81b
+  resolvedPath: C:\Users\jessr\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.2d.common@bb1fc9b3d81b
   assetPath: Packages/com.unity.2d.common
   name: com.unity.2d.common
   displayName: 2D Common
@@ -6421,35 +6427,35 @@ m_ResolvedPackages:
     recommended: 9.0.7
     deprecated: []
   dependencies:
+  - name: com.unity.burst
+    version: 1.8.4
   - name: com.unity.2d.sprite
     version: 1.0.0
   - name: com.unity.mathematics
     version: 1.1.0
+  - name: com.unity.modules.animation
+    version: 1.0.0
   - name: com.unity.modules.uielements
+    version: 1.0.0
+  resolvedDependencies:
+  - name: com.unity.burst
+    version: 1.8.19
+  - name: com.unity.mathematics
+    version: 1.3.2
+  - name: com.unity.modules.jsonserialize
+    version: 1.0.0
+  - name: com.unity.2d.sprite
     version: 1.0.0
   - name: com.unity.modules.animation
     version: 1.0.0
-  - name: com.unity.burst
-    version: 1.8.4
-  resolvedDependencies:
-  - name: com.unity.2d.sprite
-    version: 1.0.0
-  - name: com.unity.mathematics
-    version: 1.3.2
   - name: com.unity.modules.uielements
     version: 1.0.0
   - name: com.unity.modules.ui
     version: 1.0.0
   - name: com.unity.modules.imgui
     version: 1.0.0
-  - name: com.unity.modules.jsonserialize
-    version: 1.0.0
   - name: com.unity.modules.hierarchycore
     version: 1.0.0
-  - name: com.unity.modules.animation
-    version: 1.0.0
-  - name: com.unity.burst
-    version: 1.8.19
   keywords:
   - 2d
   registry:
@@ -6462,7 +6468,7 @@ m_ResolvedPackages:
     configSource: 0
   hideInEditor: 1
   entitlements:
-    licensingModel: 0
+    licensingModel: 1
   isAssetStorePackage: 0
   datePublishedTicks: 638654459039420000
   documentationUrl: https://docs.unity3d.com/Packages/com.unity.2d.common@9.0/manual/index.html
@@ -6499,7 +6505,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 1.11.4
   source: 1
-  resolvedPath: C:\Users\jessr\Documents\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.nuget.mono-cecil@d6f9955a5d5f
+  resolvedPath: C:\Users\jessr\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.nuget.mono-cecil@d6f9955a5d5f
   assetPath: Packages/com.unity.nuget.mono-cecil
   name: com.unity.nuget.mono-cecil
   displayName: Mono Cecil
@@ -6547,7 +6553,7 @@ m_ResolvedPackages:
     configSource: 0
   hideInEditor: 1
   entitlements:
-    licensingModel: 0
+    licensingModel: 1
   isAssetStorePackage: 0
   datePublishedTicks: 637852971930000000
   documentationUrl: 
@@ -6581,7 +6587,7 @@ m_ResolvedPackages:
   isDirectDependency: 0
   version: 3.0.3
   source: 1
-  resolvedPath: C:\Users\jessr\Documents\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.test-framework.performance@fb0dc592af8b
+  resolvedPath: C:\Users\jessr\GitHub\ToDo_Dungeon\Library\PackageCache\com.unity.test-framework.performance@fb0dc592af8b
   assetPath: Packages/com.unity.test-framework.performance
   name: com.unity.test-framework.performance
   displayName: Performance testing API
@@ -6590,7 +6596,7 @@ m_ResolvedPackages:
     email: 
     url: 
   category: 
-  type: 
+  type: assets
   description: Package that extends Unity Test Framework package. Adds performance
     testing capabilities and collects configuration metadata.
   errors: []
@@ -6678,7 +6684,7 @@ m_ResolvedPackages:
     configSource: 0
   hideInEditor: 1
   entitlements:
-    licensingModel: 0
+    licensingModel: 1
   isAssetStorePackage: 0
   datePublishedTicks: 638301960470000000
   documentationUrl: https://docs.unity3d.com/Packages/com.unity.test-framework.performance@3.0/manual/index.html

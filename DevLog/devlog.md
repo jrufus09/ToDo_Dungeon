@@ -10,5 +10,18 @@
 - wherever there is a canvas component, there should be a graphic raycaster alongside it.
 
 ### 26-Feb-2025
-- new boards (board data type) + board data manager
-- popup manager to handle UI 
+- new boards (board data type class acts as a baseline container) + board data manager
+- popup manager to handle UI; attach all prefabs to this and ensure (the children) are scaled at 1
+
+### 13-Mar-2025
+- program checks for number of boards in save data at start up.
+- autosaves to file
+
+### 18-Mar-2025
+- board name can only confirm when string is not empty
+
+### 21-Mar-2025
+- board name can only confirm when string!= AND board name is not currently occupied
+
+### 25-Mar-2025
+- OK
