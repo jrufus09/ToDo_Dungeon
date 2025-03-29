@@ -30,3 +30,10 @@
 
 ### 24-Mar-2025
 - new board only allows unique board names. (fixed)
+- added board icon container + made board icon prefabs
+
+### 26-Mar-2025
+- icons now display in container successfully
+
+### 29-Mar-2025
+- 

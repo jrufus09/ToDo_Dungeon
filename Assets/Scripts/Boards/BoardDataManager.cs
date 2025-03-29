@@ -24,7 +24,10 @@ public class BoardDataManager : MonoBehaviour {
             Debug.Log($"loaded {currentSessionData.boards.Count} boards.");
             //boards = currentSessionData.boards;
             LoadBoardNames();
+            LoadAllIcons();
         }
+
+        StartCoroutine(AutoSaveRoutine());
     }
 
     public string folderPath;
@@ -149,7 +152,26 @@ public class BoardDataManager : MonoBehaviour {
         }
     }
 
+    public GameObject iconPrefab; 
+    public Transform contentArea;
+    // public void GenerateIcon(string boardNameIn) {
+    //     //for (int i = 0; i < count; i++) {
+    //     GameObject newIcon = Instantiate(iconPrefab, contentArea);
+    //     newIcon.name = "Icon_" + boardNameIn;
+    //     newIcon.GetComponent<BoardIcon>().boardName = boardNameIn;
+    //     //newIcon.GetComponent<Image>().color = Random.ColorHSV(); // Example color
+    //     //}
+    // }
 
+    public void LoadAllIcons() {
+        foreach (Board board in currentSessionData.boards) {
+            GameObject newIcon = Instantiate(iconPrefab, contentArea);
+            newIcon.name = "Icon_" + board.name;
+            BoardIcon icon = newIcon.GetComponent<BoardIcon>();
+            icon.boardName = board.name;
+            icon.Initialize(); // update text label, etc.
+        }
+    }
         
 }
 

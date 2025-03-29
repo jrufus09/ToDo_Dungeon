@@ -12,7 +12,7 @@ public class BoardIcon : MonoBehaviour {
         
     }
 
-    void Update() {
-        
+    public void Initialize() {
+        nameLabel.text = boardName;
     }
 }

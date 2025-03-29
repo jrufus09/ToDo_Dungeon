@@ -4,15 +4,15 @@ using UnityEngine.UI;
 
 public class AddNewBoard : MonoBehaviour { // for the BUTTON
 
-    private BoardDataManager dataManager;
+    //private BoardDataManager dataManager;
     private PopupManager popupManager;
 
     void Awake() {
 
         // assign if inspector hasn't done so
-        if (dataManager == null) {
-            dataManager = Object.FindFirstObjectByType<BoardDataManager>();
-        }
+        // if (dataManager == null) {
+        //     dataManager = Object.FindFirstObjectByType<BoardDataManager>();
+        // }
         if (popupManager == null) {
            popupManager = Object.FindFirstObjectByType<PopupManager>();
         }
