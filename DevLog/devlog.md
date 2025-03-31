@@ -36,4 +36,9 @@
 - icons now display in container successfully
 
 ### 29-Mar-2025
-- 
+- persistent UI scene
+
+### 31-Mar-2025
+- popup manager is also singleton. it exists on persistent UI:
+- SceneLoader script draws persistent UI (nav bar) over current scene.
+- on Additive scene loading: keep one "Main" scene with camera and event manager, but remove these from every scene that's added over, else unity gets annoyed

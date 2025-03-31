@@ -21,7 +21,7 @@ public class BoardDataManager : MonoBehaviour {
             // Make a new save data
             NewSaveData();
         } else {
-            Debug.Log($"loaded {currentSessionData.boards.Count} boards.");
+            //Debug.Log($"loaded {currentSessionData.boards.Count} boards.");
             //boards = currentSessionData.boards;
             LoadBoardNames();
             LoadAllIcons();
@@ -64,12 +64,6 @@ public class BoardDataManager : MonoBehaviour {
     //     return Path.Combine(this.folderPath, boardName);
     // }
 
-    //public void SaveData(String filePath, BoardData data) {  //SaveData(folderPath, currentSessionData);
-        // string json = JsonUtility.ToJson(data, true);
-        // File.WriteAllText(filePath, json);
-        // Debug.Log("Data saved to " + filePath);
-    // since this class manages the session, and all boards are kept in the same file,
-    // FILEPATH isn't necessary: they reach into the same class-wide variables
     public void SaveData(bool overwrite = false) {
         BoardData saveThis = currentSessionData;
         if (overwrite == true) {
@@ -114,6 +108,7 @@ public class BoardDataManager : MonoBehaviour {
         Board newBoard = new Board { name = boardName };
         currentSessionData.boards.Add(newBoard);
         SaveData();
+        RefreshIcons();
     }
 
     public void NewList(string boardName, string listName) {
@@ -154,14 +149,14 @@ public class BoardDataManager : MonoBehaviour {
 
     public GameObject iconPrefab; 
     public Transform contentArea;
-    // public void GenerateIcon(string boardNameIn) {
-    //     //for (int i = 0; i < count; i++) {
-    //     GameObject newIcon = Instantiate(iconPrefab, contentArea);
-    //     newIcon.name = "Icon_" + boardNameIn;
-    //     newIcon.GetComponent<BoardIcon>().boardName = boardNameIn;
-    //     //newIcon.GetComponent<Image>().color = Random.ColorHSV(); // Example color
-    //     //}
-    // }
+
+    public void RefreshIcons() { // clear icons and reload
+        // Destroy all children of content.transform (in the scrollview)
+        foreach(Transform child in contentArea){
+            Destroy(child.gameObject);
+        }
+        LoadAllIcons();
+    }
 
     public void LoadAllIcons() {
         foreach (Board board in currentSessionData.boards) {
