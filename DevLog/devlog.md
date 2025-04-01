@@ -42,3 +42,6 @@
 - popup manager is also singleton. it exists on persistent UI:
 - SceneLoader script draws persistent UI (nav bar) over current scene.
 - on Additive scene loading: keep one "Main" scene with camera and event manager, but remove these from every scene that's added over, else unity gets annoyed
+
+### 01-Apr-2025
+- Added further customisation to PopupTextInput prefab so that it can be used for board, list, etc

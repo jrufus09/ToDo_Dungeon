@@ -8,11 +8,16 @@ public class BoardIcon : MonoBehaviour {
     public Image boardImage;
     public string boardName;
 
-    void Start() {
-        
+    public void Initialize() { // called externally but doesnt have to be
+        nameLabel.text = boardName;
     }
 
-    public void Initialize() {
-        nameLabel.text = boardName;
+     void Awake() {
+        GetComponent<Button>().onClick.AddListener(OnClick);
+    }
+
+    public void OnClick() {
+        // Open Board View scene and setup
+        SceneLoader.Instance.OpenBoardView();
     }
 }
