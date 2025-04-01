@@ -45,3 +45,4 @@
 
 ### 01-Apr-2025
 - Added further customisation to PopupTextInput prefab so that it can be used for board, list, etc
+- New(board/list/item) button -> Popup Manager -> popup prefab

@@ -104,6 +104,19 @@ public class BoardDataManager : MonoBehaviour {
         return !boardNamesSet.Contains(newBoardName);
     }
 
+    public bool IsListNameUnique(string boardName, string listName) {
+        HashSet<string> listNamesSet = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        Board board = GetBoard(boardName);
+        if (board != null) {
+            // get each list in the board
+            foreach (ListData list in board.lists) {
+                boardNamesSet.Add(board.name);
+            }
+            return !listNamesSet.Contains(listName);
+        } else {
+            return false; // error, so abort
+        }
+    }
     public void NewBoard(string boardName) {
         Board newBoard = new Board { name = boardName };
         currentSessionData.boards.Add(newBoard);
@@ -111,15 +124,24 @@ public class BoardDataManager : MonoBehaviour {
         RefreshIcons();
     }
 
-    public void NewList(string boardName, string listName) {
+    public Board GetBoard(string boardName) {
         Board board = currentSessionData.boards.Find(b => b.name == boardName); // find board
+        if (board != null) {
+            return board;
+        }
+        else {
+            Debug.LogError($"board not found'{boardName}'");
+            return null;
+        }
+    }
+
+    public void NewList(string boardName, string listName) {
+        Board board = GetBoard(boardName);
         if (board != null) {
             board.lists.Add(new ListData { name = listName });
             SaveData();
         }
-        else {
-            Debug.LogError($"board not found'{boardName}'");
-        }
+
     }
 
     public void NewItem(string boardName, string listName, string itemName, string dueDate, bool isCompleted = false)
