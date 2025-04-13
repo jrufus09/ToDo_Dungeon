@@ -46,3 +46,17 @@
 ### 01-Apr-2025
 - Added further customisation to PopupTextInput prefab so that it can be used for board, list, etc
 - New(board/list/item) button -> Popup Manager -> popup prefab
+
+### 04-Apr-2025
+- open board in new scene
+
+### 05-Apr-2025
+- trying to exit BoardView
+- bug: clicking icon opens boardview but it's not visible;
+- bug: possible to open multiple at once
+
+### 12-Apr-2025
+- moved event system to persistent UI
+- board view is currently additive which causes problems when pressing a button whilst there's another button below it
+- tried to do the overlay thing that works with popup... it doesn't work
+- gave up and made a custom disabler script 

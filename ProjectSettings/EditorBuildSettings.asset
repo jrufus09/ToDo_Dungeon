@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PersistentUI.unity
     guid: 9f75a345c1488d24397b46b63938c027
+  - enabled: 1
+    path: Assets/Scenes/BoardView.unity
+    guid: 48055a306ca2d1f48a766ad744a85505
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
