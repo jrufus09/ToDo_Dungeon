@@ -1273,6 +1273,18 @@ PrefabInstance:
       propertyPath: contentArea
       value: 
       objectReference: {fileID: 661510387}
+    - target: {fileID: 805346710365198794, guid: 1622966f059cdc94b8143ec2227f3986, type: 3}
+      propertyPath: listIconPrefab
+      value: 
+      objectReference: {fileID: 1506219354440335865, guid: a71d2447c813cc74284db4d3a77cebff, type: 3}
+    - target: {fileID: 805346710365198794, guid: 1622966f059cdc94b8143ec2227f3986, type: 3}
+      propertyPath: boardIconPrefab
+      value: 
+      objectReference: {fileID: 7048017379424277997, guid: f9d286d3009a2134787633409682bec7, type: 3}
+    - target: {fileID: 805346710365198794, guid: 1622966f059cdc94b8143ec2227f3986, type: 3}
+      propertyPath: boardContentArea
+      value: 
+      objectReference: {fileID: 661510387}
     - target: {fileID: 4949612739413662026, guid: 1622966f059cdc94b8143ec2227f3986, type: 3}
       propertyPath: m_Name
       value: DataManager

@@ -8,7 +8,10 @@ public class BoardIcon : MonoBehaviour {
     public Image boardImage;
     public string boardName;
 
-    public void Initialize() { // called externally but doesnt have to be
+    //public void Initialize() { // called externally upon start
+    // changed my mind and am making it a setter
+    public void SetName(string newName) {
+        boardName = newName;
         nameLabel.text = boardName;
     }
 
@@ -19,5 +22,7 @@ public class BoardIcon : MonoBehaviour {
     public void OnClick() {
         // Open Board View scene and setup
         SceneLoader.Instance.OpenBoardView();
+        // using name of current board, get its data and send it back to board manager
+        BoardDataManager.Instance.SetOpenBoard(BoardDataManager.Instance.GetBoard(boardName));
     }
 }

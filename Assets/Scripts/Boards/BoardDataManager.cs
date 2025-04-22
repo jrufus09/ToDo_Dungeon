@@ -24,7 +24,7 @@ public class BoardDataManager : MonoBehaviour {
             //Debug.Log($"loaded {currentSessionData.boards.Count} boards.");
             //boards = currentSessionData.boards;
             LoadBoardNames();
-            LoadAllIcons();
+            LoadAllBoardIcons();
         }
 
         StartCoroutine(AutoSaveRoutine());
@@ -38,6 +38,7 @@ public class BoardDataManager : MonoBehaviour {
 
     public BoardData currentSessionData; // this is ALL boards loaded to the current session
     //[SerializeField] private List<Board> boards; // for checking in inspector
+    public Board currentlyOpenBoard;
 
     void Awake() {
         // initiate instance
@@ -53,6 +54,10 @@ public class BoardDataManager : MonoBehaviour {
         folderPath = Path.Combine(Application.persistentDataPath, "Boards");
 
         
+    }
+
+    public void SetOpenBoard(Board boardIn) {
+        currentlyOpenBoard = boardIn;
     }
 
     public void NewSaveData() {
@@ -141,12 +146,12 @@ public class BoardDataManager : MonoBehaviour {
             board.lists.Add(new ListData { name = listName });
             SaveData();
         }
-
     }
 
     public void NewItem(string boardName, string listName, string itemName, string dueDate, bool isCompleted = false)
     {
-        Board board = currentSessionData.boards.Find(b => b.name == boardName);
+        //Board board = currentSessionData.boards.Find(b => b.name == boardName);
+        Board board = GetBoard(boardName);
         if (board != null) {
             ListData list = board.lists.Find(l => l.name == listName);
             if (list != null) {
@@ -169,27 +174,36 @@ public class BoardDataManager : MonoBehaviour {
         }
     }
 
-    public GameObject iconPrefab; 
-    public Transform contentArea;
+    public GameObject boardIconPrefab;
+    public GameObject listIconPrefab;
+    public Transform boardContentArea;
 
     public void RefreshIcons() { // clear icons and reload
         // Destroy all children of content.transform (in the scrollview)
-        foreach(Transform child in contentArea){
+        foreach(Transform child in boardContentArea){
             Destroy(child.gameObject);
         }
-        LoadAllIcons();
+        LoadAllBoardIcons();
     }
 
-    public void LoadAllIcons() {
+    public void LoadAllBoardIcons() {
         foreach (Board board in currentSessionData.boards) {
-            GameObject newIcon = Instantiate(iconPrefab, contentArea);
+            GameObject newIcon = Instantiate(boardIconPrefab, boardContentArea);
             newIcon.name = "Icon_" + board.name;
             BoardIcon icon = newIcon.GetComponent<BoardIcon>();
-            icon.boardName = board.name;
-            icon.Initialize(); // update text label, etc.
+            icon.SetName(board.name);
         }
     }
-        
+
+    public void LoadAllListIcons(Transform parent) { // designed to be called from the BoardView scene
+        foreach (ListData list in currentlyOpenBoard.lists) {
+            GameObject newIcon = Instantiate(boardIconPrefab, boardContentArea);
+            newIcon.name = "Icon_" + list.name;
+            ListIcon icon = newIcon.GetComponent<ListIcon>();
+            icon.SetName(list.name);
+            //icon.Initialize(); // update text label, etc. // moved to above
+        }
+    }
 }
 
 

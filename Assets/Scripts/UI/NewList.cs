@@ -10,7 +10,7 @@ public class NewList : MonoBehaviour { // for the BUTTON
 
     public void OnClick() {
         //Debug.Log("Button clicked: " + gameObject.name);
-        PopupManager.Instance.ShowInputPopup("Enter a list name", (inputText) => 
+        PopupManager.Instance.ShowInputPopup("List", "Enter a name for your new list!", (inputText) => 
         {
             Debug.Log("return: " + inputText);
         });

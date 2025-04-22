@@ -11,7 +11,7 @@ public class NewBoard : MonoBehaviour { // for the BUTTON
 
     public void OnClick() {
         //Debug.Log("Button clicked: " + gameObject.name);
-        PopupManager.Instance.ShowInputPopup("Enter a board name", (inputText) => 
+        PopupManager.Instance.ShowInputPopup(new Board(), "Enter a board name", (inputText) => 
         {
             Debug.Log("return: " + inputText);
         });

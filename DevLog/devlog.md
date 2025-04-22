@@ -25,7 +25,7 @@
 
 ### 23-Mar-2025
 - if no save data exists, makes a new one; if save data does exist, loads boards
-- new board, new list, new item functions exist
+- new board, new list, new item functions exist in BoardDataManager
 - hash set to quick lookup/check unique board names
 
 ### 24-Mar-2025
@@ -59,4 +59,20 @@
 - moved event system to persistent UI
 - board view is currently additive which causes problems when pressing a button whilst there's another button below it
 - tried to do the overlay thing that works with popup... it doesn't work
-- gave up and made a custom disabler script 
+- gave up and made a custom disabler script
+
+### 17-Apr-2025
+- fixed, button container scaling issue
+
+### 18-Apr-2025
+- might be opportune to turn the popup input into a class. that way I can keep the switch statements in popupmanager
+- virtual (parent) -> override (child)
+- popupmanager switches between cases + there is a popuptextinput parent class where newboard, newlist, etc. inherit from
+- on the unity editor end, new board, new list, etc. are prefab variants now
+- currentlyOpenBoard exists to keep what's currently open at runtime; list/item adding classes need this info to work out what's unique. all info then goes back to BoardDataManager
+- rehauled popup system to account for new list/board
+
+### 22-Apr-2025
+- new list button does not work at all (anymore). fixed
+- display list icons in BoardView
+- updating icon scripts to use setter methods as opposed to Initialize()

@@ -14,5 +14,6 @@ public class ExitBoardView : MonoBehaviour {
         // Re-enable all canvasgroups!
         SceneLoader.Instance.SetInteractables(true);
         SceneLoader.Instance.UnloadScene(objectScene);
+        BoardDataManager.Instance.SetOpenBoard(null);
     }
 }
