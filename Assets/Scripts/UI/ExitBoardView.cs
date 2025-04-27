@@ -11,13 +11,15 @@ public class ExitBoardView : MonoBehaviour {
         //SceneLoader.Instance.UnloadScene("BoardView");
         //string objectScene = (gameObject.scene).name; // get name of current object's scene
         //Debug.Log(objectScene);
-        string objectScene = "BoardView";
+        //string objectScene = "BoardView";
 
-        // Re-enable all canvasgroups!
-        SceneLoader.Instance.SetInteractables(true);
+        // // Re-enable all canvasgroups!
+        // We're going back to boardview to enable that
+        //SceneLoader.Instance.SetInteractables(DisableInteraction.TypeOfCanvas.ToDo, true);
+        SceneLoader.Instance.EnableOnly(DisableInteraction.TypeOfCanvas.ToDo);
 
-        SceneLoader.Instance.UnloadScene(objectScene);
-        SceneLoader.Instance.SetNewActiveScene(objectScene);
+        //SceneLoader.Instance.UnloadScene(objectScene);
+        //SceneLoader.Instance.SetNewActiveScene(objectScene);
         BoardDataManager.Instance.SetOpenBoard(null);
     }
 }

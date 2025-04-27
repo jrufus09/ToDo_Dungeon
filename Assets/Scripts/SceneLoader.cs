@@ -43,11 +43,12 @@ public class SceneLoader : MonoBehaviour {
 
              // Make it so that the scene below cannot be interacted w temporarily
             // find all <disableinteraction> scripts in the whole game, then call disable / enable
-            SetInteractables(false);
+            // moved to end
 
         } else {
-            Debug.Log("boardview is already loaded.");
+            //Debug.Log("boardview is already loaded.");
         }
+        EnableOnly(DisableInteraction.TypeOfCanvas.BoardView);
     }
 
     public bool UnloadScene(string sceneName) {
@@ -65,9 +66,15 @@ public class SceneLoader : MonoBehaviour {
         return succeeded;
     }
 
-    public void SetInteractables(bool enable = true) {
+    // inputs: enum type of canvas (ToDo, BoardView, etc) and whether or not to enable or disable
+    public void SetInteractables(DisableInteraction.TypeOfCanvas type, bool enable = true) {
         foreach (var target in GameObject.FindObjectsByType<DisableInteraction>(FindObjectsSortMode.None)) {
-            target.EnableInteractions(enable); // if true, disables / if false, enables
+            target.EnableInteractions(type, enable); // if true, disables / if false, enables
+        }
+    }
+    public void EnableOnly(DisableInteraction.TypeOfCanvas type) {
+        foreach (var target in GameObject.FindObjectsByType<DisableInteraction>(FindObjectsSortMode.None)) {
+            target.EnableOnly(type); // if true, disables / if false, enables
         }
     }
 

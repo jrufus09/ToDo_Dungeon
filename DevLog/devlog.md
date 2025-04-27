@@ -104,6 +104,13 @@
 - BoardView exit no longer works :)))) new solution: set BoardView inactive before unloading
 
 ### 27-Apr-2025
+- BoardView unloading is just broken and I can't work out how to fix it and I'm stressing bad so let's just toggle its invisibility
+- rewriting DisableInteraction script so it can be filtered/toggled like what happened with the ContentArea class
+- the script would need to also disable cameras at will so basically all canvasgroups need their cameras to be children of whatever disableinteraction script is attached to. so, ideally:
+    SceneName [CanvasGroup, DisableInteraction]
+        - UI [Canvas, ...]
+        - Camera [Camera]
+        - Background [Image...]
 
 ## Features for consideration:
 - task text can be changed
