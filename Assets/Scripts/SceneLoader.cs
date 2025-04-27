@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class SceneLoader : MonoBehaviour {
 
@@ -24,20 +25,26 @@ public class SceneLoader : MonoBehaviour {
         //Debug.Log("I started the navbar scene");
     }
 
-    public void OpenBoardView(bool setActive = false) {
+    //public void OpenBoardView(bool setActive = false) { // this was optional before
+    public void OpenBoardView() {
         // on top: can close down later
         if (boardView_loaded == false) {
-            SceneManager.LoadScene("BoardView", LoadSceneMode.Additive);
+            //SceneManager.LoadScene("BoardView", LoadSceneMode.Additive); // moved to LoadThenActivate
+            // if this is single, make sure the event system is enabled
+
+            // if (setActive == true) {
+            //     // set the scene as active, but ONLY WHEN IT'S FINISHED LOADING
+            //     Scene.isLoaded
+            //     SceneManager.SetActiveScene(SceneManager.GetSceneByName("BoardView"));
+            // }
+
+            StartCoroutine(LoadThenActivate("BoardView")); // yields - so continuing means it's done
             boardView_loaded = true;
 
-            // Make it so that the scene below cannot be interacted w temporarily
+             // Make it so that the scene below cannot be interacted w temporarily
             // find all <disableinteraction> scripts in the whole game, then call disable / enable
             SetInteractables(false);
 
-
-            if (setActive == true) {
-                SceneManager.SetActiveScene(SceneManager.GetSceneByName("BoardView"));
-            }
         } else {
             Debug.Log("boardview is already loaded.");
         }
@@ -53,6 +60,7 @@ public class SceneLoader : MonoBehaviour {
             if (sceneName == "BoardView") { // reset bool
                 boardView_loaded = false;
             }
+
         }
         return succeeded;
     }
@@ -63,4 +71,39 @@ public class SceneLoader : MonoBehaviour {
         }
     }
 
+    //StartCoroutine(LoadThenActivate(sceneName));
+    private IEnumerator LoadThenActivate(string sceneName) {
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+
+        // wait until the scene is done loading before cont - basically a while loop but better
+        while (!asyncLoad.isDone) {
+            yield return null;
+        }
+
+        // Scene scene = SceneManager.GetSceneByName(sceneName);
+        // foreach (GameObject rootObj in scene.GetRootGameObjects()) {
+        //     Debug.Log("Root object: " + rootObj.name);
+        // }
+
+        //SetNewActiveScene(sceneName);
+    }
+
+    public void SetNewActiveScene(string sceneName) {
+        Scene loadedScene = SceneManager.GetSceneByName(sceneName);
+        if (loadedScene.IsValid() && loadedScene.isLoaded) {
+            SceneManager.SetActiveScene(loadedScene);
+            Debug.Log($"{sceneName} is now active!");
+        } else {
+            Debug.LogError($"{sceneName} scene failed to load :(");
+        }
+    }
+
+    public void PrintSceneChildren(string sceneName) { // for debugging
+        Debug.Log("hello");
+        Scene scene = SceneManager.GetSceneByName(sceneName);
+        foreach (GameObject rootObj in scene.GetRootGameObjects()) {
+            Debug.Log("Root object: " + rootObj.name);
+        }
+
+    }
 }

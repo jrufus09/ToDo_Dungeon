@@ -1,8 +1,20 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
-public class ViewBoard : MonoBehaviour {
+public class BoardView : MonoBehaviour {
 
+
+    //we want only one at runtime
+    public static BoardView Instance { get; private set; } // Singleton ("static")
+    void Awake() {
+        if (Instance == null) {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // keep alive between scenes
+        } else { Destroy(gameObject); }
+    }
+
+    public TextMeshProUGUI nameLabel;
     public Transform contentPane;
     void Start() {
 
@@ -11,6 +23,10 @@ public class ViewBoard : MonoBehaviour {
             contentPane = content.transform;
         }
 
+        // set name of board
+        nameLabel.text = BoardDataManager.Instance.currentlyOpenBoard.name;
+
+        //Debug.Log(contentPane);
         BoardDataManager.Instance.LoadAllListIcons(contentPane);
     }
 }

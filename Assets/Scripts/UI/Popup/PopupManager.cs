@@ -37,6 +37,7 @@ public class PopupManager : MonoBehaviour {
                 Instantiate(newListPopupPrefab, this.transform);
                 break;
             case Item i:
+                Instantiate(newItemPopupPrefab, this.transform);
                 break;
             case string s:
                 if (s.ToUpper() == "BOARD") { // i love not having to nest .equals() :)
@@ -44,7 +45,7 @@ public class PopupManager : MonoBehaviour {
                 } else if (s.ToUpper() == "LIST") {
                     Instantiate(newListPopupPrefab, this.transform);
                 } else if (s.ToUpper() == "ITEM") {
-
+                    Instantiate(newItemPopupPrefab, this.transform);
                 }
                 break;
             default:

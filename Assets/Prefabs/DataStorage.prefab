@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6528828448582333323}
   - component: {fileID: 805346710365198794}
+  - component: {fileID: 9015870677592654075}
   m_Layer: 0
   m_Name: DataStorage
   m_TagString: Untagged
@@ -44,3 +45,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df6958d05c8bb3c45bf1ecfd43ea09eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  folderPath: 
+  saveInterval: 30
+  currentSessionData:
+    boards: []
+  currentlyOpenBoard:
+    name: 
+    lists: []
+  boardIconPrefab: {fileID: 7048017379424277997, guid: f9d286d3009a2134787633409682bec7, type: 3}
+  listIconPrefab: {fileID: 1506219354440335865, guid: a71d2447c813cc74284db4d3a77cebff, type: 3}
+  boardContentArea: {fileID: 0}
+--- !u!114 &9015870677592654075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4949612739413662026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aeb6743722af8814c8aab821b2052790, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boardView_loaded: 0

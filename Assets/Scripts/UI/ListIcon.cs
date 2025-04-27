@@ -7,7 +7,7 @@ public class ListIcon : MonoBehaviour {
     public TextMeshProUGUI nameLabel;
     //public Image boardImage; // background
     public string listName;
-
+    public Transform contentPane;
     public void SetName(string newName) {
         listName = newName;
         nameLabel.text = listName;
@@ -20,5 +20,4 @@ public class ListIcon : MonoBehaviour {
     public void OnClick() {
         //
     }
-
 }

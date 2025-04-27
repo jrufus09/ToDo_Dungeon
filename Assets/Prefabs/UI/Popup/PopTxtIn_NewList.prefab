@@ -96,6 +96,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: PopTxtIn_NewList
       objectReference: {fileID: 0}
+    - target: {fileID: 5706279071739085023, guid: 9663a6192d7b5d7469957d501bb2361c, type: 3}
+      propertyPath: m_text
+      value: my awesome list name
+      objectReference: {fileID: 0}
+    - target: {fileID: 6391003650894470902, guid: 9663a6192d7b5d7469957d501bb2361c, type: 3}
+      propertyPath: m_text
+      value: 'Name your new list something unique:'
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6403630571598607940, guid: 9663a6192d7b5d7469957d501bb2361c, type: 3}
     m_RemovedGameObjects: []

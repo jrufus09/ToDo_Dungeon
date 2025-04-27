@@ -116,4 +116,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   newBoardPopupPrefab: {fileID: 6511194690582436161, guid: 855ef63b49e14f048830bf2df37413b6, type: 3}
   newListPopupPrefab: {fileID: 2490543356728903451, guid: 72a02dc7ecc40c745b48ede60b9f4889, type: 3}
-  newItemPopupPrefab: {fileID: 0}
+  newItemPopupPrefab: {fileID: 1337784383931718041, guid: f3b07f300abe5d44bacbd5f9fca6d26c, type: 3}

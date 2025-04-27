@@ -39,6 +39,7 @@ public class BoardDataManager : MonoBehaviour {
     public BoardData currentSessionData; // this is ALL boards loaded to the current session
     //[SerializeField] private List<Board> boards; // for checking in inspector
     public Board currentlyOpenBoard;
+    public string currentlyEditingListName;
 
     void Awake() {
         // initiate instance
@@ -53,11 +54,34 @@ public class BoardDataManager : MonoBehaviour {
         //filePath = Path.Combine(Application.persistentDataPath, "data.json");
         folderPath = Path.Combine(Application.persistentDataPath, "Boards");
 
-        
+        if (boardContentArea == null) {
+            boardContentArea = FindContentArea("Board").transform;
+        }
+    }
+
+    public ContentArea FindContentArea(string type) {
+        ContentArea output = null;
+        var found = FindObjectsByType<ContentArea>(FindObjectsSortMode.None); // array of all ContentAreas found
+        // try string to enum:
+        if (Enum.TryParse<ContentArea.TypeOfContentArea>(type, out var parsedType)) {
+            // parsedType is the type we're trying to find. iterate through array and find of type
+            foreach (ContentArea obj in found) {
+                if (obj.type == parsedType) {
+                    output = obj;
+                    break;
+                }
+            }
+        } else {
+            Debug.LogWarning("invalid type input to FindContentArea()");
+        }
+        return output;
     }
 
     public void SetOpenBoard(Board boardIn) {
         currentlyOpenBoard = boardIn;
+    }
+    public void SetCurrentList(string listIn) {
+        currentlyEditingListName = listIn;
     }
 
     public void NewSaveData() {
@@ -97,6 +121,7 @@ public class BoardDataManager : MonoBehaviour {
     }
 
     private HashSet<string> boardNamesSet; // for quick lookup
+    [SerializeField]private HashSet<string> listNamesSet;
 
     private void LoadBoardNames() { // call this whenever json is loaded / updated
         boardNamesSet = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
@@ -109,24 +134,31 @@ public class BoardDataManager : MonoBehaviour {
         return !boardNamesSet.Contains(newBoardName);
     }
 
-    public bool IsListNameUnique(string boardName, string listName) {
-        HashSet<string> listNamesSet = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+    public void LoadListNames(string boardName = null) { // call this when boardview first loaded, and when updated
+        if (boardName == null) { // if not declared, get data for currently open board
+            boardName = currentlyOpenBoard.name;
+        }
+
+        listNamesSet = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         Board board = GetBoard(boardName);
         if (board != null) {
             // get each list in the board
             foreach (ListData list in board.lists) {
-                boardNamesSet.Add(board.name);
+                //Debug.Log(list);
+                listNamesSet.Add(list.name);
             }
-            return !listNamesSet.Contains(listName);
-        } else {
-            return false; // error, so abort
         }
     }
+
+    public bool IsListNameUnique(string listName) {
+        return !listNamesSet.Contains(listName);
+    }
+
     public void NewBoard(string boardName) {
         Board newBoard = new Board { name = boardName };
         currentSessionData.boards.Add(newBoard);
         SaveData();
-        RefreshIcons();
+        RefreshBoardIcons();
     }
 
     public Board GetBoard(string boardName) {
@@ -146,6 +178,7 @@ public class BoardDataManager : MonoBehaviour {
             board.lists.Add(new ListData { name = listName });
             SaveData();
         }
+        // refreshlist has to be called from wherever has access to the content area
     }
 
     public void NewItem(string boardName, string listName, string itemName, string dueDate, bool isCompleted = false)
@@ -178,7 +211,7 @@ public class BoardDataManager : MonoBehaviour {
     public GameObject listIconPrefab;
     public Transform boardContentArea;
 
-    public void RefreshIcons() { // clear icons and reload
+    public void RefreshBoardIcons() { // clear icons and reload
         // Destroy all children of content.transform (in the scrollview)
         foreach(Transform child in boardContentArea){
             Destroy(child.gameObject);
@@ -195,14 +228,31 @@ public class BoardDataManager : MonoBehaviour {
         }
     }
 
-    public void LoadAllListIcons(Transform parent) { // designed to be called from the BoardView scene
+    public void RefreshListIcons() { // clear icons and reload
+        // use boardview Instance to get where content area is
+        if (BoardView.Instance != null) { // if we can find boardview instance
+            Transform contentArea = BoardView.Instance.contentPane;
+            foreach(Transform child in contentArea){
+                Destroy(child.gameObject);
+            }
+            LoadAllListIcons(contentArea);
+        } else {
+            Debug.LogWarning("attempted to refresh list icons, but no boardview was found");
+        }
+    }
+
+    public void LoadAllListIcons(Transform contentArea) { // designed to be called from the BoardView scene
+        //Debug.Log("loading list icons");
         foreach (ListData list in currentlyOpenBoard.lists) {
-            GameObject newIcon = Instantiate(boardIconPrefab, boardContentArea);
+            //Debug.Log(list.name);
+            GameObject newIcon = Instantiate(listIconPrefab, contentArea.transform); //parent to content area
+                    // I'm aware this is a Transform.transform but idk it works
             newIcon.name = "Icon_" + list.name;
             ListIcon icon = newIcon.GetComponent<ListIcon>();
             icon.SetName(list.name);
             //icon.Initialize(); // update text label, etc. // moved to above
         }
+        LoadListNames();
     }
 }
 
