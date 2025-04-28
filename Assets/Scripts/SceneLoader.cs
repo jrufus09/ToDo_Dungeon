@@ -47,6 +47,7 @@ public class SceneLoader : MonoBehaviour {
 
         } else {
             //Debug.Log("boardview is already loaded.");
+            BoardView.Instance.Reload(); // re-set name and open lists and so on
         }
         EnableOnly(DisableInteraction.TypeOfCanvas.BoardView);
     }

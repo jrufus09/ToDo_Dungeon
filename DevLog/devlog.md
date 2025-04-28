@@ -122,6 +122,7 @@ Current bug that exists (still): stuff inside ListIcon doesn't register clicks.
 - ListIcons
 
 ## Features for consideration:
+- "there are no lists(/boards) here. why don't you make one?"
 - task text can be changed
 - boards, lists and tasks can be deleted
 - beginning to think every task, list, board needs a unique ID :/ that way it's easier to remove

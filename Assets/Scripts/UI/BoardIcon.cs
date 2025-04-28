@@ -20,9 +20,10 @@ public class BoardIcon : MonoBehaviour {
     }
 
     public void OnClick() {
-        // Open Board View scene and setup
-        SceneLoader.Instance.OpenBoardView();
         // using name of current board, get its data and send it back to board manager
         BoardDataManager.Instance.SetOpenBoard(BoardDataManager.Instance.GetBoard(boardName));
+
+        // Open Board View scene and setup
+        SceneLoader.Instance.OpenBoardView();
     }
 }

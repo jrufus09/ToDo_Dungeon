@@ -23,10 +23,15 @@ public class BoardView : MonoBehaviour {
             contentPane = content.transform;
         }
 
+        Reload();
+    }
+
+    public void Reload() {
+        
         // set name of board
         nameLabel.text = BoardDataManager.Instance.currentlyOpenBoard.name;
 
         //Debug.Log(contentPane);
-        BoardDataManager.Instance.LoadAllListIcons(contentPane);
+        BoardDataManager.Instance.RefreshListIcons();
     }
 }
