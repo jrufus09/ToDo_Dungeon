@@ -5,6 +5,8 @@ using TMPro;
 using Unity.VisualScripting.Dependencies.Sqlite;
 
 public class PopupTextInput : MonoBehaviour {
+
+    [Header("This is a base class: remove me from the prefab variant")]
     public GameObject okBtnObj;
     public GameObject cancelBtnObj;
     public GameObject inputFieldObj;

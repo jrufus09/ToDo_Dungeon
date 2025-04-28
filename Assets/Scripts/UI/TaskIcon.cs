@@ -7,6 +7,8 @@ public class TaskIcon : MonoBehaviour {
     public Toggle isDone;
     public TextMeshProUGUI nameLabel;
 
+    // should have more variables but not due to time constraints
+
     void Awake() {
         //Debug.Log("TaskIcon was awakened");
         // toggle setup
@@ -20,6 +22,11 @@ public class TaskIcon : MonoBehaviour {
             nameLabel = GetComponentInChildren<TextMeshProUGUI>();
         }
     }
+
+    public void SetName(string newName) {
+        nameLabel.text = newName;
+    }
+
     
     public void OnToggle(bool value) {
         Debug.Log("toggled");

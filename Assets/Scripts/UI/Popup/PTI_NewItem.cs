@@ -16,7 +16,7 @@ public class PTI_NewItem : PopupTextInput {
 
         // Add item
         string boardName = BoardDataManager.Instance.currentlyOpenBoard.name;
-        string listName = BoardDataManager.Instance.currentlyEditingListName;
+        string listName = BoardDataManager.Instance.currentlyEditingList.name;
         BoardDataManager.Instance.NewItem(boardName, listName, inputField.text, null, false); // input field value -> new save data
         
         // refresh items

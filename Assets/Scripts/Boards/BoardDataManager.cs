@@ -39,7 +39,7 @@ public class BoardDataManager : MonoBehaviour {
     public BoardData currentSessionData; // this is ALL boards loaded to the current session
     //[SerializeField] private List<Board> boards; // for checking in inspector
     public Board currentlyOpenBoard;
-    public string currentlyEditingListName;
+    public ListData currentlyEditingList;
 
     void Awake() {
         // initiate instance
@@ -80,8 +80,8 @@ public class BoardDataManager : MonoBehaviour {
     public void SetOpenBoard(Board boardIn) {
         currentlyOpenBoard = boardIn;
     }
-    public void SetCurrentList(string listIn) {
-        currentlyEditingListName = listIn;
+    public void SetCurrentList(ListData listIn) {
+        currentlyEditingList = listIn;
     }
 
     public void NewSaveData() {
@@ -161,17 +161,6 @@ public class BoardDataManager : MonoBehaviour {
         RefreshBoardIcons();
     }
 
-    public Board GetBoard(string boardName) {
-        Board board = currentSessionData.boards.Find(b => b.name == boardName); // find board
-        if (board != null) {
-            return board;
-        }
-        else {
-            Debug.LogError($"board not found'{boardName}'");
-            return null;
-        }
-    }
-
     public void NewList(string boardName, string listName) {
         Board board = GetBoard(boardName);
         if (board != null) {
@@ -199,6 +188,34 @@ public class BoardDataManager : MonoBehaviour {
         }
     }
 
+    public Board GetBoard(string boardName) {
+        Board board = currentSessionData.boards.Find(b => b.name == boardName); // find board
+        if (board != null) {
+            return board;
+        }
+        else {
+            Debug.LogError($"board not found'{boardName}'");
+            return null;
+        }
+    }
+
+    public ListData GetList(string listName, string fromBoard) {
+        Board board = currentSessionData.boards.Find(b => b.name == fromBoard); // find board
+        if (board != null) {
+            ListData list = board.lists.Find(l => l.name == listName);
+            if (list != null) {
+                return list;
+            } else {
+                Debug.LogError($"list not found'{list}'");
+                return null;
+            }
+        }
+        else {
+            Debug.LogError($"board not found'{fromBoard}'");
+            return null;
+        }
+    }
+
     private IEnumerator AutoSaveRoutine() {
         while (true) {
             yield return new WaitForSeconds(saveInterval);
@@ -209,6 +226,8 @@ public class BoardDataManager : MonoBehaviour {
 
     public GameObject boardIconPrefab;
     public GameObject listIconPrefab;
+    public GameObject itemIconPrefab;
+    public GameObject newTaskPrefab;
     public Transform boardContentArea;
 
     public void RefreshBoardIcons() { // clear icons and reload
@@ -252,7 +271,33 @@ public class BoardDataManager : MonoBehaviour {
             icon.SetName(list.name);
             //icon.Initialize(); // update text label, etc. // moved to above
         }
-        LoadListNames();
+        LoadListNames(); // hashset stuff
+    }
+
+    public void LoadAllTaskIcons(Transform contentArea, ListData listIn) {
+        // designed to be called from the object that holds the container for the items
+        //Debug.Log("loading task icons");
+
+        // LOAD +NEW TASK FIRST
+        GameObject newTaskBtn = Instantiate(newTaskPrefab, contentArea.transform);
+
+        // iterate through given listdata for each task
+        foreach (Item item in listIn.items) {
+            //Debug.Log(list.name);
+            GameObject newIcon = Instantiate(itemIconPrefab, contentArea.transform); //parent to content area
+            newIcon.name = "Icon_" + item.name;
+            TaskIcon icon = newIcon.GetComponent<TaskIcon>();
+            icon.SetName(item.name);
+        }
+    }
+
+    public void RefreshTaskIcons(Transform contentArea, ListData listData) { // clear icons and reload
+        //Debug.Log("Refreshing task icons");
+        // use boardview Instance to get where content area is
+        foreach(Transform child in contentArea){
+            Destroy(child.gameObject);
+        }
+        LoadAllTaskIcons(contentArea, listData);
     }
 }
 

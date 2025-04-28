@@ -52,8 +52,11 @@ MonoBehaviour:
   currentlyOpenBoard:
     name: 
     lists: []
+  currentlyEditingListName: 
   boardIconPrefab: {fileID: 7048017379424277997, guid: f9d286d3009a2134787633409682bec7, type: 3}
   listIconPrefab: {fileID: 1506219354440335865, guid: a71d2447c813cc74284db4d3a77cebff, type: 3}
+  itemIconPrefab: {fileID: 6601403981749512745, guid: 791d0d5624c9a884f8f9d03ecafd6b3c, type: 3}
+  newTaskPrefab: {fileID: 6067187826109807503, guid: 0617811b7ba3b744583814e5565d1178, type: 3}
   boardContentArea: {fileID: 0}
 --- !u!114 &9015870677592654075
 MonoBehaviour:
