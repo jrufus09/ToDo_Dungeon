@@ -540,9 +540,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   okBtnObj: {fileID: 8382760476195896743}
   cancelBtnObj: {fileID: 2472933885995998116}
-  inputFieldObj: {fileID: 0}
+  inputFieldObj: {fileID: 5818740857892939517}
   okBtn: {fileID: 387819395945058535}
-  inputField: {fileID: 0}
+  inputField: {fileID: 4761511418208467334}
+  titleLabel: {fileID: 6391003650894470902}
 --- !u!223 &8615348757555044386
 Canvas:
   m_ObjectHideFlags: 0
@@ -613,7 +614,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!1 &5818740857892939517
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,6 +13,13 @@ public class PopupTextInput : MonoBehaviour {
     public Button okBtn;
     public TMP_InputField inputField;
     private string currInput;
+    public TextMeshProUGUI titleLabel;
+
+    public void SetText(string title){
+        if (title != null) {
+            titleLabel.text = title;
+        }
+    }
 
     void Start() {
         okBtn = okBtnObj.GetComponent<Button>();

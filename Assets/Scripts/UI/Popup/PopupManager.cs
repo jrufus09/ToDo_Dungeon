@@ -5,9 +5,9 @@ using Unity.VisualScripting.Antlr3.Runtime;
 using System;
 
 public class PopupManager : MonoBehaviour {
-    public GameObject newBoardPopupPrefab;
-    public GameObject newListPopupPrefab;
-    public GameObject newItemPopupPrefab;
+    public PopupTextInput newBoardPopupPrefab;
+    public PopupTextInput newListPopupPrefab;
+    public PopupTextInput newItemPopupPrefab;
     public static PopupManager Instance { get; private set; } // Singleton ("static"), refer to me as PopupManager.instance
     
     void Awake(){
@@ -30,22 +30,28 @@ public class PopupManager : MonoBehaviour {
         switch (returnType) {
             case Board b:
                 Debug.Log("board");
-                Instantiate(newBoardPopupPrefab, this.transform);
+                PopupTextInput x = Instantiate(newBoardPopupPrefab, this.transform);
+                x.SetText(title);
                 break;
             case ListData l:
                 Debug.Log(l.name);
-                Instantiate(newListPopupPrefab, this.transform);
+                PopupTextInput y = Instantiate(newListPopupPrefab, this.transform);
+                y.SetText(title);
                 break;
             case Item i:
-                Instantiate(newItemPopupPrefab, this.transform);
+                PopupTextInput z = Instantiate(newItemPopupPrefab, this.transform);
+                z.SetText(title);
                 break;
             case string s:
                 if (s.ToUpper() == "BOARD") { // i love not having to nest .equals() :)
-                    Instantiate(newBoardPopupPrefab, this.transform);
+                    PopupTextInput a = Instantiate(newBoardPopupPrefab, this.transform);
+                    a.SetText(title);
                 } else if (s.ToUpper() == "LIST") {
-                    Instantiate(newListPopupPrefab, this.transform);
+                    PopupTextInput b = Instantiate(newListPopupPrefab, this.transform);
+                    b.SetText(title);
                 } else if (s.ToUpper() == "ITEM") {
-                    Instantiate(newItemPopupPrefab, this.transform);
+                    PopupTextInput c = Instantiate(newItemPopupPrefab, this.transform);
+                    c.SetText(title);
                 }
                 break;
             default:
