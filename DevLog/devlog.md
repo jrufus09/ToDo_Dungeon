@@ -119,7 +119,8 @@ Current bug that exists (still): stuff inside ListIcon doesn't register clicks.
 - outer viewport would catch all the gestures and now allow inner viewport gestures. even when inner viewport gestures logged, you couldn't press buttons (or interact within the list at all)
 - I got it working but i can't recreate it. what.
 - fixed, prefab settings were messing up
-- ListIcons
+- Fixed also some layout issues, Popup issues, and "task not being made" issues
+- Made prefab and variants for D-pad buttons
 
 ## Features for consideration:
 - "there are no lists(/boards) here. why don't you make one?"
