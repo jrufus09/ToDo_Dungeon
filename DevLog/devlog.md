@@ -111,6 +111,13 @@
         - UI [Canvas, ...]
         - Camera [Camera]
         - Background [Image...]
+Current bug that exists (still): stuff inside ListIcon doesn't register clicks.
+
+### 28-Apr-2025
+- Still stuck on the buttons within the lists not being reached. 
+- due to viewport issues and after many hours I have decided to simply scroll across with the scrollbar instead.
+- outer viewport would catch all the gestures and now allow inner viewport gestures. even when inner viewport gestures logged, you couldn't press buttons (or interact within the list at all)
+- I got it working but i can't recreate it. what. 
 
 ## Features for consideration:
 - task text can be changed
