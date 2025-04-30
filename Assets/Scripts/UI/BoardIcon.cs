@@ -8,14 +8,12 @@ public class BoardIcon : MonoBehaviour {
     public Image boardImage;
     public string boardName;
 
-    //public void Initialize() { // called externally upon start
-    // changed my mind and am making it a setter
     public void SetName(string newName) {
         boardName = newName;
         nameLabel.text = boardName;
     }
 
-     void Awake() {
+    void Awake() {
         GetComponent<Button>().onClick.AddListener(OnClick);
     }
 
