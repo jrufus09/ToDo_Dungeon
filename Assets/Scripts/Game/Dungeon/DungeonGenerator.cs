@@ -48,8 +48,7 @@ public class DungeonGenerator : MonoBehaviour
         SpawnPlayer();
     }
 
-    void Generate()
-    {
+    void Generate() {
         map = new int[width, height];
         rooms = new List<RectInt>();
 
@@ -185,7 +184,16 @@ public class DungeonGenerator : MonoBehaviour
 
         Vector2Int spawnPos = RoomCenter(rooms[0]);
         Vector3 worldPos = floorTilemap.CellToWorld(new Vector3Int(spawnPos.x, spawnPos.y, 0));
+        //Instantiate(playerPrefab, worldPos + new Vector3(0.5f, 0.5f, 0), Quaternion.identity);
+        Vector2 spawnAt;
+        spawnAt.x = worldPos.x;
+        spawnAt.y = worldPos.y+0.5f;
+        Debug.Log(worldPos);
+        Debug.Log(spawnAt);
+
         Instantiate(playerPrefab, worldPos + new Vector3(0.5f, 0.5f, 0), Quaternion.identity);
+        // position doesnt matter as player's start would override it. call after player start:
+        playerPrefab.GetComponent<PlayerMovement>().InitiateAt(spawnAt);
     }
 
     Vector2Int RoomCenter(RectInt room) {

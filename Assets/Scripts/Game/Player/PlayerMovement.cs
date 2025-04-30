@@ -1,3 +1,4 @@
+//using System.Numerics;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
@@ -18,12 +19,26 @@ public class PlayerMovement : MonoBehaviour {
     private Vector2 startPosition;
     private Vector2 endPosition;
     private float moveTimer;
-
     private float hopOffset;
+    private Transform sprite;
+    bool setupDone = false;
 
 
     void Start() {
         rb = GetComponent<Rigidbody2D>();
+        sprite = GetComponentInChildren<SpriteRenderer>().transform;
+
+        // grid snapping has to be moved to after-instancing so it doesnt lock itself out of the world
+    }
+
+    public void InitiateAt(Vector2 pos) {
+        Debug.Log(pos);
+        transform.position = pos;
+        SnapToGrid();
+        setupDone = true;
+    }
+
+    public void SnapToGrid() { // CALL IT AFTER INSTANTIATED
         targetPosition = transform.position;
 
         // Snap player to nearest tile
@@ -38,7 +53,7 @@ public class PlayerMovement : MonoBehaviour {
             //transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
             // consult rigidbody:
             //rb.MovePosition(Vector3.MoveTowards(rb.position, targetPosition, moveSpeed * Time.deltaTime));
-            // movement updated to not need coroutine (interferes with physics)
+            // movement updated: move rb first, then sprite
 
             moveTimer += Time.deltaTime;
             float t = moveTimer / moveDuration;
@@ -52,21 +67,40 @@ public class PlayerMovement : MonoBehaviour {
                 rb.MovePosition(endPosition);
                 hopOffset = 0f;
             }
-
-            // hop hop hop
-            // Vector3 basePos = rb.position;
-            // transform.position = new Vector3(basePos.x, basePos.y + hopOffset, 0f);
-            Vector3 visualOffset = Vector3.up * hopOffset;
-            transform.localPosition = visualOffset;
-
-
-            // snap to grid
-            if (Vector3.Distance(transform.position, targetPosition) < 0.01f) {
-                transform.position = targetPosition; // snap exactly
-                isMoving = false;
-            }
         }
+
+        // hop hop hop
+        // Vector3 basePos = rb.position;
+        // transform.position = new Vector3(basePos.x, basePos.y + hopOffset, 0f);
+        // Vector3 visualOffset = Vector3.up * hopOffset;
+        // transform.localPosition = visualOffset;
         
+        //Debug.Log("Current player position: " + transform.position);
+    }
+
+    void LateUpdate() {
+        // snap to grid
+        if (setupDone) {
+            // if (Vector3.Distance(transform.position, targetPosition) < 0.01f) {
+            //     //transform.position = targetPosition; // snap exactly
+            //     transform.localPosition = targetPosition;
+            //     isMoving = false;
+            // }
+
+            if (isMoving) {
+                // Ease between posBefore n target
+                float totalDistance = Vector3.Distance(posBefore, targetPosition);
+                float currentDistance = Vector3.Distance(posBefore, transform.position);
+                float moveProgress = totalDistance == 0f ? 1f : Mathf.Clamp01(currentDistance / totalDistance);
+
+                float eased = Mathf.Sin(moveProgress * Mathf.PI); // smooth in-out bounce
+                float hop = eased * hopHeight;
+                sprite.localPosition = new Vector3(0f, hop, 0f);
+            } else {
+                sprite.localPosition = Vector3.zero;
+            }
+
+        }
     }
 
     void FixedUpdate() {
@@ -86,11 +120,17 @@ public class PlayerMovement : MonoBehaviour {
         }
     }
 
+    private Vector3 posBefore; // pos for animation; rb moves separate to sprite
     public void Move(Vector2 dir) {
         if (isMoving) return;
         if (Mathf.Abs(dir.x) > 0 && Mathf.Abs(dir.y) > 0) return; // no diagonals
 
         moveDirection = dir;
+
+        Vector3 nextPosition = transform.position + new Vector3(dir.x * moveDistance, dir.y * moveDistance, 0f);
+        posBefore = transform.position; // save starting point
+        targetPosition = nextPosition;
+        isMoving = true;
     }
 
     public void Move2(Vector2 direction) {
