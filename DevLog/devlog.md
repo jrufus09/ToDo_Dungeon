@@ -130,4 +130,5 @@ Current bug that exists (still): stuff inside ListIcon doesn't register clicks.
 
 ## 30-April-2025
 - player movement with buttons done
-- 
+- camera follows player
+- tile collisions are on the fence
