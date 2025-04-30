@@ -53,7 +53,7 @@ public class PlayerMovement : MonoBehaviour {
             //transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
             // consult rigidbody:
             //rb.MovePosition(Vector3.MoveTowards(rb.position, targetPosition, moveSpeed * Time.deltaTime));
-            // movement updated: move rb first, then sprite
+            // movement updated: move rb first (on parent), then sprite (child)
 
             moveTimer += Time.deltaTime;
             float t = moveTimer / moveDuration;
@@ -61,12 +61,28 @@ public class PlayerMovement : MonoBehaviour {
             // smooth curve
             float height = Mathf.Sin(t * Mathf.PI) * hopHeight;
             hopOffset = height;
-
             if (t >= 1f) {
                 isMoving = false;
                 rb.MovePosition(endPosition);
                 hopOffset = 0f;
             }
+
+            float totalDistance = Vector3.Distance(posBefore, targetPosition);
+            float currentDistance = Vector3.Distance(posBefore, transform.position);
+            float moveProgress = totalDistance == 0f ? 1f : Mathf.Clamp01(currentDistance / totalDistance);
+
+            float eased = Mathf.Sin(moveProgress * Mathf.PI); // smooth in-out bounce
+            float hop = eased * hopHeight;
+            sprite.localPosition = new Vector3(0f, hop, 0f);
+
+            // squish
+            float scaleY = 1f - (eased * 0.2f);  // squish vertically on max hop
+            float scaleX = 1f + (eased * 0.1f);  // stretch horizontally a bit
+            sprite.localScale = new Vector3(scaleX, scaleY, 1f);
+
+
+        } else {
+            sprite.localPosition = Vector3.zero;
         }
 
         // hop hop hop
@@ -86,20 +102,6 @@ public class PlayerMovement : MonoBehaviour {
             //     transform.localPosition = targetPosition;
             //     isMoving = false;
             // }
-
-            if (isMoving) {
-                // Ease between posBefore n target
-                float totalDistance = Vector3.Distance(posBefore, targetPosition);
-                float currentDistance = Vector3.Distance(posBefore, transform.position);
-                float moveProgress = totalDistance == 0f ? 1f : Mathf.Clamp01(currentDistance / totalDistance);
-
-                float eased = Mathf.Sin(moveProgress * Mathf.PI); // smooth in-out bounce
-                float hop = eased * hopHeight;
-                sprite.localPosition = new Vector3(0f, hop, 0f);
-            } else {
-                sprite.localPosition = Vector3.zero;
-            }
-
         }
     }
 
