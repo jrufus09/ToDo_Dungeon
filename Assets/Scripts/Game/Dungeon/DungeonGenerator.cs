@@ -26,8 +26,18 @@ public class DungeonGenerator : MonoBehaviour
 
     private int[,] map;
     private List<RectInt> rooms;
+    public enum TileType {
+        Empty,
+        Floor,
+        Wall
+    }
+    TileType[,] dungeonMap;
+
+
 
     void Start() {
+        dungeonMap = new TileType[width, height];
+
         if (useSeed) {
             Random.InitState(seed);
             // set unity's randomness generator
@@ -52,10 +62,8 @@ public class DungeonGenerator : MonoBehaviour
             RectInt newRoom = new RectInt(x, y, w, h);
 
             bool overlaps = false;
-            foreach (var room in rooms)
-            {
-                if (newRoom.Overlaps(room))
-                {
+            foreach (var room in rooms) {
+                if (newRoom.Overlaps(room)) {
                     overlaps = true;
                     break;
                 }
@@ -79,45 +87,46 @@ public class DungeonGenerator : MonoBehaviour
     void CarveRoom(RectInt room) {
         for (int x = room.xMin; x < room.xMax; x++)
         {
-            for (int y = room.yMin; y < room.yMax; y++)
-            {
+            for (int y = room.yMin; y < room.yMax; y++) {
                 map[x, y] = 1;
+                dungeonMap[x, y] = TileType.Floor;
             }
         }
     }
 
     void CarveCorridor(Vector2Int from, Vector2Int to) {
-        if (Random.value < 0.5f)
-        {
+        if (Random.value < 0.5f) {
             CarveHorizontal(from.x, to.x, from.y);
             CarveVertical(from.y, to.y, to.x);
         }
-        else
-        {
+        else {
             CarveVertical(from.y, to.y, from.x);
             CarveHorizontal(from.x, to.x, to.y);
         }
     }
 
     void CarveHorizontal(int xStart, int xEnd, int y) {
-        for (int x = Mathf.Min(xStart, xEnd); x <= Mathf.Max(xStart, xEnd); x++)
+        for (int x = Mathf.Min(xStart, xEnd); x <= Mathf.Max(xStart, xEnd); x++) {
             map[x, y] = 1;
+            dungeonMap[x, y] = TileType.Floor;
+        }
     }
 
     void CarveVertical(int yStart, int yEnd, int x) {
-        for (int y = Mathf.Min(yStart, yEnd); y <= Mathf.Max(yStart, yEnd); y++)
+        for (int y = Mathf.Min(yStart, yEnd); y <= Mathf.Max(yStart, yEnd); y++) {
             map[x, y] = 1;
+            dungeonMap[x, y] = TileType.Floor;
+        }
     }
 
     void AddWalls() {
         for (int x = 1; x < width - 1; x++) {
-            for (int y = 1; y < height - 1; y++)
-            {
-                if (map[x, y] == 0)
-                {
-                    // If any neighbor is floor, place wall
+            for (int y = 1; y < height - 1; y++) {
+                if (map[x, y] == 0) {
+                    // if any neighbor is floor, place wall
                     if (HasAdjacentFloor(x, y))
                         map[x, y] = 2;
+                        dungeonMap[x, y] = TileType.Wall;
                 }
             }
         }
@@ -128,16 +137,36 @@ public class DungeonGenerator : MonoBehaviour
                map[x, y + 1] == 1 || map[x, y - 1] == 1;
     }
 
+    // void MapTranslation() { // numbers to enum
+    //     for (int x = 0; x < width; x++) {
+    //         for (int y = 0; y < height; y++) {
+    //             if (map[x, y] == 1)
+    //                 dungeonMap[x, y] = TileType.Floor;
+    //             else if (map[x, y] == 2)
+    //                 dungeonMap[x, y] = TileType.Wall;
+    //         }
+    //     }
+    // } // this is just integrated into the generator
+
     void DrawMap() {
         wallTilemap.ClearAllTiles();
         floorTilemap.ClearAllTiles();
-        for (int x = 0; x < width; x++)
-        {
-            for (int y = 0; y < height; y++)
-            {
-                if (map[x, y] == 1)
+
+        // for old system with 1s and 2s
+        // for (int x = 0; x < width; x++) {
+        //     for (int y = 0; y < height; y++) {
+        //         if (map[x, y] == 1)
+        //             floorTilemap.SetTile(new Vector3Int(x, y, 0), floorTile);
+        //         else if (map[x, y] == 2)
+        //             wallTilemap.SetTile(new Vector3Int(x, y, 0), wallTile);
+        //     }
+        // }
+
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                if (dungeonMap[x, y] == TileType.Floor)
                     floorTilemap.SetTile(new Vector3Int(x, y, 0), floorTile);
-                else if (map[x, y] == 2)
+                else if (dungeonMap[x, y] == TileType.Wall)
                     wallTilemap.SetTile(new Vector3Int(x, y, 0), wallTile);
             }
         }
