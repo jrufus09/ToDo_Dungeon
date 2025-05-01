@@ -183,11 +183,15 @@ public class DungeonGenerator : MonoBehaviour
         }
 
         Vector2Int spawnPos = RoomCenter(rooms[0]);
-        Vector3 worldPos = floorTilemap.CellToWorld(new Vector3Int(spawnPos.x, spawnPos.y, 0));
+        Vector3Int sp3 = new Vector3Int(spawnPos.x, spawnPos.y, 0);
+        // this was converting to make the player inbetween four tiles (not ideal)
+        //Vector3 worldPos = floorTilemap.CellToWorld(new Vector3Int(spawnPos.x, spawnPos.y, 0));
+        Vector3 worldPos = floorTilemap.CellToWorld(sp3) + floorTilemap.cellSize / 2f;
         //Instantiate(playerPrefab, worldPos + new Vector3(0.5f, 0.5f, 0), Quaternion.identity);
+
         Vector2 spawnAt;
         spawnAt.x = worldPos.x;
-        spawnAt.y = worldPos.y+0.5f;
+        spawnAt.y = worldPos.y;
         //Debug.Log(worldPos);
         //Debug.Log(spawnAt);
 

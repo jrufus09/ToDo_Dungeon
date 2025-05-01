@@ -96,6 +96,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1626785906503527678}
+  - component: {fileID: 5326405692230335804}
   - component: {fileID: 8289825917049048848}
   - component: {fileID: 6253482492171127159}
   - component: {fileID: 313770495706853211}
@@ -116,14 +117,14 @@ Transform:
   m_GameObject: {fileID: 4717930865252694207}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 34, y: 8, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8164292110284072350}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8289825917049048848
+--- !u!114 &5326405692230335804
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -132,16 +133,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 4717930865252694207}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd9a413b80a7ca94e8645b41f72208be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveDistance: 1
+  moveSpeed: 5
+  hopHeight: 0.2
+  squishAmount: 0.2
+  spriteHolder: {fileID: 8164292110284072350}
+--- !u!114 &8289825917049048848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4717930865252694207}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9bdc70cc0be6aff468017abde03781b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveDistance: 1
   moveSpeed: 5
-  gridWidth: 10
-  gridHeight: 10
-  hopHeight: 0.2
   moveDuration: 0.2
   doHop: 1
+  hopHeight: 0.2
+  squishAmount: 0.2
 --- !u!114 &6253482492171127159
 MonoBehaviour:
   m_ObjectHideFlags: 0
