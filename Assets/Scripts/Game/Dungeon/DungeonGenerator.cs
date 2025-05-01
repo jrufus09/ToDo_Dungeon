@@ -12,10 +12,12 @@ public class DungeonGenerator : MonoBehaviour
     public Vector2Int roomMaxSize = new Vector2Int(10, 10);
 
     [Header("Tiles")]
-    public Tilemap floorTilemap;
+    public Tilemap gridTilemap;
     public Tilemap wallTilemap;
-    public TileBase floorTile;
+    public Tilemap floorTilemap;
+    public TileBase gridTile;
     public TileBase wallTile;
+    public TileBase floorTile;
 
     [Header("Random Seed")]
     public bool useSeed = false;
@@ -149,13 +151,14 @@ public class DungeonGenerator : MonoBehaviour
 
     void DrawMap() {
         wallTilemap.ClearAllTiles();
+        gridTilemap.ClearAllTiles();
         floorTilemap.ClearAllTiles();
 
         // for old system with 1s and 2s
         // for (int x = 0; x < width; x++) {
         //     for (int y = 0; y < height; y++) {
         //         if (map[x, y] == 1)
-        //             floorTilemap.SetTile(new Vector3Int(x, y, 0), floorTile);
+        //             gridTilemap.SetTile(new Vector3Int(x, y, 0), gridTile);
         //         else if (map[x, y] == 2)
         //             wallTilemap.SetTile(new Vector3Int(x, y, 0), wallTile);
         //     }
@@ -163,10 +166,13 @@ public class DungeonGenerator : MonoBehaviour
 
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
-                if (dungeonMap[x, y] == TileType.Floor)
+                if (dungeonMap[x, y] == TileType.Floor) {
+                    gridTilemap.SetTile(new Vector3Int(x, y, 0), gridTile);
                     floorTilemap.SetTile(new Vector3Int(x, y, 0), floorTile);
-                else if (dungeonMap[x, y] == TileType.Wall)
+                }
+                else if (dungeonMap[x, y] == TileType.Wall) {
                     wallTilemap.SetTile(new Vector3Int(x, y, 0), wallTile);
+                }
             }
         }
     }
@@ -185,8 +191,8 @@ public class DungeonGenerator : MonoBehaviour
         Vector2Int spawnPos = RoomCenter(rooms[0]);
         Vector3Int sp3 = new Vector3Int(spawnPos.x, spawnPos.y, 0);
         // this was converting to make the player inbetween four tiles (not ideal)
-        //Vector3 worldPos = floorTilemap.CellToWorld(new Vector3Int(spawnPos.x, spawnPos.y, 0));
-        Vector3 worldPos = floorTilemap.CellToWorld(sp3) + floorTilemap.cellSize / 2f;
+        //Vector3 worldPos = gridTilemap.CellToWorld(new Vector3Int(spawnPos.x, spawnPos.y, 0));
+        Vector3 worldPos = gridTilemap.CellToWorld(sp3) + gridTilemap.cellSize / 2f;
         //Instantiate(playerPrefab, worldPos + new Vector3(0.5f, 0.5f, 0), Quaternion.identity);
 
         Vector2 spawnAt;

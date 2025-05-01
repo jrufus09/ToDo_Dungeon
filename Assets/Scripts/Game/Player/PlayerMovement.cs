@@ -20,7 +20,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     public void InitiateAt(Vector2 pos) {
-        Debug.Log(pos);
+        //Debug.Log(pos);
         transform.position = pos;
         SnapToGrid();
     }
