@@ -8,10 +8,12 @@ public class PlayerMovement : MonoBehaviour {
 
     public Transform spriteHolder; // Assign in Inspector
 
+    [Header("rigidbody stuff")]
     private Rigidbody2D rb;
     private Vector3 targetPosition;
-    private Vector3 positionBeforeMove;
+    private Vector3 posBeforeMove;
     private bool isMoving = false;
+    public LayerMask wallLayer;
 
     void Start() {
         rb = GetComponent<Rigidbody2D>();
@@ -47,8 +49,8 @@ public class PlayerMovement : MonoBehaviour {
         if (isMoving) {
 
             // calculate easing for squish n hop movement
-            float totalDistance = Vector3.Distance(positionBeforeMove, targetPosition);
-            float currentDistance = Vector3.Distance(positionBeforeMove, transform.position);
+            float totalDistance = Vector3.Distance(posBeforeMove, targetPosition);
+            float currentDistance = Vector3.Distance(posBeforeMove, transform.position);
             float progress = totalDistance == 0f ? 1f : Mathf.Clamp01(currentDistance / totalDistance);
 
             float eased = Mathf.Sin(progress * Mathf.PI);
@@ -65,27 +67,28 @@ public class PlayerMovement : MonoBehaviour {
         }
     }
 
-    public void Move(Vector2 direction) {
-        if (isMoving) return;
-        if (Mathf.Abs(direction.x) > 0 && Mathf.Abs(direction.y) > 0) return;
+    public void Move(Vector2 dir) {
+    if (isMoving) return;
+    if (Mathf.Abs(dir.x) > 0 && Mathf.Abs(dir.y) > 0) return;
+        // no diagonals - one dir only - one of x or y must be 0
 
-        Vector2 offset = direction * moveDistance;
-        Vector2 origin = rb.position;
-        Vector2 destination = origin + offset;
+    Vector2 origin = rb.position;
+    Vector2 destination = origin + dir * moveDistance;
 
-        // check for obstacle in the way
-        RaycastHit2D[] hits = new RaycastHit2D[1];
-        int hitCount = rb.Cast(direction, hits, moveDistance - 0.01f); // cast slightly short of the full move
+    // make a cast bos smaller than the player's collider
+    BoxCollider2D box = GetComponent<BoxCollider2D>();
+    Vector2 boxSize = box.size * 0.95f;
+    float castDistance = moveDistance * 0.95f;
 
-        if (hitCount > 0) {
-            // there is a thing in the way, don't move
-            return;
-        }
-
-        // collisions clear, so move
-        positionBeforeMove = transform.position;
-        targetPosition = destination;
-        isMoving = true;
+    // cast a ray, see what hits wallLayer
+    RaycastHit2D hit = Physics2D.BoxCast(origin, boxSize, 0f, dir, castDistance, wallLayer);
+    if (hit.collider != null) {
+        return;
     }
+
+    posBeforeMove = transform.position;
+    targetPosition = destination;
+    isMoving = true;
+}
 
 }
