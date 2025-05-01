@@ -4,14 +4,18 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour {
     public float moveDistance = 1f;
     public float moveSpeed = 5f;
-    public int gridWidth = 10;   // x
-    public int gridHeight = 10;  // y
-
-    public float hopHeight = 0.2f;
     public float moveDuration = 0.2f;
     public bool doHop = true;
 
+    [Header("hop stuff")]
+    private Transform sprite;
+    public float hopHeight = 0.2f;
+    public float squishAmount = 0.2f;
+
+
+    [Header("rigidbody movement")]
     private Vector3 targetPosition;
+    private Vector3 posBefore; // pos for animation; rb moves separate to sprite
     private bool isMoving = false;
 
     private Rigidbody2D rb; // consult the rigidbody to obey physics
@@ -20,7 +24,7 @@ public class PlayerMovement : MonoBehaviour {
     private Vector2 endPosition;
     private float moveTimer;
     private float hopOffset;
-    private Transform sprite;
+
     bool setupDone = false;
 
 
@@ -39,13 +43,13 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     public void SnapToGrid() { // CALL IT AFTER INSTANTIATED
-        targetPosition = transform.position;
 
         // Snap player to nearest tile
         Vector3 pos = transform.position;
         pos.x = Mathf.Round(pos.x);
         pos.y = Mathf.Round(pos.y);
         transform.position = pos;
+        targetPosition = transform.position;
     }
 
     void Update() {
@@ -97,32 +101,65 @@ public class PlayerMovement : MonoBehaviour {
     void LateUpdate() {
         // snap to grid
         if (setupDone) {
+
             // if (Vector3.Distance(transform.position, targetPosition) < 0.01f) {
             //     //transform.position = targetPosition; // snap exactly
             //     transform.localPosition = targetPosition;
             //     isMoving = false;
             // }
+
+            if (isMoving) {
+
+                // SPRITE MOVEMENT - calc rate of movement
+                float totalDistance = Vector3.Distance(posBefore, targetPosition);
+                float currentDistance = Vector3.Distance(posBefore, transform.position);
+                float progress = totalDistance == 0f ? 1f : Mathf.Clamp01(currentDistance / totalDistance);
+
+                float eased = Mathf.Sin(progress * Mathf.PI);
+                float hop = eased * hopHeight;
+
+                sprite.localPosition = new Vector3(0f, hop, 0f);
+                float scaleY = 1f - (eased * squishAmount);
+                float scaleX = 1f + (eased * squishAmount * 0.5f);
+                sprite.localScale = new Vector3(scaleX, scaleY, 1f);
+
+            } else { // stay still lol
+                sprite.localPosition = Vector3.zero;
+                sprite.localScale = Vector3.one;
+            }
         }
     }
 
     void FixedUpdate() {
         if (!isMoving && moveDirection != Vector2.zero) {
-            Vector2 target = rb.position + moveDirection * moveDistance;
+            
+            // Vector2 target = rb.position + moveDirection * moveDistance;
+            // // Check for collision manually
+            // Collider2D hit = Physics2D.OverlapBox(target, Vector2.one * 0.8f, 0f);
+            // if (hit == null) {
+            //     startPosition = rb.position;
+            //     endPosition = target;
+            //     moveTimer = 0f;
+            //     isMoving = true;
+            // }
+            // moveDirection = Vector2.zero;
 
-            // Check for collision
-            Collider2D hit = Physics2D.OverlapBox(target, Vector2.one * 0.8f, 0f);
-            if (hit == null) {
-                startPosition = rb.position;
-                endPosition = target;
-                moveTimer = 0f;
-                isMoving = true;
+            if (isMoving) {
+
+                // move rigidbody
+                Vector2 newPos = Vector2.MoveTowards(rb.position, targetPosition, moveSpeed * Time.fixedDeltaTime);
+                rb.MovePosition(newPos);
+
+                // snap
+                if (Vector2.Distance(rb.position, targetPosition) < 0.01f) {
+                    rb.position = targetPosition;
+                    isMoving = false;
+                }
             }
 
-            moveDirection = Vector2.zero;
         }
     }
 
-    private Vector3 posBefore; // pos for animation; rb moves separate to sprite
     public void Move(Vector2 dir) {
         if (isMoving) return;
         if (Mathf.Abs(dir.x) > 0 && Mathf.Abs(dir.y) > 0) return; // no diagonals
@@ -132,69 +169,70 @@ public class PlayerMovement : MonoBehaviour {
         Vector3 nextPosition = transform.position + new Vector3(dir.x * moveDistance, dir.y * moveDistance, 0f);
         posBefore = transform.position; // save starting point
         targetPosition = nextPosition;
+        Debug.Log("posBefore: "+ posBefore + ", nextPosition/target: "+ targetPosition + "... now moving");
         isMoving = true;
     }
 
-    public void Move2(Vector2 direction) {
-        if (isMoving) return;
+//     public void Move2(Vector2 direction) {
+//         if (isMoving) return;
 
-        // only horizontal or vertical, meaning one value of X or Y needs to be 0
-        if (Mathf.Abs(direction.x) > 0 && Mathf.Abs(direction.y) > 0) {
-            return; // diagonal input ignored
-        }
+//         // only horizontal or vertical, meaning one value of X or Y needs to be 0
+//         if (Mathf.Abs(direction.x) > 0 && Mathf.Abs(direction.y) > 0) {
+//             return; // diagonal input ignored
+//         }
 
-        if (doHop == false) {
-            Vector3 nextPosition = transform.position + new Vector3(direction.x * moveDistance, direction.y * moveDistance, 0f);
+//         if (doHop == false) {
+//             Vector3 nextPosition = transform.position + new Vector3(direction.x * moveDistance, direction.y * moveDistance, 0f);
 
-            // clamp movement to grid boundaries
-            // float halfGridWidth = (gridWidth / 2f) * moveDistance;
-            // float halfGridHeight = (gridHeight / 2f) * moveDistance;
+//             // clamp movement to grid boundaries
+//             // float halfGridWidth = (gridWidth / 2f) * moveDistance;
+//             // float halfGridHeight = (gridHeight / 2f) * moveDistance;
 
-            // if (nextPosition.x < -halfGridWidth || nextPosition.x > halfGridWidth ||
-            //     nextPosition.y < -halfGridHeight || nextPosition.y > halfGridHeight)
-            // {
-            //     return; // prevent moving off grid
-            // }
+//             // if (nextPosition.x < -halfGridWidth || nextPosition.x > halfGridWidth ||
+//             //     nextPosition.y < -halfGridHeight || nextPosition.y > halfGridHeight)
+//             // {
+//             //     return; // prevent moving off grid
+//             // }
 
-            targetPosition = nextPosition;
-            isMoving = true;
+//             targetPosition = nextPosition;
+//             isMoving = true;
 
-        } else {
-            Vector3 start = transform.position;
-            Vector3 end = start + new Vector3(direction.x * moveDistance, direction.y * moveDistance, 0f);
+//         } else {
+//             Vector3 start = transform.position;
+//             Vector3 end = start + new Vector3(direction.x * moveDistance, direction.y * moveDistance, 0f);
 
-            // respect boundaries
-            // float halfGridWidth = (gridWidth / 2f) * moveDistance;
-            // float halfGridHeight = (gridHeight / 2f) * moveDistance;
-            // if (end.x < -halfGridWidth || end.x > halfGridWidth ||
-            //     end.y < -halfGridHeight || end.y > halfGridHeight)
-            //     return;
+//             // respect boundaries
+//             // float halfGridWidth = (gridWidth / 2f) * moveDistance;
+//             // float halfGridHeight = (gridHeight / 2f) * moveDistance;
+//             // if (end.x < -halfGridWidth || end.x > halfGridWidth ||
+//             //     end.y < -halfGridHeight || end.y > halfGridHeight)
+//             //     return;
 
-            // do a hop
-            StartCoroutine(HopMove(start, end));
-        }
-    }
+//             // do a hop
+//             StartCoroutine(HopMove(start, end));
+//         }
+//     }
 
-    private System.Collections.IEnumerator HopMove(Vector3 start, Vector3 end) {
-        isMoving = true;
-        float elapsed = 0f;
+//     private System.Collections.IEnumerator HopMove(Vector3 start, Vector3 end) {
+//         isMoving = true;
+//         float elapsed = 0f;
 
-        while (elapsed < moveDuration)
-        {
-            float t = elapsed / moveDuration;
-            // Smooth movement with sine easing
-            float heightOffset = Mathf.Sin(t * Mathf.PI) * hopHeight;
-            //transform.position = Vector3.Lerp(start, end, t) + Vector3.up * heightOffset;
-            // consult the rigidbody
-            rb.MovePosition(Vector3.Lerp(start, end, t) + Vector3.up * heightOffset);
+//         while (elapsed < moveDuration)
+//         {
+//             float t = elapsed / moveDuration;
+//             // Smooth movement with sine easing
+//             float heightOffset = Mathf.Sin(t * Mathf.PI) * hopHeight;
+//             //transform.position = Vector3.Lerp(start, end, t) + Vector3.up * heightOffset;
+//             // consult the rigidbody
+//             rb.MovePosition(Vector3.Lerp(start, end, t) + Vector3.up * heightOffset);
 
 
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
+//             elapsed += Time.deltaTime;
+//             yield return null;
+//         }
 
-        transform.position = end; // Final snap
-        isMoving = false;
-    }
+//         transform.position = end; // Final snap
+//         isMoving = false;
+//     }
 
 }

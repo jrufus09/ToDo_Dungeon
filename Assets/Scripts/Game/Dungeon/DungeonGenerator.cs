@@ -188,8 +188,8 @@ public class DungeonGenerator : MonoBehaviour
         Vector2 spawnAt;
         spawnAt.x = worldPos.x;
         spawnAt.y = worldPos.y+0.5f;
-        Debug.Log(worldPos);
-        Debug.Log(spawnAt);
+        //Debug.Log(worldPos);
+        //Debug.Log(spawnAt);
 
         Instantiate(playerPrefab, worldPos + new Vector3(0.5f, 0.5f, 0), Quaternion.identity);
         // position doesnt matter as player's start would override it. call after player start:
