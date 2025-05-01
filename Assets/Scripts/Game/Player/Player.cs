@@ -19,5 +19,9 @@ public class Player : MonoBehaviour {
         var player = GetComponent<Player>();
         foundCam[0].SetPlayer(player);
 
+        // initialise health
+        FindFirstObjectByType<PlayerHealthBar>()?.SetTargetHealth(this.GetComponent<Health>());
+
+
     }
 }

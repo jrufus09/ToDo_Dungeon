@@ -98,6 +98,7 @@ GameObject:
   - component: {fileID: 1626785906503527678}
   - component: {fileID: 5326405692230335804}
   - component: {fileID: 1636756048279864409}
+  - component: {fileID: 8151265095733468883}
   - component: {fileID: 6253482492171127159}
   - component: {fileID: 313770495706853211}
   - component: {fileID: 1715263428718571841}
@@ -160,6 +161,20 @@ MonoBehaviour:
   seenTile: {fileID: 11400000, guid: 1ecbed5ae87c7564481dce9c4b22f51d, type: 2}
   dungen: {fileID: 0}
   fogTilemap: {fileID: 0}
+--- !u!114 &8151265095733468883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4717930865252694207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f4cd67f2efaf3498b751adb03df37f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 50
 --- !u!114 &6253482492171127159
 MonoBehaviour:
   m_ObjectHideFlags: 0
