@@ -3,6 +3,7 @@ using System.Collections; // for enumerators
 using System.Collections.Generic;
 using UnityEngine.Tilemaps;
 using Unity.Android.Gradle;
+//using System.Linq;
 
 public class EnemyHandler : MonoBehaviour {
     public static EnemyHandler Instance { get; private set; }
@@ -26,11 +27,10 @@ public class EnemyHandler : MonoBehaviour {
     public Dictionary<Vector2Int, Enemy> enemyMap;
         // this WILL need to be updated at every turn
 
-    public List<Vector2Int> walkableTiles = new List<Vector2Int>(); // add to this during generation
+    public List<Vector2Int> walkableTiles = new List<Vector2Int>();
     public Transform player;
-    
-    public GameObject enemiesLayer;
 
+    public GameObject enemiesLayer;
     public void SetPlayer(Transform plIn) {
         player = plIn;
     }
@@ -41,15 +41,11 @@ public class EnemyHandler : MonoBehaviour {
             Instance = this;
             DontDestroyOnLoad(gameObject); // keep alive between scenes
         } else {
-            Destroy(gameObject); // DESTROY duplicates
+            Destroy(gameObject); // destroy duplicates
         }
-
+        
         enemyMap = new Dictionary<Vector2Int, Enemy>();
         currentEnemies = new HashSet<EnemySpawnEntry>();
-        enemiesLayer = GameObject.FindGameObjectsWithTag("EnemiesLayer")[0];
-
-        EnemyThemeSelector();
-        StartCoroutine(CheckPeriodically());
     }
 
         // onstart: Decide upon a pool of enemies (hashset/array currentEnemies) from reference table
@@ -58,6 +54,24 @@ public class EnemyHandler : MonoBehaviour {
             // use cumulative rarity
         // Find a random position to put it in (that isn't occupied)
         // Generate it
+
+    // Subscribe to the signal that tells you when dungeon generation is complete
+    void OnEnable() {
+        if (DungeonGenerator.Instance != null)
+            DungeonGenerator.Instance.OnGenerationComplete += BeginHandling;
+    }
+
+    void OnDisable() {
+        if (DungeonGenerator.Instance != null)
+            DungeonGenerator.Instance.OnGenerationComplete -= BeginHandling;
+    }
+
+    void BeginHandling() {
+        enemiesLayer = GameObject.FindGameObjectsWithTag("EnemiesLayer")[0];
+        walkableTiles = DungeonGenerator.Instance.walkable;
+        EnemyThemeSelector();
+        StartCoroutine(CheckPeriodically());
+    }
 
     public void EnemyThemeSelector(Theme theme = Theme.Testing) {
 
@@ -138,27 +152,51 @@ public class EnemyHandler : MonoBehaviour {
     }
 
     public EnemySpawnEntry GenerateRandomEnemy() {
-        EnemySpawnEntry enemy = null;
+        //EnemySpawnEntry enemy = null;
+        // while (enemy == null) {
+        //     SpawnRank rank = GenerateRandomEnemyRank();
 
-        while (enemy == null) {
-            SpawnRank rank = GenerateRandomEnemyRank();
+        //     // go through and find all enemies of that rank
+        //     List<EnemySpawnEntry> pool = new List<EnemySpawnEntry>();
+        //     foreach (EnemySpawnEntry thing in currentEnemies) {
+        //         if (thing.spawnRank == rank) {
+        //             pool.Add(thing);
+        //         }
+        //     }
+        //     if (pool.Count == 0) { // empty, meaning none of that rank exists
+        //         continue; // restart while loop / regenerate rank
+        //     } else { // random of list
+        //         int index = pureRandom.Next(0, pool.Count);
+        //         enemy = pool[index];
+        //         break;
+        //     }
+        // }
 
-            // go through and find all enemies of that rank
-            List<EnemySpawnEntry> pool = new List<EnemySpawnEntry>();
-            foreach (EnemySpawnEntry thing in currentEnemies) {
-                if (thing.spawnRank == rank) {
-                    pool.Add(thing);
-                }
-            }
-            if (pool.Count == 0) { // empty, meaning none of that rank exists
-                continue; // restart while loop / regenerate rank
-            } else { // random of list
-                int index = pureRandom.Next(0, pool.Count);
-                enemy = pool[index];
-                break;
-            }
+        // Group enemies by rank first
+        Dictionary<SpawnRank, List<EnemySpawnEntry>> rankGroups = new Dictionary<SpawnRank, List<EnemySpawnEntry>>();
+
+        foreach (var entry in currentEnemies) {
+            if (!rankGroups.ContainsKey(entry.spawnRank))
+                rankGroups[entry.spawnRank] = new List<EnemySpawnEntry>();
+            rankGroups[entry.spawnRank].Add(entry);
         }
-        return enemy;
+
+        if (rankGroups.Count == 0)
+            return null;
+
+        // Pick a random valid rank from the keys
+        //var validRanks = rankGroups.Keys.ToList(); // use LINQ
+        List<SpawnRank> validRanks = new List<SpawnRank>();
+        foreach (var key in rankGroups.Keys) {
+            validRanks.Add(key);
+        }
+        var randomRank = validRanks[pureRandom.Next(0, validRanks.Count)];
+
+        // Pick a random enemy from that rank
+        var pool = rankGroups[randomRank];
+        return pool[pureRandom.Next(0, pool.Count)];
+        
+        //return enemy;
     }
 
     void SpawnEnemy(EnemySpawnEntry enemyEntry) {

@@ -5,6 +5,7 @@ using Unity.AI.Navigation;
 
 public class DungeonGenerator : MonoBehaviour {
     public static DungeonGenerator Instance { get; private set; }
+    public event System.Action OnGenerationComplete; // like signals but for C#
 
     [Header("Map Settings")]
     public int width = 50;
@@ -37,6 +38,7 @@ public class DungeonGenerator : MonoBehaviour {
     }
     TileType[,] dungeonMap;
     public NavMeshSurface surface;
+    public List<Vector2Int> walkable;
 
     void Start() {
 
@@ -173,14 +175,15 @@ public class DungeonGenerator : MonoBehaviour {
         //             wallTilemap.SetTile(new Vector3Int(x, y, 0), wallTile);
         //     }
         // }
-
+        walkable = new List<Vector2Int>();
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
                 if (dungeonMap[x, y] == TileType.Floor) {
                     gridTilemap.SetTile(new Vector3Int(x, y, 0), gridTile);
                     floorTilemap.SetTile(new Vector3Int(x, y, 0), floorTile);
 
-                    EnemyHandler.Instance.walkableTiles.Add(new Vector2Int(x, y));
+                    //EnemyHandler.Instance.walkableTiles.Add(new Vector2Int(x, y));
+                    walkable.Add(new Vector2Int(x, y));
                 }
                 else if (dungeonMap[x, y] == TileType.Wall) {
                     wallTilemap.SetTile(new Vector3Int(x, y, 0), wallTile);
@@ -215,8 +218,10 @@ public class DungeonGenerator : MonoBehaviour {
         //Debug.Log(spawnAt);
 
         Instantiate(playerPrefab, worldPos + new Vector3(0.5f, 0.5f, 0), Quaternion.identity);
-        // position doesnt matter as player's start would override it. call after player start:
         playerPrefab.GetComponent<PlayerMovement>().InitiateAt(spawnAt);
+        Debug.Log("player spawned in successfully");
+
+        OnGenerationComplete?.Invoke();
     }
 
     Vector2Int RoomCenter(RectInt room) {

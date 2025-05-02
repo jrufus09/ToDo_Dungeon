@@ -146,3 +146,5 @@ Current bug that exists (still): stuff inside ListIcon doesn't register clicks.
 - made Enemy array, changed it to hashset, then changed it to a dictionary
 - made all this EnemyHandler generation code including the reference sheet and dictionary updating and then just never made a single enemy prefab
 - I made a whole scriptable object dictionary and it was cool
+- editor is now not allowing me to run play mode without freezing and crashing.
+- now need half my scripts to subscribe to "dungeon generation complete"

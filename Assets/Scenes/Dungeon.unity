@@ -670,7 +670,7 @@ MonoBehaviour:
   useSeed: 1
   seed: 1
   playerPrefab: {fileID: 4717930865252694207, guid: 19aef7a682b397d42ad7d14e13ede61f, type: 3}
-  surface: {fileID: 0}
+  surface: {fileID: 581337160}
 --- !u!222 &581337159
 CanvasRenderer:
   m_ObjectHideFlags: 0
