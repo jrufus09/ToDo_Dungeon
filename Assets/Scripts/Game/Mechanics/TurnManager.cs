@@ -15,12 +15,12 @@ public class TurnManager : MonoBehaviour {
         Instance = this;
     }
     void Start() {
-        // if (Instance == null) {
-        //     Instance = this;
-        //     DontDestroyOnLoad(gameObject); // keep alive between scenes
-        // } else {
-        //     Destroy(gameObject); // DESTROY duplicates
-        // }
+        if (Instance == null) {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // keep alive between scenes
+        } else {
+            Destroy(gameObject); // DESTROY duplicates
+        }
     }
 
     public void RegisterEnemy(ITurnActor actor) {
@@ -38,7 +38,6 @@ public class TurnManager : MonoBehaviour {
             yield return actor.TakeTurn(); // async movement
             actors.Enqueue(actor);
         }
-
         waitingForPlayer = true;
     }
 

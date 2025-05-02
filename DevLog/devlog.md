@@ -135,3 +135,14 @@ Current bug that exists (still): stuff inside ListIcon doesn't register clicks.
 
 ### 1-May-2025
 - fixed tile collisions + weird stickiness on walls
+- made player move around to open up fog
+- made health system
+- fixed alignment issues with tilemap and player
+
+### 2-May-2026
+- started on enemy
+- made TurnManager
+- made DungeonUI / for handling button inputs
+- made Enemy array, changed it to hashset, then changed it to a dictionary
+- made all this EnemyHandler generation code including the reference sheet and dictionary updating and then just never made a single enemy prefab
+- I made a whole scriptable object dictionary and it was cool

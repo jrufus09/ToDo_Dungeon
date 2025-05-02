@@ -1,9 +1,11 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Collections.Generic;
+using Unity.AI.Navigation;
 
-public class DungeonGenerator : MonoBehaviour
-{
+public class DungeonGenerator : MonoBehaviour {
+    public static DungeonGenerator Instance { get; private set; }
+
     [Header("Map Settings")]
     public int width = 50;
     public int height = 50;
@@ -20,7 +22,7 @@ public class DungeonGenerator : MonoBehaviour
     public TileBase floorTile;
 
     [Header("Random Seed")]
-    public bool useSeed = false;
+    public bool useSeed = true;
     public int seed = 0;
 
     [Header("Player")]
@@ -34,11 +36,19 @@ public class DungeonGenerator : MonoBehaviour
         Wall
     }
     TileType[,] dungeonMap;
-
-
+    public NavMeshSurface surface;
 
     void Start() {
+
+        if (Instance == null) {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // keep alive between scenes
+        } else {
+            Destroy(gameObject); // DESTROY duplicates
+        }
+
         dungeonMap = new TileType[width, height];
+        surface = GetComponent<NavMeshSurface>();
 
         if (useSeed) {
             Random.InitState(seed);
@@ -169,12 +179,15 @@ public class DungeonGenerator : MonoBehaviour
                 if (dungeonMap[x, y] == TileType.Floor) {
                     gridTilemap.SetTile(new Vector3Int(x, y, 0), gridTile);
                     floorTilemap.SetTile(new Vector3Int(x, y, 0), floorTile);
+
+                    EnemyHandler.Instance.walkableTiles.Add(new Vector2Int(x, y));
                 }
                 else if (dungeonMap[x, y] == TileType.Wall) {
                     wallTilemap.SetTile(new Vector3Int(x, y, 0), wallTile);
                 }
             }
         }
+        surface.BuildNavMesh();
     }
 
     void SpawnPlayer() {
@@ -209,4 +222,9 @@ public class DungeonGenerator : MonoBehaviour
     Vector2Int RoomCenter(RectInt room) {
         return new Vector2Int(room.xMin + room.width / 2, room.yMin + room.height / 2);
     }
+
+    // Vector2Int PosToWorld(RectInt room) {
+    //     return new Vector2Int(room.xMin + room.width / 2, room.yMin + room.height / 2);
+    // }
+
 }

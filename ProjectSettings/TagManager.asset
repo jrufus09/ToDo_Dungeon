@@ -6,6 +6,7 @@ TagManager:
   tags:
   - FogTilemap
   - MoveButton
+  - EnemiesLayer
   layers:
   - Default
   - TransparentFX
