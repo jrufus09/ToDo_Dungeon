@@ -14,7 +14,7 @@ public class EnemyHandler : MonoBehaviour {
     public HashSet<EnemySpawnEntry> currentEnemies;
     public Theme currentTheme;
     public int maxEnemies = 5;
-    public int checkIntervalS = 10;
+    public int checkIntervalS = 5;
 
     [Header("Random Seed Stuff")]
     public bool useSeed = true;
@@ -59,10 +59,13 @@ public class EnemyHandler : MonoBehaviour {
         // Generate it
 
     public void EnemyThemeSelector(Theme theme = Theme.Testing) {
+
         // filter
         foreach (EnemySpawnEntry entry in spawnTable.enemies) {
             Debug.Log(entry+", "+spawnTable.enemies+", "+theme);
-            if (entry.themes.Contains(theme)) {
+            if (entry.themes.Count == 0) {
+                Debug.Log("themes list empty");
+            } else if (entry.themes.Contains(theme)) {
                 currentEnemies.Add(entry);
             }
         }
@@ -165,8 +168,9 @@ public class EnemyHandler : MonoBehaviour {
             Vector3Int sp3 = new Vector3Int(spawnAt.x, spawnAt.y, 0);
             Tilemap tm = DungeonGenerator.Instance.floorTilemap;
             Vector3 worldPos = tm.CellToWorld(sp3) + tm.cellSize / 2f;
-            GameObject baby = Instantiate(enemyEntry.enemyPrefab, worldPos, Quaternion.identity, enemiesLayer.transform);
-            baby.GetComponent<Enemy>().SetPlayer(player);
+            GameObject thing = Instantiate(enemyEntry.enemyPrefab, worldPos, Quaternion.identity, enemiesLayer.transform);
+            thing.GetComponent<Enemy>().SetPlayer(player);
+            Debug.Log("pop, i made an enemy");
         }
 
         // foreach (var entry in spawnTable.enemies) {

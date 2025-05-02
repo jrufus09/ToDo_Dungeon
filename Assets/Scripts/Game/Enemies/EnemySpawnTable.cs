@@ -23,5 +23,5 @@ public enum SpawnRank {
 public class EnemySpawnEntry {
     public GameObject enemyPrefab;
     public SpawnRank spawnRank;
-    public List<Theme> themes;
+    public List<Theme> themes = new List<Theme>();
 }

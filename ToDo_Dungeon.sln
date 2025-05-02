@@ -121,6 +121,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.InputSystem.DocCodeSa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScriptablePacker", "ScriptablePacker.csproj", "{A89008C2-788C-6FCC-3009-BBBCFB362A7F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor", "Assembly-CSharp-Editor.csproj", "{91EDAC45-A5F4-5284-8E92-47AD8278EB41}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.Collections.Editor", "Unity.Collections.Editor.csproj", "{539D7CF2-EBB9-6D14-A696-9817CF3D516D}"
 EndProject
 Global
@@ -369,6 +371,10 @@ Global
 		{A89008C2-788C-6FCC-3009-BBBCFB362A7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A89008C2-788C-6FCC-3009-BBBCFB362A7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A89008C2-788C-6FCC-3009-BBBCFB362A7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91EDAC45-A5F4-5284-8E92-47AD8278EB41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91EDAC45-A5F4-5284-8E92-47AD8278EB41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91EDAC45-A5F4-5284-8E92-47AD8278EB41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91EDAC45-A5F4-5284-8E92-47AD8278EB41}.Release|Any CPU.Build.0 = Release|Any CPU
 		{539D7CF2-EBB9-6D14-A696-9817CF3D516D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{539D7CF2-EBB9-6D14-A696-9817CF3D516D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{539D7CF2-EBB9-6D14-A696-9817CF3D516D}.Release|Any CPU.ActiveCfg = Release|Any CPU
