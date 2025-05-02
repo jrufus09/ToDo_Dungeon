@@ -22,6 +22,5 @@ public class Player : MonoBehaviour {
         // initialise health
         FindFirstObjectByType<PlayerHealthBar>()?.SetTargetHealth(this.GetComponent<Health>());
 
-
     }
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class PlayerMovement : MonoBehaviour {
     public float moveDistance = 1f;
@@ -41,6 +42,12 @@ public class PlayerMovement : MonoBehaviour {
             if (Vector2.Distance(rb.position, targetPosition) < 0.01f) {
                 rb.position = targetPosition;
                 isMoving = false;
+
+                // snap finished, notify turnhandler we've moved
+                if (TurnManager.Instance != null) {
+                    TurnManager.Instance.OnPlayerTurnCompleted();
+                }
+
             }
         }
     }
@@ -68,27 +75,27 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     public void Move(Vector2 dir) {
-    if (isMoving) return;
-    if (Mathf.Abs(dir.x) > 0 && Mathf.Abs(dir.y) > 0) return;
-        // no diagonals - one dir only - one of x or y must be 0
+        if (isMoving) return;
+        if (Mathf.Abs(dir.x) > 0 && Mathf.Abs(dir.y) > 0) return;
+            // no diagonals - one dir only - one of x or y must be 0
 
-    Vector2 origin = rb.position;
-    Vector2 destination = origin + dir * moveDistance;
+        Vector2 origin = rb.position;
+        Vector2 destination = origin + dir * moveDistance;
 
-    // make a cast bos smaller than the player's collider
-    BoxCollider2D box = GetComponent<BoxCollider2D>();
-    Vector2 boxSize = box.size * 0.95f;
-    float castDistance = moveDistance * 0.95f;
+        // make a cast bos smaller than the player's collider
+        BoxCollider2D box = GetComponent<BoxCollider2D>();
+        Vector2 boxSize = box.size * 0.95f;
+        float castDistance = moveDistance * 0.95f;
 
-    // cast a ray, see what hits wallLayer
-    RaycastHit2D hit = Physics2D.BoxCast(origin, boxSize, 0f, dir, castDistance, wallLayer);
-    if (hit.collider != null) {
-        return;
+        // cast a ray, see what hits wallLayer
+        RaycastHit2D hit = Physics2D.BoxCast(origin, boxSize, 0f, dir, castDistance, wallLayer);
+        if (hit.collider != null) {
+            return;
+        }
+
+        posBeforeMove = transform.position;
+        targetPosition = destination;
+        isMoving = true;
     }
-
-    posBeforeMove = transform.position;
-    targetPosition = destination;
-    isMoving = true;
-}
 
 }
