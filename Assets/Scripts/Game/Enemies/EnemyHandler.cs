@@ -45,6 +45,7 @@ public class EnemyHandler : MonoBehaviour {
         }
 
         enemyMap = new Dictionary<Vector2Int, Enemy>();
+        currentEnemies = new HashSet<EnemySpawnEntry>();
         enemiesLayer = GameObject.FindGameObjectsWithTag("EnemiesLayer")[0];
 
         EnemyThemeSelector();
