@@ -219,7 +219,7 @@ public class DungeonGenerator : MonoBehaviour {
 
         Instantiate(playerPrefab, worldPos + new Vector3(0.5f, 0.5f, 0), Quaternion.identity);
         playerPrefab.GetComponent<PlayerMovement>().InitiateAt(spawnAt);
-        Debug.Log("player spawned in successfully");
+        //Debug.Log("player spawned in successfully");
 
         OnGenerationComplete?.Invoke();
     }

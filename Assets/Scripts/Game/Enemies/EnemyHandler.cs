@@ -97,7 +97,8 @@ public class EnemyHandler : MonoBehaviour {
 
     private void CheckEnemiesMax() {
         // if no of enemies present < max enemies, spawn one
-        if (enemyMap.Count < maxEnemies) {   
+        if (enemyMap.Count < maxEnemies) {  
+            Debug.Log(enemyMap.Count+" enemies on map and "+maxEnemies+" max enemies");
             SpawnEnemy(GenerateRandomEnemy());
         }
 
@@ -136,6 +137,7 @@ public class EnemyHandler : MonoBehaviour {
     }
 
     public SpawnRank GenerateRandomEnemyRank() {
+        Debug.Log("attempting to generate random enemy");
         float genRank = pureRandom.Next(0, 1);
         SpawnRank rank;
 
