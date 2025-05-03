@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Callbacks;
 using UnityEngine;
 using static Cell;
 
@@ -9,11 +10,28 @@ public class Enemy : MonoBehaviour, ITurnActor {
     private Queue<Vector2Int> cachedPath = new Queue<Vector2Int>();
     private Vector2Int? lastKnownPlayerPos = null;
     private Vector2Int currentGridPos => Cell.WorldToGrid(transform.position);
+    private Rigidbody2D rb;
 
     // public Transform player; // gave in and made player an instance
     // public void SetPlayer(Transform plIn) {
     //     player = plIn;
     // }
+
+    void Start() {
+
+        // find rigidbody
+        rb = GetComponent<Rigidbody2D>();
+
+        // snap to grid!
+        Vector2Int gridPos = Cell.WorldToGrid(transform.position);
+        //transform.position = Cell.GridToWorldCentered(gridPos);
+        rb.MovePosition(Cell.GridToWorldCentered(gridPos));
+        
+        // Register in turnmanager
+        TurnManager.Instance.RegisterEnemy(this);
+
+    }
+
 
     public IEnumerator TakeTurn() {
         //Vector2Int playerGridPos = Player.Instance.coordinates;
@@ -38,6 +56,7 @@ public class Enemy : MonoBehaviour, ITurnActor {
             }
         }
 
+        Debug.Log("I, the enemy, am performing a turn");
         // Move one tile along path
         if (cachedPath.Count > 0) {
             Vector2Int nextStep = cachedPath.Dequeue();
@@ -54,10 +73,13 @@ public class Enemy : MonoBehaviour, ITurnActor {
 
         while (elapsed < moveDuration) {
             elapsed += Time.deltaTime;
-            transform.position = Vector3.Lerp(start, end, elapsed / moveDuration);
+            //transform.position = Vector3.Lerp(start, end, elapsed / moveDuration);
+            rb.MovePosition(Vector3.Lerp(start, end, elapsed / moveDuration));
             yield return null;
         }
 
-        transform.position = end;
+        //transform.position = end;
+        rb.MovePosition(end);
+        Debug.Log("i have made a move!");
     }
 }

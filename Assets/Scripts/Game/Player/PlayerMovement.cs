@@ -4,7 +4,7 @@ using System.Collections;
 public class PlayerMovement : MonoBehaviour {
 
     public static EnemyHandler Instance { get; private set; }
-    
+
     public float moveDistance = 1f;
     public float moveSpeed = 5f;
     public float hopHeight = 0.2f;
@@ -49,6 +49,7 @@ public class PlayerMovement : MonoBehaviour {
                 // snap finished, notify turnhandler we've moved
                 if (TurnManager.Instance != null) {
                     TurnManager.Instance.OnPlayerTurnCompleted();
+                    Debug.Log("player turn was completed");
                 }
 
             }
