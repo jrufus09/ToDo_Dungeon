@@ -46,6 +46,19 @@ public class EnemyHandler : MonoBehaviour {
         
         enemyMap = new Dictionary<Vector2Int, Enemy>();
         currentEnemies = new HashSet<EnemySpawnEntry>();
+        
+        if (DungeonGenerator.Instance != null) {
+            if (DungeonGenerator.Instance.GenerationDone) {
+                Debug.Log("GenerationDone true");
+                BeginHandling();
+            } else {
+                DungeonGenerator.Instance.OnGenerationComplete += BeginHandling;
+                Debug.Log("waiting for system action");
+            }
+        } else {
+            Debug.LogWarning("DungeonGenerator.Instance doesn't exist!");
+        }
+
     }
 
         // onstart: Decide upon a pool of enemies (hashset/array currentEnemies) from reference table
@@ -56,17 +69,18 @@ public class EnemyHandler : MonoBehaviour {
         // Generate it
 
     // Subscribe to the signal that tells you when dungeon generation is complete
-    void OnEnable() {
-        if (DungeonGenerator.Instance != null)
-            DungeonGenerator.Instance.OnGenerationComplete += BeginHandling;
-    }
+    // void OnEnable() {
+    //     if (DungeonGenerator.Instance != null)
+    //         DungeonGenerator.Instance.OnGenerationComplete += BeginHandling;
+    // }
 
-    void OnDisable() {
-        if (DungeonGenerator.Instance != null)
-            DungeonGenerator.Instance.OnGenerationComplete -= BeginHandling;
-    }
+    // void OnDisable() {
+    //     if (DungeonGenerator.Instance != null)
+    //         DungeonGenerator.Instance.OnGenerationComplete -= BeginHandling;
+    // }
 
     void BeginHandling() {
+        Debug.Log("begin handling");
         enemiesLayer = GameObject.FindGameObjectsWithTag("EnemiesLayer")[0];
         walkableTiles = DungeonGenerator.Instance.walkable;
         EnemyThemeSelector();

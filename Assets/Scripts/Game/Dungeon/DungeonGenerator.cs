@@ -6,6 +6,7 @@ using Unity.AI.Navigation;
 public class DungeonGenerator : MonoBehaviour {
     public static DungeonGenerator Instance { get; private set; }
     public event System.Action OnGenerationComplete; // like signals but for C#
+    public bool GenerationDone;
 
     [Header("Map Settings")]
     public int width = 50;
@@ -222,6 +223,7 @@ public class DungeonGenerator : MonoBehaviour {
         //Debug.Log("player spawned in successfully");
 
         OnGenerationComplete?.Invoke();
+        GenerationDone = true;
     }
 
     Vector2Int RoomCenter(RectInt room) {
