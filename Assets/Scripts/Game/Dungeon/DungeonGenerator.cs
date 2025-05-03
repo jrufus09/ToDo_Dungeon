@@ -20,6 +20,7 @@ public class DungeonGenerator : MonoBehaviour {
 
     [Header("Tiles")]
     public static Tilemap gridTilemap; // only one instance of this in the whole thing
+    public Tilemap gridTilemap_; // assign this one in inspector, but it's the same as above
     public Tilemap wallTilemap;
     public Tilemap floorTilemap;
     public TileBase gridTile;
@@ -42,8 +43,12 @@ public class DungeonGenerator : MonoBehaviour {
     }
     TileType[,] dungeonMap;
     //public NavMeshPlus.Components.NavMeshSurface surface;
-    public bool[,] walkableMap;
+    public static bool[,] walkableMap;
     public List<Vector2Int> walkableList;
+
+    void Awake() {
+        DungeonGenerator.gridTilemap = gridTilemap_; // assign to static variable
+    }
 
     void Start() {
 
@@ -251,11 +256,5 @@ public class DungeonGenerator : MonoBehaviour {
     //     return new Vector2Int(room.xMin + room.width / 2, room.yMin + room.height / 2);
     // }
 
-    
-    // helper method
-    public static Vector2Int WorldToGrid(Vector3 worldPos) {
-        Vector3Int cell = gridTilemap.WorldToCell(worldPos);
-        return new Vector2Int(cell.x, cell.y);
-    }
 
 }

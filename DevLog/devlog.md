@@ -154,3 +154,5 @@ Current bug that exists (still): stuff inside ListIcon doesn't register clicks.
 thanks man.
 https://github.com/h8man/NavMeshPlus/wiki/HOW-TO
 - nevermind it really doesn't want to work and I don't have all year to fix it. found another package to use
+- made a helper class for myself to convert transform.position to cell coordinates, as well as convert pathfinding
+- it's called Cell and it's in the Scripts/Game/Helper folder
