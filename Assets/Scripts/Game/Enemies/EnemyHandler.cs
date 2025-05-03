@@ -224,7 +224,7 @@ public class EnemyHandler : MonoBehaviour {
             Tilemap tm = DungeonGenerator.Instance.floorTilemap;
             Vector3 worldPos = tm.CellToWorld(sp3) + tm.cellSize / 2f;
             GameObject thing = Instantiate(enemyEntry.enemyPrefab, worldPos, Quaternion.identity, enemiesLayer.transform);
-            thing.GetComponent<Enemy>().SetPlayer(player);
+            //thing.GetComponent<Enemy>().SetPlayer(player);
             Debug.Log("pop, i made an enemy");
         }
 

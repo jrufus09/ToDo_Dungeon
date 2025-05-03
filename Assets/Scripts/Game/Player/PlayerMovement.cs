@@ -2,6 +2,9 @@ using UnityEngine;
 using System.Collections;
 
 public class PlayerMovement : MonoBehaviour {
+
+    public static EnemyHandler Instance { get; private set; }
+    
     public float moveDistance = 1f;
     public float moveSpeed = 5f;
     public float hopHeight = 0.2f;

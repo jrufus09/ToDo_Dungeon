@@ -39,21 +39,41 @@ public static class Cell {
     // Vector3[] path = task.Result;
     // // Now use path...
     // });
-    public static async Task<Vector3[]> FindPathWorldPositions(Vector3 start, Vector3 end) { //return Vector3[]
+    //public static async Task<Vector3[]> FindPathWorldPositions(Vector3 start, Vector3 end) { // async
+    public static Vector3[] FindPathWorldPositions(Vector3 start, Vector3 end) {
         // takes world positions in and out, still needs grid conversion for pathfinder
 
+        // convert to grid for pathfinder
         Vector2Int startC = WorldToGrid(start);
         Vector2Int endC = WorldToGrid(end);
 
         (int, int)[] path;
         // sync would have been fine but im scared of performance issues
-        //path = AStarPathfinding.GeneratePathSync(startC.x, startC.y, endC.x, endC.y, DungeonGenerator.walkableMap);
-        path = await AStarPathfinding.GeneratePath(startC.x, startC.y, endC.x, endC.y, DungeonGenerator.walkableMap);
+        path = AStarPathfinding.GeneratePathSync(startC.x, startC.y, endC.x, endC.y, DungeonGenerator.walkableMap);
+        //path = await AStarPathfinding.GeneratePath(startC.x, startC.y, endC.x, endC.y, DungeonGenerator.walkableMap);
 
         Vector3[] pathOut = new Vector3[path.Length];
         for (int i = 0; i < path.Length; i++) {
             Vector2Int pathNode = new Vector2Int(path[i].Item1, path[i].Item2);
             pathOut[i] = GridToWorldCentered(pathNode);
+        }
+
+        return pathOut;
+    }
+
+    public static Vector2Int[] PathToPlayerVec2(Vector3 posIn) { // output is grid coordinates
+
+        // convert to grid for pathfinder
+        Vector2Int enemyPos = WorldToGrid(posIn);
+        Vector2Int playerPos = WorldToGrid(Player.Instance.transform.position);
+
+        (int, int)[] path;
+        path = AStarPathfinding.GeneratePathSync(enemyPos.x, enemyPos.y, playerPos.x, playerPos.y, DungeonGenerator.walkableMap);
+
+        // convert back to Vec2Int
+        Vector2Int[] pathOut = new Vector2Int[path.Length];
+        for (int i = 0; i < path.Length; i++) {
+            pathOut[i] = new Vector2Int(path[i].Item1, path[i].Item2);
         }
 
         return pathOut;

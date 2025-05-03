@@ -1,9 +1,13 @@
 using UnityEngine;
 using UnityEngine.UI;
+using static Cell;
 
 public class Player : MonoBehaviour {
 
+    public static Player Instance { get; private set; }
     // attach self to the movement buttons because player generates after buttons
+
+    public Vector2Int coordinates;
 
     void Start() {
         var pm = GetComponent<PlayerMovement>();
@@ -23,6 +27,9 @@ public class Player : MonoBehaviour {
         FindFirstObjectByType<PlayerHealthBar>()?.SetTargetHealth(this.GetComponent<Health>());
 
         EnemyHandler.Instance.SetPlayer(transform);
+    }
 
+    void Update() {
+        coordinates = Cell.WorldToGrid(transform.position);
     }
 }

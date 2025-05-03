@@ -1,59 +1,63 @@
-using UnityEngine;
 using System.Collections;
-//using Unity.AI.Navigation;
-//using UnityEngine.AI;
+using System.Collections.Generic;
+using UnityEngine;
+using static Cell;
 
 public class Enemy : MonoBehaviour, ITurnActor {
-    public float moveDuration = 0.2f;
-    public Transform player;
 
-    public void SetPlayer(Transform plIn) {
-        player = plIn;
+    public float moveDuration = 0.15f; // For smooth movement later
+    private Queue<Vector2Int> cachedPath = new Queue<Vector2Int>();
+    private Vector2Int? lastKnownPlayerPos = null;
+    private Vector2Int currentGridPos => Cell.WorldToGrid(transform.position);
 
-        // snap to surface; navmesh finding issues
-        // Vector3 pos = transform.position;
-        // pos.z = 0f; // snap to surface
-        // transform.position = pos;
-
-        // despawn self if can't find navmesh
-        // pos = transform.position;
-        // if (!NavMesh.SamplePosition(pos, out NavMeshHit hit, 0.1f, NavMesh.AllAreas)) {
-        //     Debug.LogWarning("i'm not on NavMesh, destroying...");
-        //     Die();
-        // }
-    }
+    // public Transform player; // gave in and made player an instance
+    // public void SetPlayer(Transform plIn) {
+    //     player = plIn;
+    // }
 
     public IEnumerator TakeTurn() {
-        Vector2Int myPos = Vector2Int.RoundToInt(transform.position);
-        Vector2Int playerPos = Vector2Int.RoundToInt(player.position);
+        //Vector2Int playerGridPos = Player.Instance.coordinates;
 
-        Vector2Int direction = GetStepToward(myPos, playerPos);
-        Vector3 nextPos = transform.position + (Vector3)(Vector2)direction;
+        // recalculate path if player has moved or path is empty
+        if (lastKnownPlayerPos == null || Player.Instance.coordinates != lastKnownPlayerPos || cachedPath.Count == 0) {
+            // lastKnownPlayerPos = playerGridPos;
 
-        yield return MoveTo(nextPos);
+            // bool[,] walkableMap = DungeonGenerator.Instance.GetWalkableMap();
+            // var path = Pathfinder.GeneratePathSync(
+            //     currentGridPos.x, currentGridPos.y,
+            //     playerGridPos.x, playerGridPos.y,
+            //     walkableMap
+            // );
+
+            var path = Cell.PathToPlayerVec2(transform.position);
+
+            cachedPath = new Queue<Vector2Int>(path);
+            // Remove first step if it's the enemy's current tile
+            if (cachedPath.Count > 0 && cachedPath.Peek() == currentGridPos) {
+                cachedPath.Dequeue();
+            }
+        }
+
+        // Move one tile along path
+        if (cachedPath.Count > 0) {
+            Vector2Int nextStep = cachedPath.Dequeue();
+            yield return MoveToTile(nextStep);
+        } else {
+            yield return null; // wait one turn if no move
+        }
     }
 
-    Vector2Int GetStepToward(Vector2Int from, Vector2Int to) {
-        Vector2Int diff = to - from;
-        if (Mathf.Abs(diff.x) > Mathf.Abs(diff.y))
-            return new Vector2Int((int)Mathf.Sign(diff.x), 0);
-        else
-            return new Vector2Int(0, (int)Mathf.Sign(diff.y));
-    }
-
-    IEnumerator MoveTo(Vector3 target) {
+    private IEnumerator MoveToTile(Vector2Int targetGridPos) {
         Vector3 start = transform.position;
-        float t = 0f;
-        while (t < 1f) {
-            t += Time.deltaTime / moveDuration;
-            transform.position = Vector3.Lerp(start, target, t);
+        Vector3 end = Cell.GridToWorldCentered(targetGridPos);
+        float elapsed = 0f;
+
+        while (elapsed < moveDuration) {
+            elapsed += Time.deltaTime;
+            transform.position = Vector3.Lerp(start, end, elapsed / moveDuration);
             yield return null;
         }
-        transform.position = target;
-    }
 
-    public void Die() {
-        //EnemyHandler.Instance.UpdateDictionaryEnemyDied(transform.position)
-        Destroy(gameObject);
+        transform.position = end;
     }
 }

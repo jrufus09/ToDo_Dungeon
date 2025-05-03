@@ -129,6 +129,7 @@ Current bug that exists (still): stuff inside ListIcon doesn't register clicks.
 - beginning to think every task, list, board needs a unique ID :/ that way it's easier to remove
 
 ### 30-April-2025
+- whole dungeon generation system complete: simple random room placement with dot leg algorithm to join room centres
 - player movement with buttons done
 - camera follows player
 - tile collisions are on the fence
@@ -156,3 +157,5 @@ https://github.com/h8man/NavMeshPlus/wiki/HOW-TO
 - nevermind it really doesn't want to work and I don't have all year to fix it. found another package to use
 - made a helper class for myself to convert transform.position to cell coordinates, as well as convert pathfinding
 - it's called Cell and it's in the Scripts/Game/Helper folder
+- fixed so that enemies now spawn successfully
+- simple synchronously-generated paths (A*) integrated
