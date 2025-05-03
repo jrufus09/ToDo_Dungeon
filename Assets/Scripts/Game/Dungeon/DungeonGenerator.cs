@@ -19,7 +19,7 @@ public class DungeonGenerator : MonoBehaviour {
     public Vector2Int roomMaxSize = new Vector2Int(10, 10);
 
     [Header("Tiles")]
-    public Tilemap gridTilemap;
+    public static Tilemap gridTilemap; // only one instance of this in the whole thing
     public Tilemap wallTilemap;
     public Tilemap floorTilemap;
     public TileBase gridTile;
@@ -41,8 +41,9 @@ public class DungeonGenerator : MonoBehaviour {
         Wall
     }
     TileType[,] dungeonMap;
-    public NavMeshPlus.Components.NavMeshSurface surface;
-    public List<Vector2Int> walkable;
+    //public NavMeshPlus.Components.NavMeshSurface surface;
+    public bool[,] walkableMap;
+    public List<Vector2Int> walkableList;
 
     void Start() {
 
@@ -55,8 +56,8 @@ public class DungeonGenerator : MonoBehaviour {
 
         dungeonMap = new TileType[width, height];
         //surface = GetComponent<NavMeshSurface>();
-        surface = GetComponent<NavMeshPlus.Components.NavMeshSurface>();
-        surface.BuildNavMeshAsync();
+        //surface = GetComponent<NavMeshPlus.Components.NavMeshSurface>();
+        //surface.BuildNavMeshAsync();
 
         if (useSeed) {
             Random.InitState(seed);
@@ -181,32 +182,34 @@ public class DungeonGenerator : MonoBehaviour {
         //             wallTilemap.SetTile(new Vector3Int(x, y, 0), wallTile);
         //     }
         // }
-        walkable = new List<Vector2Int>();
+        walkableMap = new bool[width, height];
+        walkableList = new List<Vector2Int>();
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
+                gridTilemap.SetTile(new Vector3Int(x, y, 0), gridTile);
                 if (dungeonMap[x, y] == TileType.Floor) {
-                    gridTilemap.SetTile(new Vector3Int(x, y, 0), gridTile);
                     floorTilemap.SetTile(new Vector3Int(x, y, 0), floorTile);
 
-                    //EnemyHandler.Instance.walkableTiles.Add(new Vector2Int(x, y));
-                    walkable.Add(new Vector2Int(x, y));
+                    walkableList.Add(new Vector2Int(x, y));
+                    walkableMap[x,y] = true;
                 }
                 else if (dungeonMap[x, y] == TileType.Wall) {
                     wallTilemap.SetTile(new Vector3Int(x, y, 0), wallTile);
+                    walkableMap[x,y] = false;
                 }
             }
         }
-        StartCoroutine(BakeAfterDelay());
+        //StartCoroutine(BakeAfterDelay());
     }
 
-    IEnumerator BakeAfterDelay() {
-        yield return null; // wait one frame for tilemap to finalize
-        Physics2D.SyncTransforms(); // ensure colliders are registered
-        yield return new WaitForFixedUpdate(); // ensure physics runs
-        //surface.BuildNavMesh();
-        //surface.BuildNavMeshAsync();
-        surface.UpdateNavMesh(surface.navMeshData);
-    }
+    // IEnumerator BakeAfterDelay() {
+    //     yield return null; // wait one frame for tilemap to finalize
+    //     Physics2D.SyncTransforms(); // ensure colliders are registered
+    //     yield return new WaitForFixedUpdate(); // ensure physics runs
+    //     //surface.BuildNavMesh();
+    //     //surface.BuildNavMeshAsync();
+    //     surface.UpdateNavMesh(surface.navMeshData);
+    // }
 
     void SpawnPlayer() {
         if (playerPrefab == null) {
@@ -247,5 +250,12 @@ public class DungeonGenerator : MonoBehaviour {
     // Vector2Int PosToWorld(RectInt room) {
     //     return new Vector2Int(room.xMin + room.width / 2, room.yMin + room.height / 2);
     // }
+
+    
+    // helper method
+    public static Vector2Int WorldToGrid(Vector3 worldPos) {
+        Vector3Int cell = gridTilemap.WorldToCell(worldPos);
+        return new Vector2Int(cell.x, cell.y);
+    }
 
 }

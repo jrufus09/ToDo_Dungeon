@@ -27,7 +27,7 @@ public class EnemyHandler : MonoBehaviour {
     public Dictionary<Vector2Int, Enemy> enemyMap;
         // this WILL need to be updated at every turn
 
-    public List<Vector2Int> walkableTiles = new List<Vector2Int>();
+    //public List<Vector2Int> walkableTiles = new List<Vector2Int>();
     public Transform player;
 
     public GameObject enemiesLayer;
@@ -82,7 +82,7 @@ public class EnemyHandler : MonoBehaviour {
     void BeginHandling() {
         //Debug.Log("begin handling");
         enemiesLayer = GameObject.FindGameObjectsWithTag("EnemiesLayer")[0];
-        walkableTiles = DungeonGenerator.Instance.walkable;
+        //walkableTiles = DungeonGenerator.Instance.walkable;
         EnemyThemeSelector();
         StartCoroutine(CheckPeriodically());
     }
@@ -131,7 +131,7 @@ public class EnemyHandler : MonoBehaviour {
     Vector2Int GetValidSpawnPosition() {
         int attempts = 0;
         while (attempts < 50) {
-            Vector2Int randomPos = walkableTiles[Random.Range(0, walkableTiles.Count)];
+            Vector2Int randomPos = DungeonGenerator.Instance.walkableList[Random.Range(0, DungeonGenerator.Instance.walkableList.Count)];
 
             // check distance from player?
             // check if an item exists here?
@@ -253,3 +253,4 @@ public class EnemyHandler : MonoBehaviour {
     }
 
 }
+

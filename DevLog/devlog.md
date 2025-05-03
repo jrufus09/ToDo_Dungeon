@@ -153,4 +153,4 @@ Current bug that exists (still): stuff inside ListIcon doesn't register clicks.
 - trying to work out why my navmeshes don't exist only to find out that unity's system is built for 3D and absolutely won't work with 2D projects and that I need to install another package from an external github.
 thanks man.
 https://github.com/h8man/NavMeshPlus/wiki/HOW-TO
-- 
+- nevermind it really doesn't want to work and I don't have all year to fix it. found another package to use
