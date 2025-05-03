@@ -196,7 +196,7 @@ public class DungeonGenerator : MonoBehaviour {
                 }
             }
         }
-        //StartCoroutine(BakeAfterDelay());
+        StartCoroutine(BakeAfterDelay());
     }
 
     IEnumerator BakeAfterDelay() {
@@ -205,6 +205,7 @@ public class DungeonGenerator : MonoBehaviour {
         yield return new WaitForFixedUpdate(); // ensure physics runs
         //surface.BuildNavMesh();
         //surface.BuildNavMeshAsync();
+        surface.UpdateNavMesh(surface.navMeshData);
     }
 
     void SpawnPlayer() {
