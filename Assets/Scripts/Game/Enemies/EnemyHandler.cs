@@ -49,11 +49,11 @@ public class EnemyHandler : MonoBehaviour {
         
         if (DungeonGenerator.Instance != null) {
             if (DungeonGenerator.Instance.GenerationDone) {
-                Debug.Log("GenerationDone true");
+                //Debug.Log("GenerationDone true");
                 BeginHandling();
             } else {
                 DungeonGenerator.Instance.OnGenerationComplete += BeginHandling;
-                Debug.Log("waiting for system action");
+                //Debug.Log("waiting for system action");
             }
         } else {
             Debug.LogWarning("DungeonGenerator.Instance doesn't exist!");
@@ -80,7 +80,7 @@ public class EnemyHandler : MonoBehaviour {
     // }
 
     void BeginHandling() {
-        Debug.Log("begin handling");
+        //Debug.Log("begin handling");
         enemiesLayer = GameObject.FindGameObjectsWithTag("EnemiesLayer")[0];
         walkableTiles = DungeonGenerator.Instance.walkable;
         EnemyThemeSelector();
@@ -91,7 +91,7 @@ public class EnemyHandler : MonoBehaviour {
 
         // filter
         foreach (EnemySpawnEntry entry in spawnTable.enemies) {
-            Debug.Log(entry+", "+spawnTable.enemies+", "+theme);
+            //Debug.Log(entry+", "+spawnTable.enemies+", "+theme);
             if (entry.themes.Count == 0) {
                 Debug.Log("themes list empty");
             } else if (entry.themes.Contains(theme)) {
@@ -112,7 +112,7 @@ public class EnemyHandler : MonoBehaviour {
     private void CheckEnemiesMax() {
         // if no of enemies present < max enemies, spawn one
         if (enemyMap.Count < maxEnemies) {  
-            Debug.Log(enemyMap.Count+" enemies on map and "+maxEnemies+" max enemies");
+            //Debug.Log(enemyMap.Count+" enemies on map and "+maxEnemies+" max enemies");
             SpawnEnemy(GenerateRandomEnemy());
         }
 

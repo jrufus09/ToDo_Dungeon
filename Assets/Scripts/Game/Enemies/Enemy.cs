@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections;
+using Unity.AI.Navigation;
+using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour, ITurnActor {
     public float moveDuration = 0.2f;
@@ -7,6 +9,18 @@ public class Enemy : MonoBehaviour, ITurnActor {
 
     public void SetPlayer(Transform plIn) {
         player = plIn;
+
+        // snap to surface; navmesh finding issues
+        Vector3 pos = transform.position;
+        pos.z = 0f; // snap to surface
+        transform.position = pos;
+
+        // despawn self if can't find navmesh
+        pos = transform.position;
+        if (!NavMesh.SamplePosition(pos, out NavMeshHit hit, 0.1f, NavMesh.AllAreas)) {
+            Debug.LogWarning("i'm not on NavMesh, destroying...");
+            Die();
+        }
     }
 
     public IEnumerator TakeTurn() {
@@ -40,5 +54,6 @@ public class Enemy : MonoBehaviour, ITurnActor {
 
     public void Die() {
         //EnemyHandler.Instance.UpdateDictionaryEnemyDied(transform.position)
+        Destroy(gameObject);
     }
 }

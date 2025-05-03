@@ -139,7 +139,7 @@ Current bug that exists (still): stuff inside ListIcon doesn't register clicks.
 - made health system
 - fixed alignment issues with tilemap and player
 
-### 2-May-2026
+### 2-May-2025
 - started on enemy
 - made TurnManager
 - made DungeonUI / for handling button inputs
@@ -148,3 +148,9 @@ Current bug that exists (still): stuff inside ListIcon doesn't register clicks.
 - I made a whole scriptable object dictionary and it was cool
 - editor is now not allowing me to run play mode without freezing and crashing.
 - now need half my scripts to subscribe to "dungeon generation complete"
+
+### 3-May-2025
+- trying to work out why my navmeshes don't exist only to find out that unity's system is built for 3D and absolutely won't work with 2D projects and that I need to install another package from an external github.
+thanks man.
+https://github.com/h8man/NavMeshPlus/wiki/HOW-TO
+- 

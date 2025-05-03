@@ -1,7 +1,10 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Collections.Generic;
+using System.Collections; // for enumerators
 using Unity.AI.Navigation;
+using NavMeshPlus.Components;
+
 
 public class DungeonGenerator : MonoBehaviour {
     public static DungeonGenerator Instance { get; private set; }
@@ -38,7 +41,7 @@ public class DungeonGenerator : MonoBehaviour {
         Wall
     }
     TileType[,] dungeonMap;
-    public NavMeshSurface surface;
+    public NavMeshPlus.Components.NavMeshSurface surface;
     public List<Vector2Int> walkable;
 
     void Start() {
@@ -51,7 +54,9 @@ public class DungeonGenerator : MonoBehaviour {
         }
 
         dungeonMap = new TileType[width, height];
-        surface = GetComponent<NavMeshSurface>();
+        //surface = GetComponent<NavMeshSurface>();
+        surface = GetComponent<NavMeshPlus.Components.NavMeshSurface>();
+        surface.BuildNavMeshAsync();
 
         if (useSeed) {
             Random.InitState(seed);
@@ -191,7 +196,15 @@ public class DungeonGenerator : MonoBehaviour {
                 }
             }
         }
-        surface.BuildNavMesh();
+        //StartCoroutine(BakeAfterDelay());
+    }
+
+    IEnumerator BakeAfterDelay() {
+        yield return null; // wait one frame for tilemap to finalize
+        Physics2D.SyncTransforms(); // ensure colliders are registered
+        yield return new WaitForFixedUpdate(); // ensure physics runs
+        //surface.BuildNavMesh();
+        //surface.BuildNavMeshAsync();
     }
 
     void SpawnPlayer() {
