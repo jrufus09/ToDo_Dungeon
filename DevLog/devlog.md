@@ -168,3 +168,6 @@ https://github.com/h8man/NavMeshPlus/wiki/HOW-TO
 - updating DungeonUI to remember what button is left, right, etc. instead of simply keeping them in a random array
 - updating to disable movement in a direction that is blocked
 - new bug! enemy can spawn in player's current location and trap them
+- updated spawning system to allow player safe area
+- made attack button that enables when enemy is nearby
+- resolving turnamanager issues which include: infinitely giving enemy turns

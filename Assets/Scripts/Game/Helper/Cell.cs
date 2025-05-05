@@ -74,6 +74,8 @@ public static class Cell {
         (int, int)[] path;
         path = AStarPathfinding.GeneratePathSync(enemyPos.x, enemyPos.y, playerPos.x, playerPos.y, DungeonGenerator.walkableMap);
 
+        Debug.Log(path[0] + ", " + path[1] + ", " + path[2]);
+
         // convert back to Vec2Int
         Vector2Int[] pathOut = new Vector2Int[path.Length];
         for (int i = 0; i < path.Length; i++) {

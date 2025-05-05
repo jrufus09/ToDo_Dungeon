@@ -11,26 +11,18 @@ public class Enemy : MonoBehaviour, ITurnActor {
     private Vector2Int? lastKnownPlayerPos = null;
     private Vector2Int currentGridPos => Cell.WorldToGrid(transform.position);
     private Rigidbody2D rb;
+    private float moveSpeed = 5f;
 
     public Vector2Int coordinates;
 
-    // public Transform player; // gave in and made player an instance
-    // public void SetPlayer(Transform plIn) {
-    //     player = plIn;
-    // }
-
     void Start() {
 
-        // find rigidbody
         rb = GetComponent<Rigidbody2D>();
 
         // snap to grid!
         Vector2Int gridPos = Cell.WorldToGrid(transform.position);
-        //transform.position = Cell.GridToWorldCentered(gridPos);
         rb.MovePosition(Cell.GridToWorldCentered(gridPos));
 
-        // check you haven't spawned on top of player
-        
         // Register in turnmanager
         TurnManager.Instance.RegisterEnemy(this);
 
@@ -41,36 +33,23 @@ public class Enemy : MonoBehaviour, ITurnActor {
     }
 
     public IEnumerator TakeTurn() {
-        //Vector2Int playerGridPos = Player.Instance.coordinates;
 
-        // recalculate path if player has moved or path is empty
-        if (lastKnownPlayerPos == null || Player.Instance.coordinates != lastKnownPlayerPos || cachedPath.Count == 0) {
-            // lastKnownPlayerPos = playerGridPos;
+        Vector2Int[] path = Cell.PathToPlayerVec2(transform.position);
+        //Debug.Log(path[0] + ", " + path[1] + ", " + path[2]);
 
-            // bool[,] walkableMap = DungeonGenerator.Instance.GetWalkableMap();
-            // var path = Pathfinder.GeneratePathSync(
-            //     currentGridPos.x, currentGridPos.y,
-            //     playerGridPos.x, playerGridPos.y,
-            //     walkableMap
-            // );
+        if (path != null && path.Length > 1) {
+            // assuming path[0] is current position and path[1] is next move
+            Vector2Int nextStep = path[1];
+            Vector3 targetWorld = Cell.GridToWorldCentered(nextStep);
 
-            var path = Cell.PathToPlayerVec2(transform.position);
-
-            cachedPath = new Queue<Vector2Int>(path);
-            // Remove first step if it's the enemy's current tile
-            if (cachedPath.Count > 0 && cachedPath.Peek() == currentGridPos) {
-                cachedPath.Dequeue();
-            }
+            yield return StartCoroutine(SmoothMoveTo(targetWorld));
+            coordinates = nextStep;
         }
 
-        Debug.Log("I, the enemy, am performing a turn");
-        // Move one tile along path
-        if (cachedPath.Count > 0) {
-            Vector2Int nextStep = cachedPath.Dequeue();
-            yield return MoveToTile(nextStep);
-        } else {
-            yield return null; // wait one turn if no move
-        }
+        yield return null;
+
+        //Debug.Log("I, the enemy, am performing a turn");
+
     }
 
     private IEnumerator MoveToTile(Vector2Int targetGridPos) {
@@ -96,20 +75,15 @@ public class Enemy : MonoBehaviour, ITurnActor {
         Destroy(gameObject);
     }
 
-    // public void DontTrapPlayer() { // if youve spawned on top of player, Dont
-    //     Vector2Int[] offsets = {
-    //         Vector2Int.up, Vector2Int.right, Vector2Int.down, Vector2Int.left
-    //     };
+    private IEnumerator SmoothMoveTo(Vector3 target) {
+        float elapsed = 0f;
+        Vector3 start = transform.position;
+        while (elapsed < 1f) {
+            elapsed += Time.deltaTime * moveSpeed;
+            rb.MovePosition(Vector3.Lerp(start, target, elapsed));
+            yield return null;
+        }
+        rb.MovePosition(target); // snap to exact
+    }
 
-    //     foreach (var offset in offsets) {
-    //         Vector2Int newPos = Cell.WorldToGrid(transform.position) + offset;
-    //         if (IsWalkable(newPos) && !occupiedPositions.Contains(newPos)) {
-    //             rb.MoveTo(newPos);
-    //             return;
-    //         }
-    //     }
-    //     // no valid space? despawn as fallback
-    //     Destroy(gameObject);
-    // }
-    
 }

@@ -63,7 +63,7 @@ namespace demo3
 		private void Start()
 		{
 			simpleBoolMap();
-			simpleFloatMap();
+			//simpleFloatMap();
 		}
 	}
 }
