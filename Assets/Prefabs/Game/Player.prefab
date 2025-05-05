@@ -145,6 +145,9 @@ MonoBehaviour:
   wallLayer:
     serializedVersion: 2
     m_Bits: 256
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &6253482492171127159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,6 +191,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 50
+  isDead: 0
 --- !u!50 &313770495706853211
 Rigidbody2D:
   serializedVersion: 5

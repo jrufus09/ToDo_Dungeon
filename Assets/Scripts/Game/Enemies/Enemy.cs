@@ -12,6 +12,8 @@ public class Enemy : MonoBehaviour, ITurnActor {
     private Vector2Int currentGridPos => Cell.WorldToGrid(transform.position);
     private Rigidbody2D rb;
 
+    public Vector2Int coordinates;
+
     // public Transform player; // gave in and made player an instance
     // public void SetPlayer(Transform plIn) {
     //     player = plIn;
@@ -26,12 +28,17 @@ public class Enemy : MonoBehaviour, ITurnActor {
         Vector2Int gridPos = Cell.WorldToGrid(transform.position);
         //transform.position = Cell.GridToWorldCentered(gridPos);
         rb.MovePosition(Cell.GridToWorldCentered(gridPos));
+
+        // check you haven't spawned on top of player
         
         // Register in turnmanager
         TurnManager.Instance.RegisterEnemy(this);
 
     }
 
+    void Update() {
+        coordinates = Cell.WorldToGrid(transform.position);
+    }
 
     public IEnumerator TakeTurn() {
         //Vector2Int playerGridPos = Player.Instance.coordinates;
@@ -89,4 +96,20 @@ public class Enemy : MonoBehaviour, ITurnActor {
         Destroy(gameObject);
     }
 
+    // public void DontTrapPlayer() { // if youve spawned on top of player, Dont
+    //     Vector2Int[] offsets = {
+    //         Vector2Int.up, Vector2Int.right, Vector2Int.down, Vector2Int.left
+    //     };
+
+    //     foreach (var offset in offsets) {
+    //         Vector2Int newPos = Cell.WorldToGrid(transform.position) + offset;
+    //         if (IsWalkable(newPos) && !occupiedPositions.Contains(newPos)) {
+    //             rb.MoveTo(newPos);
+    //             return;
+    //         }
+    //     }
+    //     // no valid space? despawn as fallback
+    //     Destroy(gameObject);
+    // }
+    
 }

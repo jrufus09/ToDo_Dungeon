@@ -94,7 +94,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5465977824139333252, guid: 2b6c026fb59f96742aa3e0bfc6fb9125, type: 3}
       propertyPath: inputParameters.y
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 6146920483350347139, guid: 2b6c026fb59f96742aa3e0bfc6fb9125, type: 3}
       propertyPath: m_text

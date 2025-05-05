@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerMovement : MonoBehaviour {
 
@@ -25,6 +26,7 @@ public class PlayerMovement : MonoBehaviour {
     private Vector3 posBeforeMove;
     private bool isMoving = false;
     public LayerMask wallLayer;
+    public LayerMask enemyLayer;
     
     void Awake() {
         if (Instance != null && Instance != this) {
@@ -117,18 +119,13 @@ public class PlayerMovement : MonoBehaviour {
         // cast a ray, see what hits wallLayer
         RaycastHit2D hit = Physics2D.BoxCast(origin, boxSize, 0f, dir, castDistance, wallLayer);
         if (hit.collider != null) {
-            // if the raycast hit a thing, don't move.
-            //Debug.Log(hit.collider);
-            
-            // Disable movement in that direction
-            // Debug.Log(dir+ ", "+ DungeonUI.Instance.transform);
-            // DungeonUI.Instance.EnableMoveButton(dir, false);
-
             return;
         }
-        // } else {
-        //     DungeonUI.Instance.EnableAllMoveButtons();
-        // }
+
+        RaycastHit2D hit2 = Physics2D.BoxCast(origin, boxSize, 0f, dir, castDistance, enemyLayer);
+        if (hit2.collider != null) {
+            return;
+        }
 
         posBeforeMove = transform.position;
         targetPosition = destination;
@@ -140,7 +137,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     public void CheckForObstacles() {
-        float checkDistance = 0.55f; // halfway either way
+        float checkDistance = 0.45f; // halfway either way
         Vector2 origin = transform.position;
 
         // trying something new, combining layermasks
@@ -148,16 +145,25 @@ public class PlayerMovement : MonoBehaviour {
         int enemyLayer = LayerMask.GetMask("Enemy");
         int combinedMask = wallLayer | enemyLayer;
 
+        List<Vector2> blockages = new List<Vector2>();
+
         for (int i = 0; i < directions.Length; i++) { // for each direction, check raycast
             Vector2 dir = directions[i];
             RaycastHit2D hit = Physics2D.Raycast(origin, dir, checkDistance, combinedMask); 
 
             if (hit.collider != null) {
-                //Debug.Log("blocked in direction: " + dir + " by: " + hit.collider.name);
-                DungeonUI.Instance.EnableMoveButton(dir, false); // your custom function
-            } else {
-                DungeonUI.Instance.EnableAllMoveButtons();
+                Debug.Log("blocked in direction: " + dir + " by: " + hit.collider.name);
+                blockages.Add(dir);
             }
+        }
+
+        // check list for blockages only once per method
+        if (blockages.Count > 0) {
+            foreach(Vector2 obstacle in blockages) {
+                DungeonUI.Instance.EnableMoveButton(obstacle, false);
+            }
+        } else {
+            DungeonUI.Instance.EnableAllMoveButtons();
         }
     }
 

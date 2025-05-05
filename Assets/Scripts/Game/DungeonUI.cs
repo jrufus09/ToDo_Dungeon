@@ -52,13 +52,13 @@ public class DungeonUI : MonoBehaviour {
     // }
 
     public void EnableMoveButton(Vector2 dir, bool tf=true) {
-        if (dir == new Vector2(-1, 0)) {
+        if (dir == Vector2.left) {
             left.interactable = tf;
-        } else if (dir == new Vector2(1, 0)) {
+        } else if (dir == Vector2.right) {
             right.interactable = tf;
-        } else if (dir == new Vector2(0, 1)) {
+        } else if (dir == Vector2.up) {
             up.interactable = tf;
-        } else if (dir == new Vector2(0, -1)) {
+        } else if (dir == Vector2.down) {
             down.interactable = tf;
         }
     }

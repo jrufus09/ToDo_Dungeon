@@ -16,6 +16,7 @@ public class EnemyHandler : MonoBehaviour {
     public Theme currentTheme;
     public int maxEnemies = 5;
     public int checkIntervalS = 5;
+    public int safeRadius = 5;
 
     [Header("Random Seed Stuff")]
     public bool useSeed = true;
@@ -88,7 +89,6 @@ public class EnemyHandler : MonoBehaviour {
     }
 
     public void EnemyThemeSelector(Theme theme = Theme.Testing) {
-
         // filter
         foreach (EnemySpawnEntry entry in spawnTable.enemies) {
             //Debug.Log(entry+", "+spawnTable.enemies+", "+theme);
@@ -127,14 +127,18 @@ public class EnemyHandler : MonoBehaviour {
             
     //     //     }
     // }
+    bool IsTooCloseToPlayer(Vector2Int pos) { // are you within the player's safe zone? don't spawn there!
+        return (pos - Player.Instance.coordinates).sqrMagnitude <= safeRadius * safeRadius;
+    }
 
     Vector2Int GetValidSpawnPosition() {
         int attempts = 0;
+
         while (attempts < 50) {
             Vector2Int randomPos = DungeonGenerator.Instance.walkableList[Random.Range(0, DungeonGenerator.Instance.walkableList.Count)];
 
             // check distance from player
-            if (randomPos == Player.Instance.coordinates) {
+            if (IsTooCloseToPlayer(randomPos)) {
                 continue;
             }
 
