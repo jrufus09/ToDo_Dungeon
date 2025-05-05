@@ -133,7 +133,11 @@ public class EnemyHandler : MonoBehaviour {
         while (attempts < 50) {
             Vector2Int randomPos = DungeonGenerator.Instance.walkableList[Random.Range(0, DungeonGenerator.Instance.walkableList.Count)];
 
-            // check distance from player?
+            // check distance from player
+            if (randomPos == Player.Instance.coordinates) {
+                continue;
+            }
+
             // check if an item exists here?
 
             // check if an enemy already exists here:

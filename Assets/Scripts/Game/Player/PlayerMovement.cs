@@ -140,7 +140,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     public void CheckForObstacles() {
-        float checkDistance = 0.5f; // halfway either way
+        float checkDistance = 0.55f; // halfway either way
         Vector2 origin = transform.position;
 
         // trying something new, combining layermasks

@@ -10,6 +10,13 @@ public class Player : MonoBehaviour {
     public Vector2Int coordinates;
 
     void Start() {
+        if (Instance == null) {
+            Instance = this;
+            DontDestroyOnLoad(gameObject); // keep alive between scenes
+        } else {
+            Destroy(gameObject); // destroy duplicates
+        }
+        
         var pm = GetComponent<PlayerMovement>();
 
         // get all buttons

@@ -166,3 +166,5 @@ https://github.com/h8man/NavMeshPlus/wiki/HOW-TO
 
 ### 5-May-2025
 - updating DungeonUI to remember what button is left, right, etc. instead of simply keeping them in a random array
+- updating to disable movement in a direction that is blocked
+- new bug! enemy can spawn in player's current location and trap them
