@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerMovement : MonoBehaviour {
 
@@ -133,11 +134,13 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
-        Debug.Log("Collided with: " + collision.gameObject.name);
+        //Debug.Log("Collided with: " + collision.gameObject.name);
+
+        //CheckForObstacles();
     }
 
     public void CheckForObstacles() {
-        float checkDistance = 0.45f; // halfway either way
+        float checkDistance = 0.7f; // halfway either way
         Vector2 origin = transform.position;
 
         // trying something new, combining layermasks
@@ -152,15 +155,21 @@ public class PlayerMovement : MonoBehaviour {
             RaycastHit2D hit = Physics2D.Raycast(origin, dir, checkDistance, combinedMask); 
 
             if (hit.collider != null) {
-                Debug.Log("blocked in direction: " + dir + " by: " + hit.collider.name);
+                //Debug.Log("blocked in direction: " + dir + " by: " + hit.collider.name);
                 blockages.Add(dir);
+                //Debug.Log(blockages);
             }
         }
 
-        // check list for blockages only once per method
+        // check list for blockages only once per method; update all directions every time
         if (blockages.Count > 0) {
-            foreach(Vector2 obstacle in blockages) {
-                DungeonUI.Instance.EnableMoveButton(obstacle, false);
+            foreach(Vector2 dir2 in directions) {
+                if (blockages.Contains(dir2)) {
+                    Debug.Log("blocking button in direction "+dir2);
+                    DungeonUI.Instance.EnableMoveButton(dir2, false);
+                } else {
+                    DungeonUI.Instance.EnableMoveButton(dir2, true);
+                }
             }
         } else {
             DungeonUI.Instance.EnableAllMoveButtons();
