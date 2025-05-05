@@ -11,6 +11,7 @@ public static class Cell {
     // transform.position in, cell coordinates out.
     public static Vector2Int WorldToGrid(Vector3 worldPos) {
         Vector3Int cell = DungeonGenerator.gridTilemap.WorldToCell(worldPos);
+        // we add that offset to make it centred on grid
         return new Vector2Int(cell.x, cell.y);
     }
     // for easy tracking in inspector,
@@ -25,8 +26,11 @@ public static class Cell {
     // }
     // centre on tile / align perfectly
     public static Vector3 GridToWorldCentered(Vector2Int gridPos) {
-        Vector3 world = DungeonGenerator.gridTilemap.CellToWorld(new Vector3Int(gridPos.x, gridPos.y, 0));
-        return world + DungeonGenerator.gridTilemap.cellSize / 2f;
+        //Vector3 worldPos = DungeonGenerator.gridTilemap.CellToWorld(new Vector3Int(gridPos.x, gridPos.y, 0));
+        Vector3Int gp3 = new Vector3Int(gridPos.x, gridPos.y, 0);
+        Vector3 worldPos = DungeonGenerator.gridTilemap.GetCellCenterWorld(gp3);
+        //return worldPos + DungeonGenerator.gridTilemap.cellSize / 2f;
+        return worldPos;
     }
 
     // pathfinding returns (int,int) coordinates in an array which needs conversion to cell, so

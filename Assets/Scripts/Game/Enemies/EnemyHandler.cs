@@ -238,19 +238,42 @@ public class EnemyHandler : MonoBehaviour {
         // }
     }
 
-    public void UpdateDictionaryEnemySpawned(Vector2Int pos, Enemy enemy) {
+    public void EnemySpawned(Vector2Int pos, Enemy enemy) {
         enemyMap[pos] = enemy;
     }
 
-    public void UpdateDictionaryEnemyMoved(Vector2Int oldPos, Vector2Int newPos) {
+    public void EnemyMoved(Vector2Int oldPos, Vector2Int newPos) {
         Enemy enemy = enemyMap[oldPos];
         enemyMap.Remove(oldPos);
         enemyMap[newPos] = enemy;
     }
 
-    public void UpdateDictionaryEnemyDied(Vector2Int atPos) {
+    public void EnemyDied(Vector2Int atPos) {
         enemyMap.Remove(atPos);
     }
+
+    public bool IsOccupied(Vector2Int position) {
+        return enemyMap.ContainsKey(position);
+    }
+
+    public Enemy GetEnemyAt(Vector2Int position) {
+        enemyMap.TryGetValue(position, out Enemy e);
+        return e;
+    }
+
+    public void RegisterEnemy(Vector2Int pos, Enemy enemy) {
+        enemyMap[pos] = enemy;
+    }
+
+    public void UnregisterEnemy(Vector2Int pos) {
+        if (enemyMap.ContainsKey(pos)) enemyMap.Remove(pos);
+    }
+
+    // accidentally made EnemyMovedV2
+    // public void UpdateEnemyPosition(Vector2Int oldPos, Vector2Int newPos, Enemy enemy) {
+    //     UnregisterEnemy(oldPos);
+    //     RegisterEnemy(newPos, enemy);
+    // }
 
 }
 

@@ -97,9 +97,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1626785906503527678}
   - component: {fileID: 5326405692230335804}
+  - component: {fileID: 6253482492171127159}
   - component: {fileID: 1636756048279864409}
   - component: {fileID: 8151265095733468883}
-  - component: {fileID: 6253482492171127159}
   - component: {fileID: 313770495706853211}
   - component: {fileID: 1715263428718571841}
   m_Layer: 6
@@ -145,6 +145,19 @@ MonoBehaviour:
   wallLayer:
     serializedVersion: 2
     m_Bits: 256
+--- !u!114 &6253482492171127159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4717930865252694207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a83ffa3d8ff2b648ba78757d35d99d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coordinates: {x: 0, y: 0}
 --- !u!114 &1636756048279864409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -175,19 +188,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 50
---- !u!114 &6253482492171127159
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4717930865252694207}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a83ffa3d8ff2b648ba78757d35d99d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  coordinates: {x: 0, y: 0}
 --- !u!50 &313770495706853211
 Rigidbody2D:
   serializedVersion: 5
@@ -198,12 +198,12 @@ Rigidbody2D:
   m_GameObject: {fileID: 4717930865252694207}
   m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.0001
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_AngularDamping: 10
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -213,8 +213,8 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!61 &1715263428718571841
 BoxCollider2D:
   m_ObjectHideFlags: 0

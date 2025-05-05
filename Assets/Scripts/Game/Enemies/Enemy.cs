@@ -82,4 +82,11 @@ public class Enemy : MonoBehaviour, ITurnActor {
         rb.MovePosition(end);
         Debug.Log("i have made a move!");
     }
+
+    public void Die() {
+        // yeah me too mate
+        Debug.Log("goodbye cruel worldddddd");
+        Destroy(gameObject);
+    }
+
 }

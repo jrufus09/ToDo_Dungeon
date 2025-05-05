@@ -4,6 +4,7 @@ public class Health : MonoBehaviour { // add this to anything that has health, t
 
     public int maxHealth = 100;
     public int currentHealth = 50;
+    public bool isDead;
 
     void Awake() {
         currentHealth = maxHealth;
@@ -26,6 +27,7 @@ public class Health : MonoBehaviour { // add this to anything that has health, t
 
     public void Die() {
         Debug.Log(this.name+ " died!!!");
+        isDead = true;
         Destroy(gameObject);
     }
 

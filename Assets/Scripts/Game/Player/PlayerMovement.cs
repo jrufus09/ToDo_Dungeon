@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerMovement : MonoBehaviour {
 
-    public static EnemyHandler Instance { get; private set; }
+    public static PlayerMovement Instance { get; private set; }
 
     public float moveDistance = 1f;
     public float moveSpeed = 5f;
@@ -24,8 +24,11 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     public void InitiateAt(Vector2 pos) {
+        rb = GetComponent<Rigidbody2D>(); // apparently start() didnt get it
+
         //Debug.Log(pos);
-        transform.position = pos;
+        //transform.position = pos;
+        rb.MovePosition(pos);
         SnapToGrid();
     }
 
@@ -33,7 +36,8 @@ public class PlayerMovement : MonoBehaviour {
         Vector3 pos = transform.position;
         pos.x = Mathf.Round(pos.x);
         pos.y = Mathf.Round(pos.y);
-        transform.position = pos;
+        //transform.position = pos;
+        rb.MovePosition(pos);
         targetPosition = transform.position;
     }
 
@@ -86,7 +90,7 @@ public class PlayerMovement : MonoBehaviour {
         Vector2 origin = rb.position;
         Vector2 destination = origin + dir * moveDistance;
 
-        // make a cast bos smaller than the player's collider
+        // make a cast box smaller than the player's collider
         BoxCollider2D box = GetComponent<BoxCollider2D>();
         Vector2 boxSize = box.size * 0.95f;
         float castDistance = moveDistance * 0.95f;
@@ -94,12 +98,27 @@ public class PlayerMovement : MonoBehaviour {
         // cast a ray, see what hits wallLayer
         RaycastHit2D hit = Physics2D.BoxCast(origin, boxSize, 0f, dir, castDistance, wallLayer);
         if (hit.collider != null) {
+            // if the raycast hit a thing, don't move.
+            //Debug.Log(hit.collider);
+            
+            // Disable movement in that direction
+            // Debug.Log(dir+ ", "+ DungeonUI.Instance.transform);
+            // DungeonUI.Instance.EnableMoveButton(dir, false);
+
             return;
         }
+        // } else {
+        //     DungeonUI.Instance.EnableAllMoveButtons();
+        // }
 
         posBeforeMove = transform.position;
         targetPosition = destination;
         isMoving = true;
     }
+
+    private void OnCollisionEnter2D(Collision2D collision) {
+        Debug.Log("Collided with: " + collision.gameObject.name);
+    }
+
 
 }

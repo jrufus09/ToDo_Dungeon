@@ -159,3 +159,10 @@ https://github.com/h8man/NavMeshPlus/wiki/HOW-TO
 - it's called Cell and it's in the Scripts/Game/Helper folder
 - fixed so that enemies now spawn successfully
 - simple synchronously-generated paths (A*) integrated
+
+### 4-May-2025
+- there is a problem with enemy collisions being kinematic and the player doesn't collide with them if that's the case.
+- it's time for manual collision detection :(
+
+### 5-May-2025
+- updating DungeonUI to remember what button is left, right, etc. instead of simply keeping them in a random array
