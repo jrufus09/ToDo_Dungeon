@@ -11,6 +11,14 @@ public class DungeonUI : MonoBehaviour {
     public Button up;
     public Button down;
 
+    private void Awake() {
+        if (Instance != null && Instance != this) {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+    }
+
     void Start() {
 
         //moveButtons = new Button[3]; // first 4 items

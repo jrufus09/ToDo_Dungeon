@@ -5,6 +5,13 @@ public class PlayerMovement : MonoBehaviour {
 
     public static PlayerMovement Instance { get; private set; }
 
+    Vector2[] directions = {
+        Vector2.up,
+        Vector2.down,
+        Vector2.left,
+        Vector2.right
+    };
+
     public float moveDistance = 1f;
     public float moveSpeed = 5f;
     public float hopHeight = 0.2f;
@@ -18,6 +25,14 @@ public class PlayerMovement : MonoBehaviour {
     private Vector3 posBeforeMove;
     private bool isMoving = false;
     public LayerMask wallLayer;
+    
+    void Awake() {
+        if (Instance != null && Instance != this) {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+    }
 
     void Start() {
         rb = GetComponent<Rigidbody2D>();
@@ -58,6 +73,10 @@ public class PlayerMovement : MonoBehaviour {
 
             }
         }
+
+        // check if next move viable
+        CheckForObstacles();
+
     }
 
     void LateUpdate() {
@@ -118,6 +137,28 @@ public class PlayerMovement : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision) {
         Debug.Log("Collided with: " + collision.gameObject.name);
+    }
+
+    public void CheckForObstacles() {
+        float checkDistance = 0.5f; // halfway either way
+        Vector2 origin = transform.position;
+
+        // trying something new, combining layermasks
+        int wallLayer = LayerMask.GetMask("Wall");
+        int enemyLayer = LayerMask.GetMask("Enemy");
+        int combinedMask = wallLayer | enemyLayer;
+
+        for (int i = 0; i < directions.Length; i++) { // for each direction, check raycast
+            Vector2 dir = directions[i];
+            RaycastHit2D hit = Physics2D.Raycast(origin, dir, checkDistance, combinedMask); 
+
+            if (hit.collider != null) {
+                //Debug.Log("blocked in direction: " + dir + " by: " + hit.collider.name);
+                DungeonUI.Instance.EnableMoveButton(dir, false); // your custom function
+            } else {
+                DungeonUI.Instance.EnableAllMoveButtons();
+            }
+        }
     }
 
 
