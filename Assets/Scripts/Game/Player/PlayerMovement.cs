@@ -72,6 +72,8 @@ public class PlayerMovement : MonoBehaviour {
                 if (TurnManager.Instance != null) {
                     TurnManager.Instance.OnPlayerTurnCompleted();
                     Debug.Log("player turn was completed");
+                } else {
+                    Debug.Log("turnmanager is null");
                 }
 
             }

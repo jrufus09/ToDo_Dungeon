@@ -127,6 +127,7 @@ public class EnemyHandler : MonoBehaviour {
             
     //     //     }
     // }
+
     bool IsTooCloseToPlayer(Vector2Int pos) { // are you within the player's safe zone? don't spawn there!
         return (pos - Player.Instance.coordinates).sqrMagnitude <= safeRadius * safeRadius;
     }
@@ -176,25 +177,6 @@ public class EnemyHandler : MonoBehaviour {
     }
 
     public EnemySpawnEntry GenerateRandomEnemy() {
-        //EnemySpawnEntry enemy = null;
-        // while (enemy == null) {
-        //     SpawnRank rank = GenerateRandomEnemyRank();
-
-        //     // go through and find all enemies of that rank
-        //     List<EnemySpawnEntry> pool = new List<EnemySpawnEntry>();
-        //     foreach (EnemySpawnEntry thing in currentEnemies) {
-        //         if (thing.spawnRank == rank) {
-        //             pool.Add(thing);
-        //         }
-        //     }
-        //     if (pool.Count == 0) { // empty, meaning none of that rank exists
-        //         continue; // restart while loop / regenerate rank
-        //     } else { // random of list
-        //         int index = pureRandom.Next(0, pool.Count);
-        //         enemy = pool[index];
-        //         break;
-        //     }
-        // }
 
         // Group enemies by rank first
         Dictionary<SpawnRank, List<EnemySpawnEntry>> rankGroups = new Dictionary<SpawnRank, List<EnemySpawnEntry>>();
@@ -232,18 +214,9 @@ public class EnemyHandler : MonoBehaviour {
             Tilemap tm = DungeonGenerator.Instance.floorTilemap;
             Vector3 worldPos = tm.CellToWorld(sp3) + tm.cellSize / 2f;
             GameObject thing = Instantiate(enemyEntry.enemyPrefab, worldPos, Quaternion.identity, enemiesLayer.transform);
-            //thing.GetComponent<Enemy>().SetPlayer(player);
-            Debug.Log("pop, i made an enemy");
+            //Debug.Log("pop, i made an enemy");
+            RegisterEnemy(spawnAt, thing.GetComponent<Enemy>());
         }
-
-        // foreach (var entry in spawnTable.enemies) {
-        //     cumulative += entry.spawnRank;
-        //     if (roll <= cumulative) {
-        //         //Instantiate(entry.enemyPrefab, CellToWorld(position), Quaternion.identity);
-        //         Vector3 worldPos = floorTM.CellToWorld(sp3) + floorTM.cellSize / 2f;
-        //         break;
-        //     }
-        // }
     }
 
     public void EnemySpawned(Vector2Int pos, Enemy enemy) {

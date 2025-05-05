@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-
 public class TurnManager : MonoBehaviour {
     public static TurnManager Instance { get; private set; } 
     private Queue<ITurnActor> actors = new Queue<ITurnActor>(); // everyone who takes a turn needs to implement turnactor
@@ -12,9 +11,6 @@ public class TurnManager : MonoBehaviour {
     public bool waitingForPlayer = true;
 
     void Awake() {
-        Instance = this;
-    }
-    void Start() {
         if (Instance == null) {
             Instance = this;
             DontDestroyOnLoad(gameObject); // keep alive between scenes
@@ -24,6 +20,7 @@ public class TurnManager : MonoBehaviour {
     }
 
     public void RegisterEnemy(ITurnActor actor) {
+        //Debug.Log(actor);
         actors.Enqueue(actor);
     }
 
