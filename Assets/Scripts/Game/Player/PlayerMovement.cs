@@ -149,23 +149,28 @@ public class PlayerMovement : MonoBehaviour {
         int combinedMask = wallLayer | enemyLayer;
 
         List<Vector2> blockages = new List<Vector2>();
+        List<Vector2> enemies = new List<Vector2>();
 
         for (int i = 0; i < directions.Length; i++) { // for each direction, check raycast
             Vector2 dir = directions[i];
             RaycastHit2D hit = Physics2D.Raycast(origin, dir, checkDistance, combinedMask); 
 
             if (hit.collider != null) {
-                //Debug.Log("blocked in direction: " + dir + " by: " + hit.collider.name);
                 blockages.Add(dir);
-                //Debug.Log(blockages);
+                //Debug.Log(hit.transform.gameObject.layer+", "+LayerMask.NameToLayer("Enemy"));
+                if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Enemy")) {
+                    //Debug.Log("detected enemy");
+                    enemies.Add(dir);
+                }
             }
         }
 
+        // update movement buttons!
         // check list for blockages only once per method; update all directions every time
         if (blockages.Count > 0) {
             foreach(Vector2 dir2 in directions) {
                 if (blockages.Contains(dir2)) {
-                    Debug.Log("blocking button in direction "+dir2);
+                    //Debug.Log("blocking button in direction "+dir2);
                     DungeonUI.Instance.EnableMoveButton(dir2, false);
                 } else {
                     DungeonUI.Instance.EnableMoveButton(dir2, true);
@@ -173,6 +178,19 @@ public class PlayerMovement : MonoBehaviour {
             }
         } else {
             DungeonUI.Instance.EnableAllMoveButtons();
+        }
+
+        // Update attack button!
+        if (enemies.Count > 0) {
+            foreach(Vector2 dir3 in directions) {
+                if (enemies.Contains(dir3)) {
+                    Debug.Log("enemy in direction "+dir3);
+                    DungeonUI.Instance.EnableAttackButton(enemies);
+                    break;
+                }
+            }
+        } else {
+            DungeonUI.Instance.DisableAttackButton();
         }
     }
 

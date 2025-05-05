@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,7 @@ public class DungeonUI : MonoBehaviour {
     public Button right;
     public Button up;
     public Button down;
+    public Button attack;
 
     private void Awake() {
         if (Instance != null && Instance != this) {
@@ -61,6 +63,15 @@ public class DungeonUI : MonoBehaviour {
         } else if (dir == Vector2.down) {
             down.interactable = tf;
         }
+    }
+
+    // takes in a list in case more than one enemy is attackable - cue dropdown
+    // but for time's sake only use the first one
+    public void EnableAttackButton(List<Vector2> dir, bool tf=true) {
+        attack.interactable = true;
+    }
+    public void DisableAttackButton() {
+        attack.interactable = false;
     }
 
     void Update() {
