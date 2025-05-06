@@ -43,7 +43,7 @@ public class DungeonGenerator : MonoBehaviour {
     }
     TileType[,] dungeonMap;
     //public NavMeshPlus.Components.NavMeshSurface surface;
-    public static bool[,] walkableMap;
+    public bool[,] walkableMap;
     public List<Vector2Int> walkableList;
 
     void Awake() {

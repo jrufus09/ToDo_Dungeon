@@ -171,3 +171,7 @@ https://github.com/h8man/NavMeshPlus/wiki/HOW-TO
 - updated spawning system to allow player safe area
 - made attack button that enables when enemy is nearby
 - resolving turnamanager issues which include: infinitely giving enemy turns
+
+### 6-May-2025
+- not feeling great today but made progress: the pathfinding package output diagonals regardless of the setting
+- 

@@ -34,7 +34,7 @@ public class Enemy : MonoBehaviour, ITurnActor {
 
     public IEnumerator TakeTurn() {
 
-        Vector2Int[] path = Cell.PathToPlayerVec2(transform.position);
+        Vector2Int[] path = Cell.PathToPlayerVec2(transform.position, DungeonGenerator.Instance.walkableMap);
         //Debug.Log(path[0] + ", " + path[1] + ", " + path[2]);
 
         if (path != null && path.Length > 1) {

@@ -37,49 +37,81 @@ namespace AStar.Algolgorithms
 			return path.ToArray();
 		}
 
-		// Returns an array of neighbour nodes for a given node
-		private static (bool, (int, int))[] getNeighbours(int xCordinate, int yCordinate, bool[,] walkableMap, bool walkableDiagonals = false)
+		// // Returns an array of neighbour nodes for a given node
+		// private static (bool, (int, int))[] getNeighbours(int xCordinate, int yCordinate, bool[,] walkableMap, bool walkableDiagonals = false)
+		// {
+
+		// 	List<(bool, (int, int))> neighbourCells = new List<(bool, (int, int))>();
+
+		// 	int heigth = walkableMap.GetLength(0);
+		// 	int width = walkableMap.GetLength(1);
+
+		// 	int range = 1;
+		// 	int yStart = (int)MathF.Max(0, yCordinate - range);
+		// 	int yEnd = (int)MathF.Min(heigth - 1, yCordinate + range);
+
+		// 	int xStart = (int)MathF.Max(0, xCordinate - range);
+		// 	int xEnd = (int)MathF.Min(width - 1, xCordinate + range);
+
+		// 	for (int y = yStart; y <= yEnd; y++)
+		// 	{
+		// 		for (int x = xStart; x <= xEnd; x++)
+		// 		{
+		// 			if (x == xCordinate && y == yCordinate)
+		// 			{
+		// 				continue;
+		// 			}
+
+		// 			if (!walkableMap[y, x])
+		// 			{
+		// 				continue;
+		// 			}
+
+		// 			if (!walkableDiagonals && // If we are not allowing diagonal movement
+		// 			(x == xStart || x == xEnd) && (y == yStart || y == yEnd) && // If the node is a diagonal node
+		// 			!walkableMap[y, xCordinate] && !walkableMap[yCordinate, x]) // If the node is not reachable from the current node
+		// 			{
+		// 				continue;
+		// 			}
+
+		// 			neighbourCells.Add((walkableMap[y, x], (x, y)));
+		// 		}
+		// 	}
+
+		// 	return neighbourCells.ToArray();
+		// }
+
+		// sorry, I had to rewrite this to actually filter diagonals
+		private static (bool, (int, int))[] getNeighbours(int x, int y, bool[,] walkableMap, bool walkableDiagonals = false)
 		{
-
-			List<(bool, (int, int))> neighbourCells = new List<(bool, (int, int))>();
-
-			int heigth = walkableMap.GetLength(0);
+			List<(bool, (int, int))> neighbours = new List<(bool, (int, int))>();
+			int height = walkableMap.GetLength(0);
 			int width = walkableMap.GetLength(1);
 
-			int range = 1;
-			int yStart = (int)MathF.Max(0, yCordinate - range);
-			int yEnd = (int)MathF.Min(heigth - 1, yCordinate + range);
+			// Cardinal directions
+			(int dx, int dy)[] directions = walkableDiagonals
+				? new (int, int)[] {
+					(-1, 0), (1, 0), (0, -1), (0, 1),  // Cardinal
+					(-1, -1), (-1, 1), (1, -1), (1, 1) // Diagonal
+				}
+				: new (int, int)[] {
+					(-1, 0), (1, 0), (0, -1), (0, 1) // Only cardinal
+				};
 
-			int xStart = (int)MathF.Max(0, xCordinate - range);
-			int xEnd = (int)MathF.Min(width - 1, xCordinate + range);
-
-			for (int y = yStart; y <= yEnd; y++)
+			foreach (var (dx, dy) in directions)
 			{
-				for (int x = xStart; x <= xEnd; x++)
+				int nx = x + dx;
+				int ny = y + dy;
+
+				if (nx >= 0 && nx < width && ny >= 0 && ny < height && walkableMap[ny, nx])
 				{
-					if (x == xCordinate && y == yCordinate)
-					{
-						continue;
-					}
-
-					if (!walkableMap[y, x])
-					{
-						continue;
-					}
-
-					if (!walkableDiagonals && // If we are not allowing diagonal movement
-					(x == xStart || x == xEnd) && (y == yStart || y == yEnd) && // If the node is a diagonal node
-					!walkableMap[y, xCordinate] && !walkableMap[yCordinate, x]) // If the node is not reachable from the current node
-					{
-						continue;
-					}
-
-					neighbourCells.Add((walkableMap[y, x], (x, y)));
+					neighbours.Add((true, (nx, ny)));
 				}
 			}
 
-			return neighbourCells.ToArray();
+			return neighbours.ToArray();
 		}
+
 
 		//This algorithm is based on the psudo code from https://en.wikipedia.org/wiki/A*_search_algorithm
 
