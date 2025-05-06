@@ -662,12 +662,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GenerationDone: 0
-  width: 20
-  height: 20
-  roomCount: 8
+  width: 10
+  height: 10
+  roomCount: 3
   roomMinSize: {x: 3, y: 3}
   roomMaxSize: {x: 8, y: 8}
-  gridTilemap_: {fileID: 1678612712}
+  gridTilemap: {fileID: 1678612712}
   wallTilemap: {fileID: 990848834}
   floorTilemap: {fileID: 1225787446}
   gridTile: {fileID: 11400000, guid: d6c14e0c20d84d3428792ca0b81acf0a, type: 2}

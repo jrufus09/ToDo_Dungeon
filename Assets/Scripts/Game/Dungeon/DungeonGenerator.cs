@@ -19,8 +19,8 @@ public class DungeonGenerator : MonoBehaviour {
     public Vector2Int roomMaxSize = new Vector2Int(10, 10);
 
     [Header("Tiles")]
-    public static Tilemap gridTilemap; // only one instance of this in the whole thing
-    public Tilemap gridTilemap_; // assign this one in inspector, but it's the same as above
+    //public static Tilemap gridTilemap; // only one instance of this in the whole thing
+    public Tilemap gridTilemap; // assign this one in inspector, but it's the same as above
     public Tilemap wallTilemap;
     public Tilemap floorTilemap;
     public TileBase gridTile;
@@ -47,7 +47,7 @@ public class DungeonGenerator : MonoBehaviour {
     public List<Vector2Int> walkableList;
 
     void Awake() {
-        DungeonGenerator.gridTilemap = gridTilemap_; // assign to static variable
+        //DungeonGenerator.gridTilemap = gridTilemap_; // assign to static variable
     }
 
     void Start() {
@@ -63,6 +63,11 @@ public class DungeonGenerator : MonoBehaviour {
         //surface = GetComponent<NavMeshSurface>();
         //surface = GetComponent<NavMeshPlus.Components.NavMeshSurface>();
         //surface.BuildNavMeshAsync();
+
+        // set static stuff for helper
+        Cell.tilemap = gridTilemap;
+        Cell.dungeonHeight = dungeonMap.GetLength(1); // height = Y axis
+
 
         if (useSeed) {
             Random.InitState(seed);

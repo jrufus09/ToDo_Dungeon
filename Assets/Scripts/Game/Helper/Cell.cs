@@ -8,11 +8,16 @@ public static class Cell {
 
     // helper class for myself because I gotta do everything around here
 
+    // pass these in after generation!
+    public static Tilemap tilemap;
+    public static int dungeonHeight;
+
     // transform.position in, cell coordinates out.
     public static Vector2Int WorldToGrid(Vector3 worldPos) {
-        Vector3Int cell = DungeonGenerator.gridTilemap.WorldToCell(worldPos);
+        Vector3Int cell = tilemap.WorldToCell(worldPos);
         // we add that offset to make it centred on grid
-        return new Vector2Int(cell.x, cell.y);
+        //return new Vector2Int(cell.x, cell.y);
+        return FlipY(new Vector2Int(cell.x, cell.y));
     }
     // for easy tracking in inspector,
     // public Vector2Int cellCoordinates;
@@ -27,10 +32,13 @@ public static class Cell {
     // centre on tile / align perfectly
     public static Vector3 GridToWorldCentered(Vector2Int gridPos) {
         //Vector3 worldPos = DungeonGenerator.gridTilemap.CellToWorld(new Vector3Int(gridPos.x, gridPos.y, 0));
-        Vector3Int gp3 = new Vector3Int(gridPos.x, gridPos.y, 0);
-        Vector3 worldPos = DungeonGenerator.gridTilemap.GetCellCenterWorld(gp3);
-        //return worldPos + DungeonGenerator.gridTilemap.cellSize / 2f;
-        return worldPos;
+        // Vector3Int gp3 = new Vector3Int(gridPos.x, gridPos.y, 0);
+        // Vector3 worldPos = DungeonGenerator.gridTilemap.GetCellCenterWorld(gp3);
+        // //return worldPos + DungeonGenerator.gridTilemap.cellSize / 2f;
+        // return worldPos;
+        Vector2Int flipped = FlipY(gridPos);
+        Vector3 world = tilemap.GetCellCenterWorld(new Vector3Int(flipped.x, flipped.y, 0));
+        return world;
     }
 
     // pathfinding returns (int,int) coordinates in an array which needs conversion to cell, so
@@ -72,8 +80,12 @@ public static class Cell {
         Vector2Int enemyPos = WorldToGrid(posIn);
         Vector2Int playerPos = WorldToGrid(Player.Instance.transform.position);
 
+        // I learned the algorithm potentially takes in y,x omg
+        bool[,] map = TransposeBoolMap(walkableMap);
+
         (int, int)[] path;
         path = AStarPathfinding.GeneratePathSync(enemyPos.x, enemyPos.y, playerPos.x, playerPos.y, walkableMap);
+
 
         Debug.Log(path[0] + ", " + path[1] + ", " + path[2]);
         if (!walkableMap[enemyPos.x, enemyPos.y])
@@ -90,6 +102,26 @@ public static class Cell {
 
         return pathOut;
     }
+
+    public static bool[,] TransposeBoolMap(bool[,] original) {
+        int width = original.GetLength(0);
+        int height = original.GetLength(1);
+
+        bool[,] transposed = new bool[height, width];
+
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                transposed[y, x] = original[x, y];
+            }
+        }
+
+        return transposed;
+    }
+
+    public static Vector2Int FlipY(Vector2Int input) {
+        return new Vector2Int(input.x, dungeonHeight - 1 - input.y);
+    }
+
 
     
 }
