@@ -662,8 +662,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GenerationDone: 0
-  width: 50
-  height: 50
+  width: 20
+  height: 20
   roomCount: 8
   roomMinSize: {x: 3, y: 3}
   roomMaxSize: {x: 8, y: 8}
