@@ -209,6 +209,8 @@ public class DungeonGenerator : MonoBehaviour {
                 }
             }
         }
+        //walkableMap = Cell.FlipWalkableMapY(walkableMap);
+        //Cell.PrintWalkableMap(walkableMap);
         //StartCoroutine(BakeAfterDelay());
     }
 

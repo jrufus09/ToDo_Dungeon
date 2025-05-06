@@ -38,9 +38,15 @@ public class Enemy : MonoBehaviour, ITurnActor {
         //Debug.Log(path[0] + ", " + path[1] + ", " + path[2]);
 
         if (path != null && path.Length > 1) {
-            // assuming path[0] is current position and path[1] is next move
+            // assuming path[0] is current position and path[1] is next move,
             Vector2Int nextStep = path[1];
             Vector3 targetWorld = Cell.GridToWorldCentered(nextStep);
+
+            if (nextStep == Player.Instance.coordinates) {
+                // don't try to cosy up to player if your next step is onto player
+                Debug.Log("i attack!");
+                yield return null;
+            }
 
             yield return StartCoroutine(SmoothMoveTo(targetWorld));
             coordinates = nextStep;

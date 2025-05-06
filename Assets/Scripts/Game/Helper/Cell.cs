@@ -3,6 +3,8 @@ using UnityEngine.Tilemaps;
 using AStar;
 using System;
 using System.Threading.Tasks;
+using Unity.Collections;
+using System.Text;
 
 public static class Cell {
 
@@ -75,13 +77,15 @@ public static class Cell {
     }
 
     public static Vector2Int[] PathToPlayerVec2(Vector3 posIn, bool[,] walkableMap) { // output is grid coordinates
+        //PrintWalkableMap(walkableMap);
 
         // convert to grid for pathfinder
         Vector2Int enemyPos = WorldToGrid(posIn);
         Vector2Int playerPos = WorldToGrid(Player.Instance.transform.position);
 
         // I learned the algorithm potentially takes in y,x omg
-        bool[,] map = TransposeBoolMap(walkableMap);
+        bool[,] map = TransposeBoolMap(walkableMap); // this is JUST for the pathfind algo btw
+        PrintWalkableMap(map);
 
         (int, int)[] path;
         path = AStarPathfinding.GeneratePathSync(enemyPos.x, enemyPos.y, playerPos.x, playerPos.y, walkableMap);
@@ -107,21 +111,49 @@ public static class Cell {
         int width = original.GetLength(0);
         int height = original.GetLength(1);
 
-        bool[,] transposed = new bool[height, width];
+        bool[,] flippedMap = new bool[height, width];
 
         for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-                transposed[y, x] = original[x, y];
+            for (int y = 0; y < height; y++)
+            {
+                flippedMap[y, x] = original[x, y];
             }
         }
-
-        return transposed;
+        return flippedMap;
     }
 
     public static Vector2Int FlipY(Vector2Int input) {
         return new Vector2Int(input.x, dungeonHeight - 1 - input.y);
     }
 
+    // public static bool[,] FlipWalkableMapY(bool[,] original) {
+    //     int width = original.GetLength(0);
+    //     int height = original.GetLength(1);
 
+    //     bool[,] flipped = new bool[width, height];
+
+    //     for (int x = 0; x < width; x++) {
+    //         for (int y = 0; y < height; y++) {
+    //             flipped[x, y] = original[x, height - 1 - y];
+    //         }
+    //     }
+    //     return flipped;
+    // }
+
+    public static void PrintWalkableMap(bool[,] mapIn) {
+        StringBuilder sb = new StringBuilder();
+        int width = mapIn.GetLength(0);
+        int height = mapIn.GetLength(1);
+
+        for (int y = height - 1; y >= 0; y--) // Top to bottom
+        {
+            for (int x = 0; x < width; x++){
+                sb.Append(mapIn[x, y] ? "." : "#");
+            }
+            sb.AppendLine();
+        }
+
+        Debug.Log(sb.ToString());
+    }
     
 }

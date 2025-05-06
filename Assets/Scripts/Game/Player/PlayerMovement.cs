@@ -186,7 +186,7 @@ public class PlayerMovement : MonoBehaviour {
         if (enemies.Count > 0) {
             foreach(Vector2 dir3 in directions) {
                 if (enemies.Contains(dir3)) {
-                    Debug.Log("enemy in direction "+dir3);
+                    //Debug.Log("enemy in direction "+dir3);
                     DungeonUI.Instance.EnableAttackButton(enemies);
                     break;
                 }
