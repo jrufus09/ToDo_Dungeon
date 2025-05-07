@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour {
     public LayerMask wallLayer;
     public LayerMask enemyLayer;
     public Transform sprite;
-    public int damage; // yeah yeah i'll move this to its own attack class
+    public int damage = 40; // yeah yeah i'll move this to its own attack class
     
     void Awake() {
         if (Instance != null && Instance != this) {
@@ -206,7 +206,7 @@ public class PlayerMovement : MonoBehaviour {
 
             // get enemy in the target direction
         Vector2Int enemyPos = Player.Instance.coordinates - targetDir;
-        Debug.Log(enemyPos);
+        //Debug.Log(enemyPos);
         GameObject target = EnemyHandler.Instance.GetEnemyAt(enemyPos);
 
         //Health targetH = target.gameObject.GetComponent<Health>();

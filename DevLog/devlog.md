@@ -179,3 +179,4 @@ https://github.com/h8man/NavMeshPlus/wiki/HOW-TO
 
 ### 7-May-2025
 - major rework to enemyhandler's directory of what enemies are where. used to hold Enemy class, now holds gameobject
+- enemies now can take damage and die

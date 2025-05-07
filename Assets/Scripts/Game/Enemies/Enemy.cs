@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour, ITurnActor {
     public Vector2Int coordinates;
     public Vector2Int oldPosition;
     private Health health;
+    public int damage = 10;
 
 
     void Start() {
@@ -53,6 +54,14 @@ public class Enemy : MonoBehaviour, ITurnActor {
             if (nextStep == Player.Instance.coordinates) {
                 // don't try to cosy up to player if your next step is ONTO player bro
                 Debug.Log("i attack!");
+
+                // damage
+                if (Player.Instance.TryGetComponent<Health>(out Health targetH)){
+                    targetH.TakeDamage(damage);
+                } else {
+                    Debug.LogWarning("couldn't get health from player - check Health script is attached");
+                }
+
                 Vector2Int attackDir = nextStep - coordinates;
                 yield return StartCoroutine(PlayAttackAnimation(attackDir));
                 yield break; // LEAVE
