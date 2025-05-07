@@ -142,7 +142,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ea58954bd1d0474c8496a360f5e05b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprite: {fileID: 7906912174382601197}
   moveDuration: 0.2
+  coordinates: {x: 0, y: 0}
 --- !u!50 &2331286129871986053
 Rigidbody2D:
   serializedVersion: 5

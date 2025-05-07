@@ -6,6 +6,7 @@ using static Cell;
 
 public class Enemy : MonoBehaviour, ITurnActor {
 
+    public Transform sprite;
     public float moveDuration = 0.15f; // For smooth movement later
     private Queue<Vector2Int> cachedPath = new Queue<Vector2Int>();
     private Vector2Int? lastKnownPlayerPos = null;
@@ -45,6 +46,8 @@ public class Enemy : MonoBehaviour, ITurnActor {
             if (nextStep == Player.Instance.coordinates) {
                 // don't try to cosy up to player if your next step is ONTO player bro
                 Debug.Log("i attack!");
+                Vector2Int attackDir = nextStep - coordinates;
+                yield return StartCoroutine(PlayAttackAnimation(attackDir));
                 yield break; // LEAVE
             }
 
@@ -79,6 +82,8 @@ public class Enemy : MonoBehaviour, ITurnActor {
         Destroy(gameObject);
     }
 
+    
+
     private IEnumerator SmoothMoveTo(Vector3 target) {
         float elapsed = 0f;
         Vector3 start = transform.position;
@@ -89,5 +94,28 @@ public class Enemy : MonoBehaviour, ITurnActor {
         }
         rb.MovePosition(target); // snap to exact
     }
+
+    public IEnumerator PlayAttackAnimation(Vector2Int direction) {
+        Vector3 originalPosition = sprite.localPosition;
+        Vector3 lungeOffset = new Vector3(direction.x, direction.y, 0) * 0.1f;
+        Vector3 squishScale = new Vector3(1.2f, 0.8f, 1f);
+
+        float duration = 0.1f;
+
+        // Lunge forward with squish
+        float t = 0;
+        while (t < duration) {
+            t += Time.deltaTime;
+            float lerp = t / duration;
+            sprite.localPosition = Vector3.Lerp(originalPosition, originalPosition + lungeOffset, lerp);
+            sprite.localScale = Vector3.Lerp(Vector3.one, squishScale, lerp);
+            yield return null;
+        }
+
+        // Snap back to original
+        sprite.localPosition = originalPosition;
+        sprite.localScale = Vector3.one;
+    }
+
 
 }
