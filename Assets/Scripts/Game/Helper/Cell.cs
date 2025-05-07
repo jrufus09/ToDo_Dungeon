@@ -21,8 +21,10 @@ public static class Cell {
         // we add that offset to make it centred on grid
         //return new Vector2Int(cell.x, cell.y);
         //return FlipY(new Vector2Int(cell.x, cell.y));
+        //return new Vector2Int(cell.x, dungeonHeight - 1 - cell.y);
 
-        return new Vector2Int(cell.x, dungeonHeight - 1 - cell.y);
+        int flippedY = dungeonHeight - 1 - cell.y; // Flip because map is vertically flipped
+        return new Vector2Int(cell.x, flippedY);
     }
     // for easy tracking in inspector,
     // public Vector2Int cellCoordinates;
@@ -87,7 +89,7 @@ public static class Cell {
         Vector2Int playerPos = WorldToGrid(Player.Instance.transform.position);
 
         // I learned the algorithm potentially takes in y,x omg
-        bool[,] map = TransposeBoolMap(walkableMap); // this is JUST for the pathfind algo btw
+        bool[,] map = TransformBoolMap(walkableMap);
         //PrintWalkableMap(map);
 
         (int, int)[] path;
@@ -113,20 +115,39 @@ public static class Cell {
         return pathOut;
     }
 
-    public static bool[,] TransposeBoolMap(bool[,] original) {
-        int height = original.GetLength(0); // rows (y)
-        int width = original.GetLength(1);  // columns (x)
+    public static bool[,] TransformBoolMap(bool[,] original) {
+        int height = original.GetLength(0);
+        int width = original.GetLength(1);
 
-        bool[,] flipped = new bool[height, width];
+        // After rotating 90° anti-clockwise, dimensions are swapped
+        //bool[,] transformed = new bool[width, height];
+        bool[,] transformed = new bool[height, width];
 
-        for (int y = 0; y < height; y++) {
-            int flippedY = height - 1 - y;
+        for (int y = 0; y < height; y++)
+        {
             for (int x = 0; x < width; x++) {
-                flipped[flippedY, x] = original[y, x];
+                //Mirror along Y-axis → (width - 1 - x) becomes x
+                // transformed[x, height - 1 - y] = original[y, x];
+                //transformed[width-1-x, y] = original[y, x];
+
+                // var flippedY = height - 1 - y;
+                // transformed[flippedY, x] = original[y, x];
+
+                //var flippedX = width - 1 - x;
+                //transformed[y, flippedX] = original[y, x];
+
+                // rotate clockwise 90^
+                //rotated[x, height - 1 - y] = original[y, x];
+
+                // anticlockwise 90^
+                transformed[width - 1 - x, y] = original[y, x];
+
+
+                // flip in X/horizontal
+                //transformed[height - 1 - y, x] = original[y, x];    
             }
         }
-
-        return flipped;
+        return transformed;
     }
 
     public static Vector2Int FlipY(Vector2Int input) {
