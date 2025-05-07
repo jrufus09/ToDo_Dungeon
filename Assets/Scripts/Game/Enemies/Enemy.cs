@@ -43,9 +43,9 @@ public class Enemy : MonoBehaviour, ITurnActor {
             Vector3 targetWorld = Cell.GridToWorldCentered(nextStep);
 
             if (nextStep == Player.Instance.coordinates) {
-                // don't try to cosy up to player if your next step is onto player
+                // don't try to cosy up to player if your next step is ONTO player bro
                 Debug.Log("i attack!");
-                yield return null;
+                yield break; // LEAVE
             }
 
             yield return StartCoroutine(SmoothMoveTo(targetWorld));
@@ -53,9 +53,7 @@ public class Enemy : MonoBehaviour, ITurnActor {
         }
 
         yield return null;
-
         //Debug.Log("I, the enemy, am performing a turn");
-
     }
 
     private IEnumerator MoveToTile(Vector2Int targetGridPos) {
