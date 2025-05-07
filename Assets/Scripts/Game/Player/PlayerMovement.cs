@@ -28,6 +28,8 @@ public class PlayerMovement : MonoBehaviour {
     private bool isMoving = false;
     public LayerMask wallLayer;
     public LayerMask enemyLayer;
+    public Transform sprite;
+    public int damage; // yeah yeah i'll move this to its own attack class
     
     void Awake() {
         if (Instance != null && Instance != this) {
@@ -187,7 +189,7 @@ public class PlayerMovement : MonoBehaviour {
             foreach(Vector2 dir3 in directions) {
                 if (enemies.Contains(dir3)) {
                     //Debug.Log("enemy in direction "+dir3);
-                    DungeonUI.Instance.EnableAttackButton(enemies);
+                    DungeonUI.Instance.EnableAttackButton(enemies); // button script decides who to target
                     break;
                 }
             }
@@ -196,5 +198,49 @@ public class PlayerMovement : MonoBehaviour {
         }
     }
 
+    public void PlayerAttack(Vector2Int targetDir) {
+
+        // play animation
+        Vector2Int attackDir = targetDir - Player.Instance.coordinates;
+        StartCoroutine(PlayAttackAnimation(attackDir));
+
+            // get enemy in the target direction
+        Vector2Int enemyPos = Player.Instance.coordinates - targetDir;
+        Debug.Log(enemyPos);
+        GameObject target = EnemyHandler.Instance.GetEnemyAt(enemyPos);
+
+        //Health targetH = target.gameObject.GetComponent<Health>();
+        if (target.gameObject.TryGetComponent<Health>(out Health targetH)){
+            targetH.TakeDamage(damage);
+        } else {
+            Debug.LogWarning("couldn't get health from enemy - check Health script is attached");
+        }
+
+    }
+
+    public IEnumerator PlayAttackAnimation(Vector2Int direction) {
+        Vector3 originalPosition = sprite.localPosition;
+        Vector3 lungeOffset = new Vector3(direction.x, direction.y, 0) * 0.1f;
+        Vector3 squishScale = new Vector3(1.2f, 0.8f, 1f);
+
+        float duration = 0.2f;
+
+        // Lunge forward with squish
+        float t = 0;
+        while (t < duration) {
+            t += Time.deltaTime;
+            float lerp = t / duration;
+            sprite.localPosition = Vector3.Lerp(originalPosition, originalPosition + lungeOffset, lerp);
+            sprite.localScale = Vector3.Lerp(Vector3.one, squishScale, lerp);
+            yield return null;
+        }
+
+        // Snap back to original
+        sprite.localPosition = originalPosition;
+        sprite.localScale = Vector3.one;
+
+        // this counts as a turn
+        TurnManager.Instance.OnPlayerTurnCompleted();
+    }
 
 }

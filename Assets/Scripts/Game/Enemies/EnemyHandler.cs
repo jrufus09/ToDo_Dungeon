@@ -3,6 +3,7 @@ using System.Collections; // for enumerators
 using System.Collections.Generic;
 using UnityEngine.Tilemaps;
 using Unity.Android.Gradle;
+using UnityEditor.Tilemaps;
 //using System.Linq;
 
 public class EnemyHandler : MonoBehaviour {
@@ -25,7 +26,8 @@ public class EnemyHandler : MonoBehaviour {
     // influences WHICH SPECIFIC enemies generate and WHERE
 
     // dictionary spanning the dungeon's size which tells us where the enemies are
-    public Dictionary<Vector2Int, Enemy> enemyMap;
+    //public Dictionary<Vector2Int, Enemy> enemyMap;
+    public Dictionary<Vector2Int, GameObject> enemyMap;
         // this WILL need to be updated at every turn
 
     //public List<Vector2Int> walkableTiles = new List<Vector2Int>();
@@ -45,7 +47,7 @@ public class EnemyHandler : MonoBehaviour {
             Destroy(gameObject); // destroy duplicates
         }
         
-        enemyMap = new Dictionary<Vector2Int, Enemy>();
+        enemyMap = new Dictionary<Vector2Int, GameObject>();
         currentEnemies = new HashSet<EnemySpawnEntry>();
         
         if (DungeonGenerator.Instance != null) {
@@ -210,21 +212,25 @@ public class EnemyHandler : MonoBehaviour {
         if (spawnAt == Vector2Int.zero) {
             return; // failed to gen position
         } else {
-            Vector3Int sp3 = new Vector3Int(spawnAt.x, spawnAt.y, 0);
-            Tilemap tm = DungeonGenerator.Instance.floorTilemap;
-            Vector3 worldPos = tm.CellToWorld(sp3) + tm.cellSize / 2f;
+            //Vector3Int sp3 = new Vector3Int(spawnAt.x, spawnAt.y, 0);
+            //Tilemap tm = DungeonGenerator.Instance.floorTilemap;
+            //Vector3 worldPos = tm.CellToWorld(sp3) + tm.cellSize / 2f;
+            Vector3 worldPos = Cell.GridToWorldCentered(spawnAt);
             GameObject thing = Instantiate(enemyEntry.enemyPrefab, worldPos, Quaternion.identity, enemiesLayer.transform);
             //Debug.Log("pop, i made an enemy");
-            RegisterEnemy(spawnAt, thing.GetComponent<Enemy>());
+            //RegisterEnemy(spawnAt, thing.GetComponent<Enemy>());
+            RegisterEnemy(spawnAt, thing);
         }
     }
 
-    public void EnemySpawned(Vector2Int pos, Enemy enemy) {
+    //public void EnemySpawned(Vector2Int pos, Enemy enemy) {
+    public void EnemySpawned(Vector2Int pos, GameObject enemy) {
         enemyMap[pos] = enemy;
     }
 
     public void EnemyMoved(Vector2Int oldPos, Vector2Int newPos) {
-        Enemy enemy = enemyMap[oldPos];
+        //Enemy enemy = enemyMap[oldPos];
+        GameObject enemy = enemyMap[oldPos];
         enemyMap.Remove(oldPos);
         enemyMap[newPos] = enemy;
     }
@@ -237,12 +243,15 @@ public class EnemyHandler : MonoBehaviour {
         return enemyMap.ContainsKey(position);
     }
 
-    public Enemy GetEnemyAt(Vector2Int position) {
-        enemyMap.TryGetValue(position, out Enemy e);
+    //public Enemy GetEnemyAt(Vector2Int position) {
+        //enemyMap.TryGetValue(position, out Enemy e);
+    public GameObject GetEnemyAt(Vector2Int position) {
+        enemyMap.TryGetValue(position, out GameObject e);
         return e;
     }
 
-    public void RegisterEnemy(Vector2Int pos, Enemy enemy) {
+    //public void RegisterEnemy(Vector2Int pos, Enemy enemy) {
+    public void RegisterEnemy(Vector2Int pos, GameObject enemy) {
         enemyMap[pos] = enemy;
     }
 

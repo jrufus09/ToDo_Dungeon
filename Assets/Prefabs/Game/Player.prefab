@@ -148,6 +148,8 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 1024
+  sprite: {fileID: 8164292110284072350}
+  damage: 0
 --- !u!114 &6253482492171127159
 MonoBehaviour:
   m_ObjectHideFlags: 0

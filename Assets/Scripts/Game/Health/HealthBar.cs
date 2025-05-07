@@ -59,6 +59,8 @@ public class HealthBar : MonoBehaviour {
                     fillImage.transform.localScale = imgScale;
                 }
             }
+        } else { // show health bare is false, hide 
+            fillImage.transform.localScale = new Vector3(0, 0, 0);
         }
     }
 

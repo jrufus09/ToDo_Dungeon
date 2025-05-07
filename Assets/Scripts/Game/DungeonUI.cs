@@ -12,6 +12,7 @@ public class DungeonUI : MonoBehaviour {
     public Button up;
     public Button down;
     public Button attack;
+    ButtonAttack btnatk;
 
     private void Awake() {
         if (Instance != null && Instance != this) {
@@ -30,6 +31,7 @@ public class DungeonUI : MonoBehaviour {
         // }
 
         moveButtons = new Button[] {up, left, right, down};
+        btnatk = attack.gameObject.GetComponent<ButtonAttack>();
 
         EnableAllMoveButtons(); // enable all the buttons
 
@@ -68,10 +70,12 @@ public class DungeonUI : MonoBehaviour {
     // takes in a list in case more than one enemy is attackable - cue dropdown
     // but for time's sake only use the first one
     public void EnableAttackButton(List<Vector2> dir, bool tf=true) {
+        btnatk.directions = dir;
         attack.interactable = true;
     }
     public void DisableAttackButton() {
         attack.interactable = false;
+        btnatk.directions = null;
     }
 
     void Update() {

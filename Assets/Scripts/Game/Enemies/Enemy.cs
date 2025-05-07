@@ -15,6 +15,9 @@ public class Enemy : MonoBehaviour, ITurnActor {
     private float moveSpeed = 5f;
 
     public Vector2Int coordinates;
+    public Vector2Int oldPosition;
+    private Health health;
+
 
     void Start() {
 
@@ -26,6 +29,10 @@ public class Enemy : MonoBehaviour, ITurnActor {
 
         // Register in turnmanager
         TurnManager.Instance.RegisterEnemy(this);
+        oldPosition = Cell.WorldToGrid(transform.position);
+
+        health = GetComponent<Health>();
+        health.OnDeath += Die; // hook up Health's onDeath action to this one
 
     }
 
@@ -51,8 +58,10 @@ public class Enemy : MonoBehaviour, ITurnActor {
                 yield break; // LEAVE
             }
 
+            oldPosition = coordinates; // set old position to current before move
             yield return StartCoroutine(SmoothMoveTo(targetWorld));
-            coordinates = nextStep;
+            coordinates = nextStep; // coordinates = new/current positon
+            EnemyHandler.Instance.EnemyMoved(oldPosition, coordinates);
         }
 
         yield return null;
@@ -76,9 +85,10 @@ public class Enemy : MonoBehaviour, ITurnActor {
         Debug.Log("i have made a move!");
     }
 
-    public void Die() {
+    public void Die() { // this exists on health, maybe attach system action if you want animations
         // yeah me too mate
         Debug.Log("goodbye cruel worldddddd");
+        EnemyHandler.Instance.EnemyDied(coordinates);
         Destroy(gameObject);
     }
 
@@ -100,7 +110,7 @@ public class Enemy : MonoBehaviour, ITurnActor {
         Vector3 lungeOffset = new Vector3(direction.x, direction.y, 0) * 0.1f;
         Vector3 squishScale = new Vector3(1.2f, 0.8f, 1f);
 
-        float duration = 0.1f;
+        float duration = 0.2f;
 
         // Lunge forward with squish
         float t = 0;

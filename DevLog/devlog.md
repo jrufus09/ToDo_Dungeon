@@ -175,3 +175,7 @@ https://github.com/h8man/NavMeshPlus/wiki/HOW-TO
 ### 6-May-2025
 - not feeling great today but made progress: the pathfinding package output diagonals regardless of the setting
 - had to edit the A* pathfinding algorithm (neighbour searching) to actually falsify diagonals
+- also had to re-orientate the bool map to make the pathfinder algo recognise it
+
+### 7-May-2025
+- major rework to enemyhandler's directory of what enemies are where. used to hold Enemy class, now holds gameobject
