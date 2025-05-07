@@ -28,9 +28,11 @@ public class Enemy : MonoBehaviour, ITurnActor {
         Vector2Int gridPos = Cell.WorldToGrid(transform.position);
         rb.MovePosition(Cell.GridToWorldCentered(gridPos));
 
+        coordinates = Cell.WorldToGrid(transform.position);
+        EnemyHandler.Instance.RegisterEnemy(coordinates, this.gameObject);
         // Register in turnmanager
         TurnManager.Instance.RegisterEnemy(this);
-        oldPosition = Cell.WorldToGrid(transform.position);
+        oldPosition = coordinates;
 
         health = GetComponent<Health>();
         health.OnDeath += Die; // hook up Health's onDeath action to this one
@@ -53,7 +55,7 @@ public class Enemy : MonoBehaviour, ITurnActor {
 
             if (nextStep == Player.Instance.coordinates) {
                 // don't try to cosy up to player if your next step is ONTO player bro
-                Debug.Log("i attack!");
+                //Debug.Log("i attack!");
 
                 // damage
                 if (Player.Instance.TryGetComponent<Health>(out Health targetH)){
@@ -67,7 +69,7 @@ public class Enemy : MonoBehaviour, ITurnActor {
                 yield break; // LEAVE
             }
 
-            oldPosition = coordinates; // set old position to current before move
+            oldPosition = coordinates;
             yield return StartCoroutine(SmoothMoveTo(targetWorld));
             coordinates = nextStep; // coordinates = new/current positon
             EnemyHandler.Instance.EnemyMoved(oldPosition, coordinates);
@@ -98,10 +100,9 @@ public class Enemy : MonoBehaviour, ITurnActor {
         // yeah me too mate
         Debug.Log("goodbye cruel worldddddd");
         EnemyHandler.Instance.EnemyDied(coordinates);
+        TurnManager.Instance.UnregisterEnemy(this);
         Destroy(gameObject);
     }
-
-    
 
     private IEnumerator SmoothMoveTo(Vector3 target) {
         float elapsed = 0f;
@@ -119,7 +120,7 @@ public class Enemy : MonoBehaviour, ITurnActor {
         Vector3 lungeOffset = new Vector3(direction.x, direction.y, 0) * 0.1f;
         Vector3 squishScale = new Vector3(1.2f, 0.8f, 1f);
 
-        float duration = 0.2f;
+        float duration = 0.5f;
 
         // Lunge forward with squish
         float t = 0;

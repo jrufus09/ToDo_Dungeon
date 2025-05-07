@@ -38,14 +38,16 @@ public class EnemyHandler : MonoBehaviour {
         player = plIn;
     }
 
-    void Start() {
-
+    void Awake() {
         if (Instance == null) {
             Instance = this;
             DontDestroyOnLoad(gameObject); // keep alive between scenes
         } else {
             Destroy(gameObject); // destroy duplicates
         }
+    }
+
+    void Start() {
         
         enemyMap = new Dictionary<Vector2Int, GameObject>();
         currentEnemies = new HashSet<EnemySpawnEntry>();
@@ -153,7 +155,7 @@ public class EnemyHandler : MonoBehaviour {
                 attempts++;
                 continue; // restart while loop
             }
-
+            Debug.Log("walkable position: "+randomPos);
             return randomPos;
         }
 
@@ -219,17 +221,21 @@ public class EnemyHandler : MonoBehaviour {
             GameObject thing = Instantiate(enemyEntry.enemyPrefab, worldPos, Quaternion.identity, enemiesLayer.transform);
             //Debug.Log("pop, i made an enemy");
             //RegisterEnemy(spawnAt, thing.GetComponent<Enemy>());
-            RegisterEnemy(spawnAt, thing);
+            //RegisterEnemy(spawnAt, thing); // decided to register at its startup instead
         }
     }
 
     //public void EnemySpawned(Vector2Int pos, Enemy enemy) {
-    public void EnemySpawned(Vector2Int pos, GameObject enemy) {
-        enemyMap[pos] = enemy;
-    }
+    // public void EnemySpawned(Vector2Int pos, GameObject enemy) {
+    //     enemyMap[pos] = enemy;
+    // }
 
     public void EnemyMoved(Vector2Int oldPos, Vector2Int newPos) {
-        //Enemy enemy = enemyMap[oldPos];
+        if (!enemyMap.ContainsKey(oldPos)) {
+            Debug.LogWarning($"EnemyMoved: No enemy found at {oldPos} — cannot move to {newPos}.");
+            return;
+        }
+
         GameObject enemy = enemyMap[oldPos];
         enemyMap.Remove(oldPos);
         enemyMap[newPos] = enemy;
@@ -246,6 +252,9 @@ public class EnemyHandler : MonoBehaviour {
     //public Enemy GetEnemyAt(Vector2Int position) {
         //enemyMap.TryGetValue(position, out Enemy e);
     public GameObject GetEnemyAt(Vector2Int position) {
+        if (!enemyMap.ContainsKey(position)) {
+            Debug.LogWarning($"EnemyMoved: No enemy found at {position}.");
+        }
         enemyMap.TryGetValue(position, out GameObject e);
         return e;
     }
@@ -253,6 +262,7 @@ public class EnemyHandler : MonoBehaviour {
     //public void RegisterEnemy(Vector2Int pos, Enemy enemy) {
     public void RegisterEnemy(Vector2Int pos, GameObject enemy) {
         enemyMap[pos] = enemy;
+        Debug.Log("registering enemy at "+ pos);
     }
 
     public void UnregisterEnemy(Vector2Int pos) {

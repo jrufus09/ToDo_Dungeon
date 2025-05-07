@@ -73,7 +73,7 @@ public class PlayerMovement : MonoBehaviour {
                 // snap finished, notify turnhandler we've moved
                 if (TurnManager.Instance != null) {
                     TurnManager.Instance.OnPlayerTurnCompleted();
-                    Debug.Log("player turn was completed");
+                    //Debug.Log("player turn was completed");
                 } else {
                     Debug.Log("turnmanager is null");
                 }
@@ -212,6 +212,7 @@ public class PlayerMovement : MonoBehaviour {
         //Health targetH = target.gameObject.GetComponent<Health>();
         if (target.gameObject.TryGetComponent<Health>(out Health targetH)){
             targetH.TakeDamage(damage);
+            Debug.Log($"dealt {damage} to an enemy ---> {targetH.currentHealth}");
         } else {
             Debug.LogWarning("couldn't get health from enemy - check Health script is attached");
         }
@@ -223,7 +224,7 @@ public class PlayerMovement : MonoBehaviour {
         Vector3 lungeOffset = new Vector3(direction.x, direction.y, 0) * 0.1f;
         Vector3 squishScale = new Vector3(1.2f, 0.8f, 1f);
 
-        float duration = 0.2f;
+        float duration = 0.6f;
 
         // Lunge forward with squish
         float t = 0;

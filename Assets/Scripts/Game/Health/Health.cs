@@ -14,7 +14,7 @@ public class Health : MonoBehaviour { // add this to anything that has health, t
     public void TakeDamage(int amount) {
         currentHealth = Mathf.Max(currentHealth - amount, 0);
         //onDamaged?.Invoke();
-        Debug.Log(currentHealth);
+        // /Debug.Log(currentHealth);
         if (currentHealth <= 0) {
             //onDied?.Invoke();
             Die(); // me too mate

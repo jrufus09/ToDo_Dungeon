@@ -201,10 +201,7 @@ public class DungeonGenerator : MonoBehaviour {
                 if (dungeonMap[x, y] == TileType.Floor) {
                     floorTilemap.SetTile(new Vector3Int(x, y, 0), floorTile);
 
-                    //walkableList.Add(new Vector2Int(x, y));
-                    // brb trying something
-                    walkableList.Add(new Vector2Int(y, x));
-
+                    walkableList.Add(new Vector2Int(x, y));
                     walkableMap[x,y] = true;
                 }
                 else if (dungeonMap[x, y] == TileType.Wall) {

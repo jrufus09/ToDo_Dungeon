@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerHealthbar
       objectReference: {fileID: 0}
+    - target: {fileID: 5598895321406407502, guid: c1e6defc696aceb48b999ab6ec588084, type: 3}
+      propertyPath: m_Color.a
+      value: 0.29411766
+      objectReference: {fileID: 0}
     - target: {fileID: 6301782310864791881, guid: c1e6defc696aceb48b999ab6ec588084, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 0

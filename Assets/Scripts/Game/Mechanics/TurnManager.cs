@@ -45,4 +45,16 @@ public class TurnManager : MonoBehaviour {
         waitingForPlayer = true;
     }
 
+    public void UnregisterEnemy(ITurnActor actor) {
+        // Remove from queue — rebuild the queue to avoid breaking order
+        Queue<ITurnActor> newQueue = new Queue<ITurnActor>();
+        foreach (var a in actors) {
+            if (a != actor) {
+                newQueue.Enqueue(a);
+            }
+        }
+        actors = newQueue;
+    }
+
+
 }
