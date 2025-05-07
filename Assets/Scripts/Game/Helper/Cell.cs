@@ -93,7 +93,7 @@ public static class Cell {
         //PrintWalkableMap(map);
 
         (int, int)[] path;
-        DebugPrintMapWithPositions(map, enemyPos, playerPos);
+        //DebugPrintMapWithPositions(map, enemyPos, playerPos);
         path = AStarPathfinding.GeneratePathSync(enemyPos.x, enemyPos.y, playerPos.x, playerPos.y, map);
 
         // Debug.Log($"Enemy Grid Pos: {enemyPos} | Player Grid Pos: {playerPos}");
