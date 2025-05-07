@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour {
     public float hopHeight = 0.2f;
     public float squishAmount = 0.2f;
 
-    public Transform spriteHolder; // Assign in Inspector
+    public Transform sprite;
 
     [Header("rigidbody stuff")]
     private Rigidbody2D rb;
@@ -28,8 +28,18 @@ public class PlayerMovement : MonoBehaviour {
     private bool isMoving = false;
     public LayerMask wallLayer;
     public LayerMask enemyLayer;
-    public Transform sprite;
     public int damage = 40; // yeah yeah i'll move this to its own attack class
+
+    //public Vector2Int attackingInDir;
+    private bool isAttacking = false;
+    private Vector3 attackStartPos;
+    private Vector3 attackTargetPos;
+    private Vector3 attackStartScale;
+    private Vector3 attackTargetScale;
+    private float attackDuration = 0.6f;
+    private float attackTimer = 0f;
+    private Vector2Int attackDir;
+
     
     void Awake() {
         if (Instance != null && Instance != this) {
@@ -97,14 +107,32 @@ public class PlayerMovement : MonoBehaviour {
             float eased = Mathf.Sin(progress * Mathf.PI);
             float hop = eased * hopHeight;
 
-            spriteHolder.localPosition = new Vector3(0f, hop, 0f);
+            sprite.localPosition = new Vector3(0f, hop, 0f);
             float scaleY = 1f - (eased * squishAmount);
             float scaleX = 1f + (eased * squishAmount * 0.5f);
-            spriteHolder.localScale = new Vector3(scaleX, scaleY, 1f);
+            sprite.localScale = new Vector3(scaleX, scaleY, 1f);
+
+        } else if (isAttacking) {
+
+            attackTimer += Time.deltaTime;
+            float lerp = attackTimer / attackDuration;
+
+            if (lerp >= 1f) {
+                // End animation
+                sprite.localPosition = attackStartPos;
+                sprite.localScale = Vector3.one;
+                isAttacking = false;
+
+                TurnManager.Instance.OnPlayerTurnCompleted(); // Now it's truly done
+            } else {
+                // Animate
+                sprite.localPosition = Vector3.Lerp(attackStartPos, attackTargetPos, lerp);
+                sprite.localScale = Vector3.Lerp(attackStartScale, attackTargetScale, lerp);
+            }
 
         } else {
-            spriteHolder.localPosition = Vector3.zero;
-            spriteHolder.localScale = Vector3.one;
+            sprite.localPosition = Vector3.zero;
+            sprite.localScale = Vector3.one;
         }
     }
 
@@ -137,11 +165,10 @@ public class PlayerMovement : MonoBehaviour {
         isMoving = true;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) {
-        //Debug.Log("Collided with: " + collision.gameObject.name);
-
-        //CheckForObstacles();
-    }
+    // private void OnCollisionEnter2D(Collision2D collision) {
+    //     //Debug.Log("Collided with: " + collision.gameObject.name);
+    //     //CheckForObstacles();
+    // }
 
     public void CheckForObstacles() {
         float checkDistance = 0.7f; // halfway either way
@@ -199,10 +226,13 @@ public class PlayerMovement : MonoBehaviour {
     }
 
     public void PlayerAttack(Vector2Int targetDir) {
+        //Debug.Log($"PlayerAttack: target direction is {targetDir}");
 
         // play animation
-        Vector2Int attackDir = targetDir - Player.Instance.coordinates;
-        StartCoroutine(PlayAttackAnimation(attackDir));
+        //Vector2Int attackDir = targetDir + Player.Instance.coordinates;
+        //StartCoroutine(PlayAttackAnimation(attackDir));
+        //attackingInDir = attackDir;
+        StartAttackAnimation(targetDir);
 
             // get enemy in the target direction
         Vector2Int enemyPos = Player.Instance.coordinates - targetDir;
@@ -210,7 +240,7 @@ public class PlayerMovement : MonoBehaviour {
         GameObject target = EnemyHandler.Instance.GetEnemyAt(enemyPos);
 
         //Health targetH = target.gameObject.GetComponent<Health>();
-        if (target.gameObject.TryGetComponent<Health>(out Health targetH)){
+        if (target.gameObject.TryGetComponent<Health>(out Health targetH)) {
             targetH.TakeDamage(damage);
             Debug.Log($"dealt {damage} to an enemy ---> {targetH.currentHealth}");
         } else {
@@ -219,29 +249,46 @@ public class PlayerMovement : MonoBehaviour {
 
     }
 
-    public IEnumerator PlayAttackAnimation(Vector2Int direction) {
-        Vector3 originalPosition = sprite.localPosition;
-        Vector3 lungeOffset = new Vector3(direction.x, direction.y, 0) * 0.1f;
-        Vector3 squishScale = new Vector3(1.2f, 0.8f, 1f);
+    // public IEnumerator PlayAttackAnimation(Vector2Int direction) {
+    //     Vector3 originalPosition = sprite.localPosition;
+    //     Vector3 lungeOffset = new Vector3(direction.x, direction.y, 0) * 0.1f;
+    //     Vector3 squishScale = new Vector3(1.2f, 0.8f, 1f);
 
-        float duration = 0.6f;
+    //     float duration = 0.6f;
 
-        // Lunge forward with squish
-        float t = 0;
-        while (t < duration) {
-            t += Time.deltaTime;
-            float lerp = t / duration;
-            sprite.localPosition = Vector3.Lerp(originalPosition, originalPosition + lungeOffset, lerp);
-            sprite.localScale = Vector3.Lerp(Vector3.one, squishScale, lerp);
-            yield return null;
-        }
+    //     // Lunge forward with squish
+    //     float t = 0;
+    //     while (t < duration) {
+    //         t += Time.deltaTime;
+    //         float lerp = t / duration;
+    //         sprite.localPosition = Vector3.Lerp(originalPosition, originalPosition + lungeOffset, lerp);
+    //         sprite.localScale = Vector3.Lerp(Vector3.one, squishScale, lerp);
+    //         yield return null;
+    //     }
 
-        // Snap back to original
-        sprite.localPosition = originalPosition;
-        sprite.localScale = Vector3.one;
+    //     // Snap back to original
+    //     sprite.localPosition = originalPosition;
+    //     sprite.localScale = Vector3.one;
 
-        // this counts as a turn
-        TurnManager.Instance.OnPlayerTurnCompleted();
+    //     // this counts as a turn
+    //     TurnManager.Instance.OnPlayerTurnCompleted();
+    //     isAttacking = false;
+    // }
+
+    public void StartAttackAnimation(Vector2Int dir) {
+        if (isAttacking) return; // prevent overlap
+
+        Debug.Log($"StartAttackAnimation: target direction is {dir}");
+
+        isAttacking = true;
+        attackTimer = 0f;
+        attackDir = dir;
+
+        attackStartPos = sprite.localPosition;
+        attackTargetPos = attackStartPos + new Vector3(dir.x, dir.y, 0f) * 0.1f;
+
+        attackStartScale = Vector3.one;
+        attackTargetScale = new Vector3(1.2f, 0.8f, 1f);
     }
 
 }
