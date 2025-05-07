@@ -65,7 +65,8 @@ public class DungeonGenerator : MonoBehaviour {
         //surface.BuildNavMeshAsync();
 
         // set static stuff for helper
-        Cell.tilemap = gridTilemap;
+        Cell.gridTilemap = gridTilemap;
+        Cell.floorTilemap = floorTilemap;
         Cell.dungeonHeight = dungeonMap.GetLength(1); // height = Y axis
 
 
@@ -209,8 +210,7 @@ public class DungeonGenerator : MonoBehaviour {
                 }
             }
         }
-        //walkableMap = Cell.FlipWalkableMapY(walkableMap);
-        //Cell.PrintWalkableMap(walkableMap);
+        
         //StartCoroutine(BakeAfterDelay());
     }
 

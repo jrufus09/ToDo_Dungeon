@@ -11,12 +11,13 @@ public static class Cell {
     // helper class for myself because I gotta do everything around here
 
     // pass these in after generation!
-    public static Tilemap tilemap;
+    public static Tilemap gridTilemap;
+    public static Tilemap floorTilemap;
     public static int dungeonHeight;
 
     // transform.position in, cell coordinates out.
     public static Vector2Int WorldToGrid(Vector3 worldPos) {
-        Vector3Int cell = tilemap.WorldToCell(worldPos);
+        Vector3Int cell = gridTilemap.WorldToCell(worldPos);
         // we add that offset to make it centred on grid
         //return new Vector2Int(cell.x, cell.y);
         return FlipY(new Vector2Int(cell.x, cell.y));
@@ -39,7 +40,7 @@ public static class Cell {
         // //return worldPos + DungeonGenerator.gridTilemap.cellSize / 2f;
         // return worldPos;
         Vector2Int flipped = FlipY(gridPos);
-        Vector3 world = tilemap.GetCellCenterWorld(new Vector3Int(flipped.x, flipped.y, 0));
+        Vector3 world = gridTilemap.GetCellCenterWorld(new Vector3Int(flipped.x, flipped.y, 0));
         return world;
     }
 
@@ -111,15 +112,19 @@ public static class Cell {
         int width = original.GetLength(0);
         int height = original.GetLength(1);
 
-        bool[,] flippedMap = new bool[height, width];
+        bool[,] walkableMap = new bool[height, width]; // notice: [y, x]
 
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++)
-            {
-                flippedMap[y, x] = original[x, y];
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++) {
+                int flippedY = height - 1 - y; // flip y
+                // new val = whether original is floor or not
+                //walkableMap[flippedY, x] = (original[x, y] == TileType.Floor);
+                walkableMap[flippedY, x] = (original[x, y] == true);
             }
         }
-        return flippedMap;
+
+        return walkableMap;
     }
 
     public static Vector2Int FlipY(Vector2Int input) {
