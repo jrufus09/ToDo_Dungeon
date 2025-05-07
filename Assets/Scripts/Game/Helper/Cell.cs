@@ -20,7 +20,9 @@ public static class Cell {
         Vector3Int cell = gridTilemap.WorldToCell(worldPos);
         // we add that offset to make it centred on grid
         //return new Vector2Int(cell.x, cell.y);
-        return FlipY(new Vector2Int(cell.x, cell.y));
+        //return FlipY(new Vector2Int(cell.x, cell.y));
+
+        return new Vector2Int(cell.x, dungeonHeight - 1 - cell.y);
     }
     // for easy tracking in inspector,
     // public Vector2Int cellCoordinates;
@@ -86,17 +88,20 @@ public static class Cell {
 
         // I learned the algorithm potentially takes in y,x omg
         bool[,] map = TransposeBoolMap(walkableMap); // this is JUST for the pathfind algo btw
-        PrintWalkableMap(map);
+        //PrintWalkableMap(map);
 
         (int, int)[] path;
-        path = AStarPathfinding.GeneratePathSync(enemyPos.x, enemyPos.y, playerPos.x, playerPos.y, walkableMap);
+        DebugPrintMapWithPositions(map, enemyPos, playerPos);
+        path = AStarPathfinding.GeneratePathSync(enemyPos.x, enemyPos.y, playerPos.x, playerPos.y, map);
 
+        // Debug.Log($"Enemy Grid Pos: {enemyPos} | Player Grid Pos: {playerPos}");
+        // Debug.Log($"Enemy Walkable? {map[enemyPos.y, enemyPos.x]} | Player Walkable? {map[playerPos.y, playerPos.x]}");
 
-        Debug.Log(path[0] + ", " + path[1] + ", " + path[2]);
-        if (!walkableMap[enemyPos.x, enemyPos.y])
-            Debug.LogWarning("Enemy starting position is not walkable!");
-        if (!walkableMap[playerPos.x, playerPos.y])
-            Debug.LogWarning("Player target position is not walkable!");
+        // Debug.Log(path[0] + ", " + path[1] + ", " + path[2]);
+        // if (!walkableMap[enemyPos.x, enemyPos.y])
+        //     Debug.LogWarning("Enemy starting position is not walkable!");
+        // if (!walkableMap[playerPos.x, playerPos.y])
+        //     Debug.LogWarning("Player target position is not walkable!");
 
 
         // convert back to Vec2Int
@@ -109,22 +114,19 @@ public static class Cell {
     }
 
     public static bool[,] TransposeBoolMap(bool[,] original) {
-        int width = original.GetLength(0);
-        int height = original.GetLength(1);
+        int height = original.GetLength(0); // rows (y)
+        int width = original.GetLength(1);  // columns (x)
 
-        bool[,] walkableMap = new bool[height, width]; // notice: [y, x]
+        bool[,] flipped = new bool[height, width];
 
-        for (int x = 0; x < width; x++)
-        {
-            for (int y = 0; y < height; y++) {
-                int flippedY = height - 1 - y; // flip y
-                // new val = whether original is floor or not
-                //walkableMap[flippedY, x] = (original[x, y] == TileType.Floor);
-                walkableMap[flippedY, x] = (original[x, y] == true);
+        for (int y = 0; y < height; y++) {
+            int flippedY = height - 1 - y;
+            for (int x = 0; x < width; x++) {
+                flipped[flippedY, x] = original[y, x];
             }
         }
 
-        return walkableMap;
+        return flipped;
     }
 
     public static Vector2Int FlipY(Vector2Int input) {
@@ -161,4 +163,26 @@ public static class Cell {
         Debug.Log(sb.ToString());
     }
     
+
+    public static void DebugPrintMapWithPositions(bool[,] map, Vector2Int enemyPos, Vector2Int playerPos) {
+        int height = map.GetLength(0);
+        int width = map.GetLength(1);
+        StringBuilder sb = new StringBuilder();
+
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++)
+            {
+                if (x == enemyPos.x && y == enemyPos.y)
+                    sb.Append('E');
+                else if (x == playerPos.x && y == playerPos.y)
+                    sb.Append('P');
+                else
+                    sb.Append(map[y, x] ? '.' : '#');
+            }
+            sb.AppendLine();
+        }
+
+        Debug.Log(sb.ToString());
+    }
+
 }
