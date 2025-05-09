@@ -24,6 +24,7 @@ public class SeedGenerator : MonoBehaviour {
         GenerateSeed(boardIn);
         AssignSeed();
         OnSeedGenComplete.Invoke(); // tell dungeon generator to start generating
+        Debug.Log("invoked OnSeedGenComplete");
     }
 
     void GenerateSeed(Board boardIn) {

@@ -136,4 +136,5 @@ public class SceneLoader : MonoBehaviour {
             SceneManager.LoadScene("Dungeon", LoadSceneMode.Single);
         }
     }
+
 }

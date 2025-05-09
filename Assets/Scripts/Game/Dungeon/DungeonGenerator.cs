@@ -92,6 +92,7 @@ public class DungeonGenerator : MonoBehaviour {
     }
 
     void BeginGeneration() {
+        Debug.Log($"Received seed, {seed}");
         Random.InitState(seed);
         Generate();
         DrawMap();
