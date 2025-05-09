@@ -193,3 +193,5 @@ https://github.com/h8man/NavMeshPlus/wiki/HOW-TO
 ### 9-May-2025
 - general debugging. adding "enter dungeon" to boardview
 - adding tasks doesn't actually work
+- discovered layoutelements, fixed tasks not showing up
+- made edit items function

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Collections;
 using System.IO;
 using NUnit.Framework.Constraints;
+using UnityEditor.Search;
+using System.Linq;
 
 public class BoardDataManager : MonoBehaviour {
 
@@ -316,20 +318,33 @@ public class BoardDataManager : MonoBehaviour {
 
     public void LoadAllTaskIcons(Transform contentArea, ListData listIn) {
         // designed to be called from the object that holds the container for the items
-        Debug.Log($"loading task icons for {listIn.name}");
+        //Debug.Log($"loading task icons for {listIn.name}");
 
         // LOAD +NEW TASK FIRST
         GameObject newTaskBtn = Instantiate(newTaskPrefab, contentArea.transform);
 
         // iterate through given listdata for each task
         foreach (Item item in listIn.items) {
-            Debug.Log(item.name);
-            GameObject newIcon = Instantiate(itemIconPrefab, contentArea.transform); //parent to content area
+            //Debug.Log(item.name);
+            GameObject newIcon = Instantiate(itemIconPrefab, contentArea.transform);
             newIcon.name = "Icon_" + item.name;
             TaskIcon icon = newIcon.GetComponent<TaskIcon>();
             icon.SetName(item.name);
         }
     }
+
+    // public void ToggleTask(Item task, bool toggle) {
+    //     List<Item> items = AllItems(currentlyEditingList);
+    //     int index = items.IndexOf(task); 
+    //     if (index != -1) { // returns -1 if not in list
+    //         EditItem(task.name, item => {
+    //         item.isCompleted = toggle;
+    //     });
+
+    //     } else {
+    //         Debug.LogWarning("item is not in currently editing list.");
+    //     }
+    // }
 
     public void RefreshTaskIcons(Transform contentArea, ListData listData) { // clear icons and reload
         //Debug.Log("Refreshing task icons");
@@ -339,6 +354,35 @@ public class BoardDataManager : MonoBehaviour {
         }
         LoadAllTaskIcons(contentArea, listData);
     }
+
+    public void EditItem(string itemName, Action<Item> editCallback) { // assumes current board, current list
+        // Step 1: Find the list
+        ListData targetList = currentlyEditingList;
+
+        if (targetList == null) {
+            Debug.LogWarning($"please set currentlyEditingList before updating items.");
+            return;
+        }
+
+        // Step 2: Find the item
+        Item targetItem = targetList.items.FirstOrDefault(i => i.name == itemName);
+
+        if (targetItem == null) {
+            Debug.LogWarning($"Item '{itemName}' not found ;-;");
+            return;
+        }
+
+        // Step 3: Edit it directly
+        editCallback?.Invoke(targetItem);
+
+        // example edit:
+        // EditItem("sit down and cry", item => {
+        //     item.isCompleted = true;
+        //     //item.dueDate = DateTime.Now.AddDays(2);
+        // });
+
+    }
+
 }
 
 
