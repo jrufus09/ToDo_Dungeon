@@ -216,8 +216,9 @@ public class EnemyHandler : MonoBehaviour {
         } else {
             Vector3Int sp3 = new Vector3Int(spawnAt.x, spawnAt.y, 0);
             Tilemap tm = DungeonGenerator.Instance.floorTilemap;
-            Vector3 worldPos = tm.CellToWorld(sp3) + tm.cellSize / 2f;
+            //Vector3 worldPos = tm.CellToWorld(sp3) + tm.cellSize / 2f;
             //Vector3 worldPos = Cell.GridToWorldCentered(spawnAt);
+            Vector3 worldPos = Cell.GridToWorldCenteredUnity(spawnAt);
             GameObject thing = Instantiate(enemyEntry.enemyPrefab, worldPos, Quaternion.identity, enemiesLayer.transform);
             //Debug.Log("pop, i made an enemy");
             //RegisterEnemy(spawnAt, thing.GetComponent<Enemy>());

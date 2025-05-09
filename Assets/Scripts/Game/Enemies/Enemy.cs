@@ -53,9 +53,12 @@ public class Enemy : MonoBehaviour, ITurnActor {
             Vector2Int nextStep = path[1];
             Vector3 targetWorld = Cell.GridToWorldCentered(nextStep);
 
-            Debug.Log($"Enemy path[1]: {nextStep}, Player at: {Player.Instance.coordinates}");
+            // path[] is pathfinder space and player coordinates are unity space
+            // convert player's position to pathfinder space and check theyre not the same
+            Vector2Int playerPos = Cell.WorldToGridForPathfinder(Player.Instance.transform.position);
+            Debug.Log($"Enemy path[1]: {nextStep}, Player at: {playerPos}");
 
-            if ((nextStep == Player.Instance.coordinates) || (path[0] == Player.Instance.coordinates)){
+            if ((nextStep == playerPos) || (path[0] == playerPos)){
                 // don't try to cosy up to player if your next step is ONTO player bro
                 //Debug.Log("i attack!");
 

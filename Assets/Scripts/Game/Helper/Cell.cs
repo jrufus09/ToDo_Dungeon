@@ -48,6 +48,8 @@ public static class Cell {
     //     return DungeonGenerator.gridTilemap.CellToWorld(new Vector3Int(gridPos.x, gridPos.y, 0));
     // }
     // centre on tile / align perfectly
+
+    // for pathfinder
     public static Vector3 GridToWorldCentered(Vector2Int gridPos) {
         //Vector3 worldPos = DungeonGenerator.gridTilemap.CellToWorld(new Vector3Int(gridPos.x, gridPos.y, 0));
         // Vector3Int gp3 = new Vector3Int(gridPos.x, gridPos.y, 0);
@@ -57,6 +59,11 @@ public static class Cell {
         Vector2Int flipped = FlipY(gridPos);
         Vector3 world = gridTilemap.GetCellCenterWorld(new Vector3Int(flipped.x, flipped.y, 0));
         return world;
+    }
+
+    public static Vector3 GridToWorldCenteredUnity(Vector2Int gridPos) {
+        // No flipping — gridPos is already Unity-style
+        return gridTilemap.GetCellCenterWorld(new Vector3Int(gridPos.x, gridPos.y, 0));
     }
 
     // pathfinding returns (int,int) coordinates in an array which needs conversion to cell, so
@@ -70,28 +77,28 @@ public static class Cell {
     // // Now use path...
     // });
     //public static async Task<Vector3[]> FindPathWorldPositions(Vector3 start, Vector3 end) { // async
-    public static Vector3[] FindPathWorldPositions(Vector3 start, Vector3 end, bool[,] walkableMap)  {
-        // takes world positions in and out, still needs grid conversion for pathfinder
+    // public static Vector3[] FindPathWorldPositions(Vector3 start, Vector3 end, bool[,] walkableMap)  {
+    //     // takes world positions in and out, still needs grid conversion for pathfinder
 
-        // convert to grid for pathfinder
-        Vector2Int startC = WorldToGridForPathfinder(start);
-        Vector2Int endC = WorldToGridForPathfinder(end);
+    //     // convert to grid for pathfinder
+    //     Vector2Int startC = WorldToGridForPathfinder(start);
+    //     Vector2Int endC = WorldToGridForPathfinder(end);
         
 
-        (int, int)[] path;
-        // sync would have been fine but im scared of performance issues
-        //AStarPathfinding.
-        path = AStarPathfinding.GeneratePathSync(startC.x, startC.y, endC.x, endC.y, walkableMap);
-        //path = await AStarPathfinding.GeneratePath(startC.x, startC.y, endC.x, endC.y, DungeonGenerator.walkableMap);
+    //     (int, int)[] path;
+    //     // sync would have been fine but im scared of performance issues
+    //     //AStarPathfinding.
+    //     path = AStarPathfinding.GeneratePathSync(startC.x, startC.y, endC.x, endC.y, walkableMap);
+    //     //path = await AStarPathfinding.GeneratePath(startC.x, startC.y, endC.x, endC.y, DungeonGenerator.walkableMap);
 
-        Vector3[] pathOut = new Vector3[path.Length];
-        for (int i = 0; i < path.Length; i++) {
-            Vector2Int pathNode = new Vector2Int(path[i].Item1, path[i].Item2);
-            pathOut[i] = GridToWorldCentered(pathNode);
-        }
+    //     Vector3[] pathOut = new Vector3[path.Length];
+    //     for (int i = 0; i < path.Length; i++) {
+    //         Vector2Int pathNode = new Vector2Int(path[i].Item1, path[i].Item2);
+    //         pathOut[i] = GridToWorldCentered(pathNode);
+    //     }
 
-        return pathOut;
-    }
+    //     return pathOut;
+    // }
 
     public static Vector2Int[] PathToPlayerVec2(Vector3 posIn, bool[,] walkableMap) { // output is grid coordinates
         //PrintWalkableMap(walkableMap);
