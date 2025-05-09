@@ -11,7 +11,7 @@ public class BoardView : MonoBehaviour {
     void Awake() {
         if (Instance == null) {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // keep alive between scenes
+            //DontDestroyOnLoad(gameObject); // keep alive between scenes
         } else { Destroy(gameObject); }
     }
 
@@ -34,7 +34,7 @@ public class BoardView : MonoBehaviour {
         
         // set name of board
         nameLabel.text = BoardDataManager.Instance.currentlyOpenBoard.name;
-        enterDungeon.boardToSend = BoardDataManager.Instance.currentlyOpenBoard;
+        enterDungeon.SetBoard(BoardDataManager.Instance.currentlyOpenBoard);
 
         //Debug.Log(contentPane);
         BoardDataManager.Instance.RefreshListIcons();

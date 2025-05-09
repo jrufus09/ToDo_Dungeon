@@ -195,3 +195,4 @@ https://github.com/h8man/NavMeshPlus/wiki/HOW-TO
 - adding tasks doesn't actually work
 - discovered layoutelements, fixed tasks not showing up
 - made edit items function
+- the button that takes you to the dungeon is getting destroyed before it can finish its calls

@@ -20,10 +20,19 @@ public class SeedGenerator : MonoBehaviour {
     public Vector2Int roomMinSize = new Vector2Int(3, 3);
     public Vector2Int roomMaxSize = new Vector2Int(6, 6);
 
+    void Awake() {
+        if (Instance == null) {
+            Instance = this;
+            //DontDestroyOnLoad(gameObject); // keep alive between scenes
+        } else {
+            Destroy(gameObject); // DESTROY duplicates
+        }
+    }
+
     public void GenAndSetSeed(Board boardIn) {
         GenerateSeed(boardIn);
         AssignSeed();
-        OnSeedGenComplete.Invoke(); // tell dungeon generator to start generating
+        OnSeedGenComplete?.Invoke(); // tell dungeon generator to start generating
         Debug.Log("invoked OnSeedGenComplete");
     }
 

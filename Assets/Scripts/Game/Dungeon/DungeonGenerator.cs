@@ -48,17 +48,15 @@ public class DungeonGenerator : MonoBehaviour {
     public GameObject exitPrefab;
 
     void Awake() {
-        //DungeonGenerator.gridTilemap = gridTilemap_; // assign to static variable
-    }
-
-    void Start() {
-
         if (Instance == null) {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // keep alive between scenes
+            //DontDestroyOnLoad(gameObject); // keep alive between scenes
         } else {
             Destroy(gameObject); // DESTROY duplicates
         }
+    }
+
+    void Start() {
 
         dungeonMap = new TileType[width, height];
         //surface = GetComponent<NavMeshSurface>();
@@ -76,12 +74,11 @@ public class DungeonGenerator : MonoBehaviour {
             // wait for System Action return to continue with generation
 
             if (SeedGenerator.Instance != null) {
-                // if (SeedGenerator.Instance.seedGenDone) { // if seedgen done = true
-                //     BeginGeneration();
-                // } else {
-                SeedGenerator.Instance.OnSeedGenComplete += BeginGeneration; // wait for action to begin
-                //     //Debug.Log("waiting for system action");
-                // }
+                if (SeedGenerator.Instance.seedGenDone) {
+                    BeginGeneration(); // Fire immediately if it's already done
+                } else {
+                    SeedGenerator.Instance.OnSeedGenComplete += BeginGeneration;
+                }
             } else {
                 Debug.LogWarning("SeedGenerator.Instance doesn't exist!");
             }

@@ -619,7 +619,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 581337157}
-  - component: {fileID: 581337161}
   - component: {fileID: 581337158}
   - component: {fileID: 581337159}
   - component: {fileID: 581337160}
@@ -678,7 +677,7 @@ MonoBehaviour:
   seed: 0
   playerPrefab: {fileID: 4717930865252694207, guid: 19aef7a682b397d42ad7d14e13ede61f, type: 3}
   walkableList: []
-  exitPrefab: {fileID: 0}
+  exitPrefab: {fileID: 4244478666274438520, guid: 5c3dc8902114a6b48b62273429d87393, type: 3}
 --- !u!222 &581337159
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -718,25 +717,6 @@ MonoBehaviour:
   m_MinRegionArea: 0
   m_HideEditorLogs: 0
   m_NavMeshData: {fileID: 23800000, guid: e1b22ff3f20e1a74ba91c572431db879, type: 2}
---- !u!114 &581337161
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 581337156}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eacb4c0bfcaeb714e97ec542c58b7636, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  seedGenDone: 0
-  globalSeed: 0
-  width: 40
-  height: 40
-  roomCount: 8
-  roomMinSize: {x: 3, y: 3}
-  roomMaxSize: {x: 6, y: 6}
 --- !u!114 &582259454 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5275642685932020767, guid: 6edb953421d30f140bc84904d7dd99c9, type: 3}
