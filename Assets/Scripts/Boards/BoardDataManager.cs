@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections;
 using System.IO;
+using NUnit.Framework.Constraints;
 
 public class BoardDataManager : MonoBehaviour {
 
@@ -214,6 +215,45 @@ public class BoardDataManager : MonoBehaviour {
             Debug.LogError($"board not found'{fromBoard}'");
             return null;
         }
+    }
+
+    public List<ListData> AllLists(Board fromBoard) {
+        List<ListData> listsOut = new List<ListData>();
+        if (fromBoard != null) {
+            // get each list in the board
+            foreach (ListData list in fromBoard.lists) {
+                //Debug.Log(list);
+                listsOut.Add(list);
+            }
+        } else {
+            Debug.LogWarning($"BoardDataManager/AllLists: board in is null");
+        }
+        return listsOut;
+    }
+
+    public List<Item> AllItems(ListData fromList) {
+        List<Item> itemsOut = new List<Item>();
+        if (fromList != null) {
+            // get each list in the board
+            foreach (Item item in fromList.items) {
+                //Debug.Log(list);
+                itemsOut.Add(item);
+            }
+        } else {
+            Debug.LogWarning($"BoardDataManager/AllLists: list in is null");
+        }
+        return itemsOut;
+    }
+
+    public int CountDoneTasks(ListData fromList) {
+        int doneCount = 0;
+        List<Item> itemsOut = AllItems(fromList);
+        foreach (Item item in fromList.items) {
+            if (item.isCompleted == true) {
+                doneCount++;
+            }
+        }
+        return doneCount;
     }
 
     private IEnumerator AutoSaveRoutine() {

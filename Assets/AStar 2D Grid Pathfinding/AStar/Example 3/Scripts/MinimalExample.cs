@@ -18,7 +18,7 @@ namespace demo3
 		{true, true, true, true}
 		};
 
-			(int, int)[] path = await AStarPathfinding.GeneratePath(0, 0, 2, 0, walkableMap, true, false);
+			(int, int)[] path = await AStarPathfinding.GeneratePath(0, 0, 2, 0, walkableMap, true, true);
 
 			printPath(path);
 		}

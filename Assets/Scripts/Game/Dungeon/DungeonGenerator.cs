@@ -11,7 +11,7 @@ public class DungeonGenerator : MonoBehaviour {
     public event System.Action OnGenerationComplete; // like signals but for C#
     public bool GenerationDone;
 
-    [Header("Map Settings")]
+    [Header("Map Settings (overriden by seed if enabled)")]
     public int width = 50;
     public int height = 50;
     public int roomCount = 8;
@@ -45,6 +45,7 @@ public class DungeonGenerator : MonoBehaviour {
     //public NavMeshPlus.Components.NavMeshSurface surface;
     public bool[,] walkableMap;
     public List<Vector2Int> walkableList;
+    public GameObject exitPrefab;
 
     void Awake() {
         //DungeonGenerator.gridTilemap = gridTilemap_; // assign to static variable
@@ -71,12 +72,30 @@ public class DungeonGenerator : MonoBehaviour {
 
 
         if (useSeed) {
-            Random.InitState(seed);
             // set unity's randomness generator
+            // wait for System Action return to continue with generation
+
+            if (SeedGenerator.Instance != null) {
+                // if (SeedGenerator.Instance.seedGenDone) { // if seedgen done = true
+                //     BeginGeneration();
+                // } else {
+                SeedGenerator.Instance.OnSeedGenComplete += BeginGeneration; // wait for action to begin
+                //     //Debug.Log("waiting for system action");
+                // }
+            } else {
+                Debug.LogWarning("SeedGenerator.Instance doesn't exist!");
+            }
+        } else {
+            BeginGeneration();
         }
 
+    }
+
+    void BeginGeneration() {
+        Random.InitState(seed);
         Generate();
         DrawMap();
+        SpawnExit();
         SpawnPlayer();
     }
 
@@ -259,8 +278,38 @@ public class DungeonGenerator : MonoBehaviour {
         return new Vector2Int(room.xMin + room.width / 2, room.yMin + room.height / 2);
     }
 
-    // Vector2Int PosToWorld(RectInt room) {
-    //     return new Vector2Int(room.xMin + room.width / 2, room.yMin + room.height / 2);
+    void SpawnExit() {
+        Vector2Int spawnPos = RandomCorner(rooms);
+        Vector3Int sp3 = new Vector3Int(spawnPos.x, spawnPos.y, 0);
+        Vector3 worldPos = gridTilemap.CellToWorld(sp3) + gridTilemap.cellSize / 2f;
+        Instantiate(exitPrefab, worldPos + new Vector3(0.5f, 0.5f, 0), Quaternion.identity);
+    }
+
+    Vector2Int RandomCorner(List<RectInt> rooms) {
+
+        // Pick a random room, but skip the first one (index 0)
+        int roomIndex = UnityEngine.Random.Range(1, rooms.Count);
+        RectInt room = rooms[roomIndex];
+
+        // Pick a random corner: 0 = bottom-left, 1 = bottom-right, 2 = top-left, 3 = top-right
+        int corner = UnityEngine.Random.Range(0, 4);
+        switch (corner)
+        {
+            case 0: return new Vector2Int(room.xMin, room.yMin); // bottom-left
+            case 1: return new Vector2Int(room.xMax - 1, room.yMin); // bottom-right
+            case 2: return new Vector2Int(room.xMin, room.yMax - 1); // top-left
+            case 3: return new Vector2Int(room.xMax - 1, room.yMax - 1); // top-right
+            default: return new Vector2Int(room.xMin, room.yMin); // fallback
+        }
+    }
+
+
+    // Vector2Int PosToWorld(Vector {
+    //     //return new Vector2Int(room.xMin + room.width / 2, room.yMin + room.height / 2);
+    //     Vector3Int sp3 = new Vector3Int(spawnPos.x, spawnPos.y, 0);
+    //     // this was converting to make the player inbetween four tiles (not ideal)
+    //     //Vector3 worldPos = gridTilemap.CellToWorld(new Vector3Int(spawnPos.x, spawnPos.y, 0));
+    //     Vector3 worldPos = gridTilemap.CellToWorld(sp3) + gridTilemap.cellSize / 2f;
     // }
 
 

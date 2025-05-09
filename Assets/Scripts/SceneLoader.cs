@@ -114,4 +114,26 @@ public class SceneLoader : MonoBehaviour {
         }
 
     }
+
+    public void OpenToDo() {
+        Scene scene = SceneManager.GetSceneByName("ToDo");
+        if (scene.isLoaded) {
+            // persistent ui
+            SceneManager.LoadScene("PersistentUI", LoadSceneMode.Additive);
+            SetNewActiveScene("ToDo");
+        } else {
+            SceneManager.LoadScene("ToDo", LoadSceneMode.Single);
+            SceneManager.LoadScene("PersistentUI", LoadSceneMode.Additive);
+        }
+        EnableOnly(DisableInteraction.TypeOfCanvas.ToDo);
+    }
+
+    public void OpenDungeon() {
+        Scene scene = SceneManager.GetSceneByName("Dungeon");
+        if (scene.isLoaded) {
+            SetNewActiveScene("Dungeon");
+        } else {
+            SceneManager.LoadScene("Dungeon", LoadSceneMode.Single);
+        }
+    }
 }

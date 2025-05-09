@@ -180,3 +180,12 @@ https://github.com/h8man/NavMeshPlus/wiki/HOW-TO
 ### 7-May-2025
 - major rework to enemyhandler's directory of what enemies are where. used to hold Enemy class, now holds gameobject
 - enemies now can take damage and die
+
+### 8-May-2025
+- made an exit to the dungeon
+- random seed generation script:
+    Unity's "randomness" can be configured with a seed (gives the same results every run)
+    my idea is to turn board data into a seed.
+    therefore, with the board in a certain state, it will always generate the same level
+    but when you change its state, the level also changes!
+    this promotes adding/completing tasks!

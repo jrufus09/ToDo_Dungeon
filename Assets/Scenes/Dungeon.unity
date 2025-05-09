@@ -662,10 +662,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GenerationDone: 0
-  width: 50
-  height: 50
+  width: 25
+  height: 25
   roomCount: 8
-  roomMinSize: {x: 3, y: 3}
+  roomMinSize: {x: 4, y: 4}
   roomMaxSize: {x: 8, y: 8}
   gridTilemap: {fileID: 1678612712}
   wallTilemap: {fileID: 990848834}
@@ -674,9 +674,10 @@ MonoBehaviour:
   wallTile: {fileID: 11400000, guid: 93904992311e62e46a9994f7af82ee78, type: 2}
   floorTile: {fileID: 11400000, guid: 367747d6588ddb548b7294ef2969ecc5, type: 2}
   useSeed: 1
-  seed: 1
+  seed: 0
   playerPrefab: {fileID: 4717930865252694207, guid: 19aef7a682b397d42ad7d14e13ede61f, type: 3}
   walkableList: []
+  exitPrefab: {fileID: 0}
 --- !u!222 &581337159
 CanvasRenderer:
   m_ObjectHideFlags: 0

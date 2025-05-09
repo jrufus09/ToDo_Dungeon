@@ -53,7 +53,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nameLabel: {fileID: 4714479824619092043}
-  listName: 
   contentPane: {fileID: 4287374319268075683}
   thisList:
     name: 
@@ -216,7 +215,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7406076430113346200}
   m_HandleRect: {fileID: 8846836234809668706}
   m_Direction: 0
-  m_Value: 0.9997756
+  m_Value: 0.9997708
   m_Size: 0.9662956
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -481,7 +480,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 23023203944259856}
-  - component: {fileID: 6487762415534768657}
   - component: {fileID: 1986256603641271128}
   - component: {fileID: 8005685154316876739}
   - component: {fileID: 4750716567656505850}
@@ -514,24 +512,6 @@ RectTransform:
   m_AnchoredPosition: {x: 7.8508, y: -104.2727}
   m_SizeDelta: {x: 388.56, y: 1039.0427}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &6487762415534768657
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6313258666812746425}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a06ce992888afcb4f8451a28a86309b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nameLabel: {fileID: 4714479824619092043}
-  listName: 
-  contentPane: {fileID: 0}
-  thisList:
-    name: 
-    items: []
 --- !u!222 &1986256603641271128
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -712,7 +692,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -12.780908, y: 520.88495}
+  m_AnchoredPosition: {x: -12.780908, y: 519.52185}
   m_SizeDelta: {x: 12.7838, y: 1034.8435}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &7432799818011867864
@@ -1025,7 +1005,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 7240208336785015909}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.50404143
+  m_Size: 0.99999857
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
