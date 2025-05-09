@@ -52,6 +52,8 @@ public class Enemy : MonoBehaviour, ITurnActor {
             Vector2Int nextStep = path[1];
             Vector3 targetWorld = Cell.GridToWorldCentered(nextStep);
 
+            Debug.Log($"Enemy path[1]: {nextStep}, Player at: {Player.Instance.coordinates}");
+
             if (nextStep == Player.Instance.coordinates) {
                 // don't try to cosy up to player if your next step is ONTO player bro
                 //Debug.Log("i attack!");

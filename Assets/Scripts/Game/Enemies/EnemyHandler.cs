@@ -155,7 +155,7 @@ public class EnemyHandler : MonoBehaviour {
                 attempts++;
                 continue; // restart while loop
             }
-            Debug.Log("walkable position: "+randomPos);
+            //Debug.Log("spawning at walkable position: "+randomPos);
             return randomPos;
         }
 
