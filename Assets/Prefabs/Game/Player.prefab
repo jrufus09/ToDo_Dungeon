@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1442542695
   m_SortingLayer: 4
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -141,14 +141,13 @@ MonoBehaviour:
   moveSpeed: 5
   hopHeight: 0.2
   squishAmount: 0.2
-  spriteHolder: {fileID: 8164292110284072350}
+  sprite: {fileID: 8164292110284072350}
   wallLayer:
     serializedVersion: 2
     m_Bits: 256
   enemyLayer:
     serializedVersion: 2
     m_Bits: 1024
-  sprite: {fileID: 8164292110284072350}
   damage: 40
 --- !u!114 &6253482492171127159
 MonoBehaviour:

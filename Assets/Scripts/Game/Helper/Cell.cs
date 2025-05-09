@@ -76,6 +76,7 @@ public static class Cell {
         // convert to grid for pathfinder
         Vector2Int startC = WorldToGridForPathfinder(start);
         Vector2Int endC = WorldToGridForPathfinder(end);
+        
 
         (int, int)[] path;
         // sync would have been fine but im scared of performance issues

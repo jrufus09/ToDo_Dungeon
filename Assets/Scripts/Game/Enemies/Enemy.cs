@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.Callbacks;
 using UnityEngine;
 using static Cell;
@@ -54,7 +55,7 @@ public class Enemy : MonoBehaviour, ITurnActor {
 
             Debug.Log($"Enemy path[1]: {nextStep}, Player at: {Player.Instance.coordinates}");
 
-            if (nextStep == Player.Instance.coordinates) {
+            if ((nextStep == Player.Instance.coordinates) || (path[0] == Player.Instance.coordinates)){
                 // don't try to cosy up to player if your next step is ONTO player bro
                 //Debug.Log("i attack!");
 
