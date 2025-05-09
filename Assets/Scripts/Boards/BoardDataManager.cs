@@ -316,14 +316,14 @@ public class BoardDataManager : MonoBehaviour {
 
     public void LoadAllTaskIcons(Transform contentArea, ListData listIn) {
         // designed to be called from the object that holds the container for the items
-        //Debug.Log("loading task icons");
+        Debug.Log($"loading task icons for {listIn.name}");
 
         // LOAD +NEW TASK FIRST
         GameObject newTaskBtn = Instantiate(newTaskPrefab, contentArea.transform);
 
         // iterate through given listdata for each task
         foreach (Item item in listIn.items) {
-            //Debug.Log(list.name);
+            Debug.Log(item.name);
             GameObject newIcon = Instantiate(itemIconPrefab, contentArea.transform); //parent to content area
             newIcon.name = "Icon_" + item.name;
             TaskIcon icon = newIcon.GetComponent<TaskIcon>();

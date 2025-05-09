@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+using System.Collections; // for enumerators
 
 public class EnterDungeon : MonoBehaviour {
 
@@ -22,6 +24,15 @@ public class EnterDungeon : MonoBehaviour {
 
     public void OnClick() {
         SceneLoader.Instance.OpenDungeon();
-        SeedGenerator.Instance.GenAndSetSeed(boardToSend);
+
+        // wait for instance to send its ready signal, then gen and set seed
+        StartCoroutine(WaitForSeedGen(() => SeedGenerator.Instance != null, () => {
+            SeedGenerator.Instance.GenAndSetSeed(boardToSend);
+        }));
+    }
+
+    public IEnumerator WaitForSeedGen(Func<bool> condition, Action onReady) {
+        yield return new WaitUntil(condition);
+        onReady?.Invoke();
     }
 }

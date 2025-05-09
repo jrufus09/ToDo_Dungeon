@@ -189,3 +189,7 @@ https://github.com/h8man/NavMeshPlus/wiki/HOW-TO
     therefore, with the board in a certain state, it will always generate the same level
     but when you change its state, the level also changes!
     this promotes adding/completing tasks!
+
+### 9-May-2025
+- general debugging. adding "enter dungeon" to boardview
+- adding tasks doesn't actually work

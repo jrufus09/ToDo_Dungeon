@@ -15,7 +15,7 @@ public class NewItem : MonoBehaviour {
         // if (target != null && target.TryGetComponent(out ListIcon icon)) {
         //     parent = icon;
         // }
-        Debug.Log("+task was clicked");
+        //Debug.Log("+task was clicked");
     }
 
     public void OnClick() {
@@ -26,6 +26,7 @@ public class NewItem : MonoBehaviour {
         {
             Debug.Log("return: " + inputText);
         });
+        parent.RefreshTaskIcons();
     }
     
 
