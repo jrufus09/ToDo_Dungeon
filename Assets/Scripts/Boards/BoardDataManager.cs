@@ -103,7 +103,7 @@ public class BoardDataManager : MonoBehaviour {
         }
         string json = JsonUtility.ToJson(saveThis, true);
         File.WriteAllText(folderPath, json);
-        Debug.Log("data saved to " + folderPath);
+        Debug.Log("data saved to " + folderPath + " at " + System.DateTime.Now);
         LoadBoardNames();
     }
 
@@ -262,7 +262,7 @@ public class BoardDataManager : MonoBehaviour {
         while (true) {
             yield return new WaitForSeconds(saveInterval);
             SaveData();
-            Debug.Log("autosaved at " + System.DateTime.Now);
+            //Debug.Log("autosaved at " + System.DateTime.Now);
         }
     }
 

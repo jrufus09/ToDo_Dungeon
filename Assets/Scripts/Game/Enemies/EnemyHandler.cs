@@ -239,6 +239,7 @@ public class EnemyHandler : MonoBehaviour {
         GameObject enemy = enemyMap[oldPos];
         enemyMap.Remove(oldPos);
         enemyMap[newPos] = enemy;
+        Debug.Log($"enemy moved from {oldPos} to {newPos}");
     }
 
     public void EnemyDied(Vector2Int atPos) {
@@ -262,7 +263,7 @@ public class EnemyHandler : MonoBehaviour {
     //public void RegisterEnemy(Vector2Int pos, Enemy enemy) {
     public void RegisterEnemy(Vector2Int pos, GameObject enemy) {
         enemyMap[pos] = enemy;
-        Debug.Log("registering enemy at "+ pos);
+        //Debug.Log("registering enemy at "+ pos);
     }
 
     public void UnregisterEnemy(Vector2Int pos) {

@@ -40,7 +40,6 @@ public class Enemy : MonoBehaviour, ITurnActor {
     }
 
     void Update() {
-        coordinates = Cell.WorldToGrid(transform.position);
     }
 
     public IEnumerator TakeTurn() {
@@ -73,6 +72,8 @@ public class Enemy : MonoBehaviour, ITurnActor {
             yield return StartCoroutine(SmoothMoveTo(targetWorld));
             coordinates = nextStep; // coordinates = new/current positon
             EnemyHandler.Instance.EnemyMoved(oldPosition, coordinates);
+            
+            coordinates = Cell.WorldToGrid(transform.position);
         }
 
         yield return null;

@@ -17,7 +17,7 @@ public class SeedGenerator : MonoBehaviour {
     public int width = 40;
     public int height = 40;
     public int roomCount = 8;
-    public Vector2Int roomMinSize = new Vector2Int(3, 3);
+    public Vector2Int roomMinSize = new Vector2Int(4, 4);
     public Vector2Int roomMaxSize = new Vector2Int(6, 6);
 
     void Awake() {
@@ -62,7 +62,8 @@ public class SeedGenerator : MonoBehaviour {
         // ratio of tasks to done tasks: room size variation
         // the more tasks are done, the more varied the rooms are
         int dtr = noDT/noT*10;
-        roomMaxSize = new Vector2Int(roomMinSize.x+dtr, roomMinSize.y+dtr);
+        int roomVariationBase = 2;
+        roomMaxSize = new Vector2Int(roomMinSize.x+dtr+roomVariationBase, roomMinSize.y+dtr+roomVariationBase);
 
         // dungeon gets bigger the more lists and tasks you add
         width = width + noL + noT;

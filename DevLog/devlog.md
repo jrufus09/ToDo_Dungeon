@@ -196,3 +196,11 @@ https://github.com/h8man/NavMeshPlus/wiki/HOW-TO
 - discovered layoutelements, fixed tasks not showing up
 - made edit items function
 - the button that takes you to the dungeon is getting destroyed before it can finish its calls
+
+    important coordinate info
+    the tilemap's coordinates start at bottom left
+    the cell system that the A* pathfinder uses starts in the top left
+    hence two different conversion systems. pathfinder needs positon relative to NW(0,0)
+    however all other systems including walkable map need the "normal" coordinate positions
+
+    i might fix this by making the dungeon generate \>> ↓

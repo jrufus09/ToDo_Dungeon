@@ -18,6 +18,22 @@ public static class Cell {
     // transform.position in, cell coordinates out.
     public static Vector2Int WorldToGrid(Vector3 worldPos) {
         Vector3Int cell = gridTilemap.WorldToCell(worldPos);
+ 
+        return new Vector2Int(cell.x, cell.y);
+        //return FlipY(new Vector2Int(cell.x, cell.y));
+        //return new Vector2Int(cell.x, dungeonHeight - 1 - cell.y);
+
+        //int flippedY = dungeonHeight - 1 - cell.y; // Flip because map is vertically flipped
+        //return new Vector2Int(cell.x, flippedY);
+    }
+    // for easy tracking in inspector,
+    // public Vector2Int cellCoordinates;
+    // void Update() {
+    // cellCoordinates = Cell.WorldToGrid(transform.position);
+    //}
+
+    public static Vector2Int WorldToGridForPathfinder(Vector3 worldPos) {
+        Vector3Int cell = gridTilemap.WorldToCell(worldPos);
         // we add that offset to make it centred on grid
         //return new Vector2Int(cell.x, cell.y);
         //return FlipY(new Vector2Int(cell.x, cell.y));
@@ -26,11 +42,6 @@ public static class Cell {
         int flippedY = dungeonHeight - 1 - cell.y; // Flip because map is vertically flipped
         return new Vector2Int(cell.x, flippedY);
     }
-    // for easy tracking in inspector,
-    // public Vector2Int cellCoordinates;
-    // void Update() {
-    // cellCoordinates = Cell.WorldToGrid(transform.position);
-    //}
 
     // and this is the reverse
     // public static Vector3 GridToWorld(Vector2Int gridPos) {
@@ -63,8 +74,8 @@ public static class Cell {
         // takes world positions in and out, still needs grid conversion for pathfinder
 
         // convert to grid for pathfinder
-        Vector2Int startC = WorldToGrid(start);
-        Vector2Int endC = WorldToGrid(end);
+        Vector2Int startC = WorldToGridForPathfinder(start);
+        Vector2Int endC = WorldToGridForPathfinder(end);
 
         (int, int)[] path;
         // sync would have been fine but im scared of performance issues
@@ -85,15 +96,15 @@ public static class Cell {
         //PrintWalkableMap(walkableMap);
 
         // convert to grid for pathfinder
-        Vector2Int enemyPos = WorldToGrid(posIn);
-        Vector2Int playerPos = WorldToGrid(Player.Instance.transform.position);
+        Vector2Int enemyPos = WorldToGridForPathfinder(posIn);
+        Vector2Int playerPos = WorldToGridForPathfinder(Player.Instance.transform.position);
 
         // I learned the algorithm potentially takes in y,x omg
         bool[,] map = TransformBoolMap(walkableMap);
         //PrintWalkableMap(map);
 
         (int, int)[] path;
-        DebugPrintMapWithPositions(map, enemyPos, playerPos);
+        //DebugPrintMapWithPositions(map, enemyPos, playerPos);
         path = AStarPathfinding.GeneratePathSync(enemyPos.x, enemyPos.y, playerPos.x, playerPos.y, map);
 
         // Debug.Log($"Enemy Grid Pos: {enemyPos} | Player Grid Pos: {playerPos}");

@@ -285,8 +285,8 @@ public class DungeonGenerator : MonoBehaviour {
 
     Vector2Int RandomCorner(List<RectInt> rooms) {
 
-        // Pick a random room, but skip the first one (index 0)
-        int roomIndex = UnityEngine.Random.Range(1, rooms.Count);
+        // Pick a random room, but skip the first one (index 0) and second one
+        int roomIndex = UnityEngine.Random.Range(2, rooms.Count);
         RectInt room = rooms[roomIndex];
 
         // Pick a random corner: 0 = bottom-left, 1 = bottom-right, 2 = top-left, 3 = top-right
