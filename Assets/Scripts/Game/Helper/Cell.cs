@@ -5,6 +5,7 @@ using System;
 using System.Threading.Tasks;
 using Unity.Collections;
 using System.Text;
+using Unity.VisualScripting;
 
 public static class Cell {
 
@@ -64,6 +65,10 @@ public static class Cell {
     public static Vector3 GridToWorldCenteredUnity(Vector2Int gridPos) {
         // No flipping — gridPos is already Unity-style
         return gridTilemap.GetCellCenterWorld(new Vector3Int(gridPos.x, gridPos.y, 0));
+    }
+
+    public static Vector2Int PosToGrid(UnityEngine.Vector3 posIn) {
+        return new Vector2Int((int)posIn.x, (int)posIn.y);
     }
 
     // pathfinding returns (int,int) coordinates in an array which needs conversion to cell, so

@@ -235,7 +235,7 @@ public class PlayerMovement : MonoBehaviour {
         StartAttackAnimation(targetDir);
 
             // get enemy in the target direction
-        Vector2Int enemyPos = Player.Instance.coordinates - targetDir;
+        Vector2Int enemyPos = Player.Instance.coordinates + targetDir;
         //Debug.Log(enemyPos);
         GameObject target = EnemyHandler.Instance.GetEnemyAt(enemyPos);
 

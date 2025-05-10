@@ -228,7 +228,17 @@ public class DungeonGenerator : MonoBehaviour {
             }
         }
         
-        //StartCoroutine(BakeAfterDelay());
+        // Debug walkable list
+        DebugWalkableList();
+    }
+
+    public void DebugWalkableList() {
+        foreach (Vector2Int pos in walkableList) {
+            TileBase tile = floorTilemap.GetTile(new Vector3Int(pos.x, pos.y, 0));
+            if (tile == null) {
+                Debug.LogWarning($"walkableList contains a position with NO FLOOR TILE: {pos}");
+            }
+        }
     }
 
     // IEnumerator BakeAfterDelay() {

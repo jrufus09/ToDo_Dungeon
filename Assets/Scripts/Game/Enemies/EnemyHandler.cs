@@ -214,15 +214,19 @@ public class EnemyHandler : MonoBehaviour {
         if (spawnAt == Vector2Int.zero) {
             return; // failed to gen position
         } else {
+
+            // EVERYTHING SPAWNS IN WALLS IDK WHAT TO DO
             Vector3Int sp3 = new Vector3Int(spawnAt.x, spawnAt.y, 0);
-            Tilemap tm = DungeonGenerator.Instance.floorTilemap;
-            //Vector3 worldPos = tm.CellToWorld(sp3) + tm.cellSize / 2f;
+            //Tilemap tm = DungeonGenerator.Instance.floorTilemap;
+            // Vector3 worldPos = tm.CellToWorld(sp3) + tm.cellSize / 2f;
             //Vector3 worldPos = Cell.GridToWorldCentered(spawnAt);
-            Vector3 worldPos = Cell.GridToWorldCenteredUnity(spawnAt);
+            //Vector3 worldPos = Cell.GridToWorldCenteredUnity(spawnAt);
+            //Vector3 worldPos = DungeonGenerator.Instance.floorTilemap.GetCellCenterWorld(new Vector3Int(spawnAt.x, spawnAt.y, 0));
+
+            // screw it, my tiles are 1x1x1
+            Vector3 worldPos = new Vector3(spawnAt.x, spawnAt.y, 0);
             GameObject thing = Instantiate(enemyEntry.enemyPrefab, worldPos, Quaternion.identity, enemiesLayer.transform);
-            //Debug.Log("pop, i made an enemy");
-            //RegisterEnemy(spawnAt, thing.GetComponent<Enemy>());
-            //RegisterEnemy(spawnAt, thing); // decided to register at its startup instead
+            Debug.Log($"enemy spawned at {spawnAt}, world pos {worldPos}");
         }
     }
 
@@ -254,6 +258,9 @@ public class EnemyHandler : MonoBehaviour {
     //public Enemy GetEnemyAt(Vector2Int position) {
         //enemyMap.TryGetValue(position, out Enemy e);
     public GameObject GetEnemyAt(Vector2Int position) {
+        var isThere = IsOccupied(position);
+        Debug.Log($"Checking if there is an enemy at {position}: {isThere}");
+
         if (!enemyMap.ContainsKey(position)) {
             Debug.LogWarning($"EnemyMoved: No enemy found at {position}.");
         }

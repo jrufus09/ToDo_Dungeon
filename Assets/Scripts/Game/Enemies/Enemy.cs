@@ -26,10 +26,13 @@ public class Enemy : MonoBehaviour, ITurnActor {
         rb = GetComponent<Rigidbody2D>();
 
         // snap to grid!
-        Vector2Int gridPos = Cell.WorldToGrid(transform.position);
-        rb.MovePosition(Cell.GridToWorldCentered(gridPos));
+        //Vector2Int gridPos = Cell.WorldToGrid(transform.position);
+        //rb.MovePosition(Cell.GridToWorldCentered(gridPos));
+        rb.MovePosition(Cell.GridToWorldCenteredUnity(Cell.WorldToGrid(transform.position)));
 
-        coordinates = Cell.WorldToGrid(transform.position);
+
+        //oordinates = Cell.WorldToGrid(transform.position);
+        coordinates = Cell.PosToGrid(transform.position);
         EnemyHandler.Instance.RegisterEnemy(coordinates, this.gameObject);
         // Register in turnmanager
         TurnManager.Instance.RegisterEnemy(this);
@@ -56,7 +59,7 @@ public class Enemy : MonoBehaviour, ITurnActor {
             // path[] is pathfinder space and player coordinates are unity space
             // convert player's position to pathfinder space and check theyre not the same
             Vector2Int playerPos = Cell.WorldToGridForPathfinder(Player.Instance.transform.position);
-            Debug.Log($"Enemy path[1]: {nextStep}, Player at: {playerPos}");
+            //Debug.Log($"Enemy path[1]: {nextStep}, Player at: {playerPos}");
 
             if ((nextStep == playerPos) || (path[0] == playerPos)){
                 // don't try to cosy up to player if your next step is ONTO player bro
@@ -77,9 +80,11 @@ public class Enemy : MonoBehaviour, ITurnActor {
             oldPosition = coordinates;
             yield return StartCoroutine(SmoothMoveTo(targetWorld));
             coordinates = nextStep; // coordinates = new/current positon
-            EnemyHandler.Instance.EnemyMoved(oldPosition, coordinates);
+
+            // return unity-space position
+            EnemyHandler.Instance.EnemyMoved(oldPosition, Cell.PosToGrid(transform.position));
             
-            coordinates = Cell.WorldToGrid(transform.position);
+            coordinates = Cell.PosToGrid(transform.position);
         }
 
         yield return null;
@@ -127,7 +132,7 @@ public class Enemy : MonoBehaviour, ITurnActor {
         Vector3 lungeOffset = new Vector3(direction.x, direction.y, 0) * 0.1f;
         Vector3 squishScale = new Vector3(1.2f, 0.8f, 1f);
 
-        float duration = 0.5f;
+        float duration = 0.2f;
 
         // Lunge forward with squish
         float t = 0;
