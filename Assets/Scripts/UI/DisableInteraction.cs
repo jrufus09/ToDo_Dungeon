@@ -57,6 +57,6 @@ public class DisableInteraction : MonoBehaviour {
             }
             wasEnabled = false;
         }
-        //Debug.Log(type + " was enabled: " + wasEnabled);
+        Debug.Log(type + " was enabled: " + wasEnabled);
     }
 }

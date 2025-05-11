@@ -11,7 +11,7 @@ public class BoardDataManager : MonoBehaviour {
 
     public static BoardDataManager Instance { get; private set; } // Singleton ("static")
 
-    void Start() {
+    public void Start() {
         Debug.Log($"persistent data path on {Application.platform} is: {Application.persistentDataPath}");
         
         currentSessionData = LoadData(folderPath);

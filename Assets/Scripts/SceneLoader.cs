@@ -81,6 +81,14 @@ public class SceneLoader : MonoBehaviour {
 
     //StartCoroutine(LoadThenActivate(sceneName));
     private IEnumerator LoadThenActivate(string sceneName) {
+
+        // temp cam
+        GameObject tempCam = new GameObject("TempCamera");;
+        if (Camera.main == null) {
+            tempCam.AddComponent<Camera>();
+            DontDestroyOnLoad(tempCam);
+        }
+
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
 
         // wait until the scene is done loading before cont - basically a while loop but better
@@ -94,6 +102,8 @@ public class SceneLoader : MonoBehaviour {
         // }
 
         //SetNewActiveScene(sceneName);
+        
+        Destroy(tempCam);
     }
 
     public void SetNewActiveScene(string sceneName) {
@@ -126,6 +136,7 @@ public class SceneLoader : MonoBehaviour {
             SceneManager.LoadScene("PersistentUI", LoadSceneMode.Additive);
         }
         EnableOnly(DisableInteraction.TypeOfCanvas.ToDo);
+        BoardDataManager.Instance.Start();
     }
 
     public void OpenDungeon() {

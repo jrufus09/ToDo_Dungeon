@@ -204,3 +204,7 @@ https://github.com/h8man/NavMeshPlus/wiki/HOW-TO
     however all other systems including walkable map need the "normal" coordinate positions
 
     THIS MEANS PATH[] needs conversion OUT. so THAT'S why the enemy doesn't know where player is
+
+### 11 May 2025
+- added message popup
+- make player actually die

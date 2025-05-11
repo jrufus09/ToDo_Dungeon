@@ -162,6 +162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coordinates: {x: 0, y: 0}
+  health: {fileID: 0}
 --- !u!114 &1636756048279864409
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,8 +191,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95f4cd67f2efaf3498b751adb03df37f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
-  currentHealth: 50
+  maxHealth: 250
+  currentHealth: 250
   isDead: 0
 --- !u!50 &313770495706853211
 Rigidbody2D:
