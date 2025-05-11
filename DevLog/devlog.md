@@ -208,3 +208,4 @@ https://github.com/h8man/NavMeshPlus/wiki/HOW-TO
 ### 11 May 2025
 - added message popup
 - make player actually die
+- trying to fix the small camera issue where it says main camera is null for a time. worked out it becomes null right after the canvas group is disabled and in two frames before the new camera becomes real

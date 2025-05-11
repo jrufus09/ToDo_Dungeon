@@ -45,6 +45,7 @@ public class SceneLoader : MonoBehaviour {
             // find all <disableinteraction> scripts in the whole game, then call disable / enable
             // moved to end
 
+
         } else {
             //Debug.Log("boardview is already loaded.");
             BoardView.Instance.Reload(); // re-set name and open lists and so on
@@ -81,12 +82,12 @@ public class SceneLoader : MonoBehaviour {
 
     //StartCoroutine(LoadThenActivate(sceneName));
     private IEnumerator LoadThenActivate(string sceneName) {
-        EnsureTemporaryCamera();
 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
 
         // wait until the scene is done loading before cont - basically a while loop but better
         while (!asyncLoad.isDone) {
+            TempCameraManager.CreateTempCamera();
             yield return null;
         }
 
@@ -129,7 +130,8 @@ public class SceneLoader : MonoBehaviour {
             SceneManager.LoadScene("PersistentUI", LoadSceneMode.Additive);
         }
         EnableOnly(DisableInteraction.TypeOfCanvas.ToDo);
-        BoardDataManager.Instance.Start();
+        BoardDataManager.Instance.LoadBoardNames();
+        BoardDataManager.Instance.LoadAllBoardIcons();
     }
 
     public void OpenDungeon() {

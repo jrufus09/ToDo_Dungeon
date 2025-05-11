@@ -126,7 +126,7 @@ public class BoardDataManager : MonoBehaviour {
     private HashSet<string> boardNamesSet; // for quick lookup
     [SerializeField]private HashSet<string> listNamesSet;
 
-    private void LoadBoardNames() { // call this whenever json is loaded / updated
+    public void LoadBoardNames() { // call this whenever json is loaded / updated
         boardNamesSet = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         foreach (Board board in currentSessionData.boards) {
             boardNamesSet.Add(board.name);
