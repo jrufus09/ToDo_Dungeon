@@ -81,13 +81,7 @@ public class SceneLoader : MonoBehaviour {
 
     //StartCoroutine(LoadThenActivate(sceneName));
     private IEnumerator LoadThenActivate(string sceneName) {
-
-        // temp cam
-        GameObject tempCam = new GameObject("TempCamera");;
-        if (Camera.main == null) {
-            tempCam.AddComponent<Camera>();
-            DontDestroyOnLoad(tempCam);
-        }
+        EnsureTemporaryCamera();
 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
 
@@ -102,8 +96,7 @@ public class SceneLoader : MonoBehaviour {
         // }
 
         //SetNewActiveScene(sceneName);
-        
-        Destroy(tempCam);
+        RemoveTemporaryCameraIfNeeded();
     }
 
     public void SetNewActiveScene(string sceneName) {
@@ -147,5 +140,27 @@ public class SceneLoader : MonoBehaviour {
             SceneManager.LoadScene("Dungeon", LoadSceneMode.Single);
         }
     }
+
+    private GameObject tempCameraObj;
+
+    private void EnsureTemporaryCamera() {
+        if (Camera.main == null) {
+            tempCameraObj = new GameObject("TempCamera");
+            var cam = tempCameraObj.AddComponent<Camera>();
+            cam.clearFlags = CameraClearFlags.SolidColor;
+            cam.backgroundColor = Color.black;
+            tempCameraObj.tag = "MainCamera"; // Make sure it's discoverable
+            DontDestroyOnLoad(tempCameraObj);
+        }
+    }
+
+    private void RemoveTemporaryCameraIfNeeded() {
+        if (tempCameraObj != null) {
+            Destroy(tempCameraObj);
+            tempCameraObj = null;
+        }
+    }
+
+
 
 }
