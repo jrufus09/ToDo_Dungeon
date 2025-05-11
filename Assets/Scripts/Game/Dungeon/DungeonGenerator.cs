@@ -19,7 +19,6 @@ public class DungeonGenerator : MonoBehaviour {
     public Vector2Int roomMaxSize = new Vector2Int(10, 10);
 
     [Header("Tiles")]
-    //public static Tilemap gridTilemap; // only one instance of this in the whole thing
     public Tilemap gridTilemap; // assign this one in inspector, but it's the same as above
     public Tilemap wallTilemap;
     public Tilemap floorTilemap;
@@ -42,7 +41,6 @@ public class DungeonGenerator : MonoBehaviour {
         Wall
     }
     TileType[,] dungeonMap;
-    //public NavMeshPlus.Components.NavMeshSurface surface;
     public bool[,] walkableMap;
     public List<Vector2Int> walkableList;
     public GameObject exitPrefab;
@@ -59,9 +57,6 @@ public class DungeonGenerator : MonoBehaviour {
     void Start() {
 
         dungeonMap = new TileType[width, height];
-        //surface = GetComponent<NavMeshSurface>();
-        //surface = GetComponent<NavMeshPlus.Components.NavMeshSurface>();
-        //surface.BuildNavMeshAsync();
 
         // set static stuff for helper
         Cell.gridTilemap = gridTilemap;
@@ -184,32 +179,12 @@ public class DungeonGenerator : MonoBehaviour {
         return map[x + 1, y] == 1 || map[x - 1, y] == 1 ||
                map[x, y + 1] == 1 || map[x, y - 1] == 1;
     }
-
-    // void MapTranslation() { // numbers to enum
-    //     for (int x = 0; x < width; x++) {
-    //         for (int y = 0; y < height; y++) {
-    //             if (map[x, y] == 1)
-    //                 dungeonMap[x, y] = TileType.Floor;
-    //             else if (map[x, y] == 2)
-    //                 dungeonMap[x, y] = TileType.Wall;
-    //         }
-    //     }
-    // } // this is just integrated into the generator
-
     void DrawMap() {
         wallTilemap.ClearAllTiles();
         gridTilemap.ClearAllTiles();
         floorTilemap.ClearAllTiles();
 
-        // for old system with 1s and 2s
-        // for (int x = 0; x < width; x++) {
-        //     for (int y = 0; y < height; y++) {
-        //         if (map[x, y] == 1)
-        //             gridTilemap.SetTile(new Vector3Int(x, y, 0), gridTile);
-        //         else if (map[x, y] == 2)
-        //             wallTilemap.SetTile(new Vector3Int(x, y, 0), wallTile);
-        //     }
-        // }
+
         walkableMap = new bool[width, height];
         walkableList = new List<Vector2Int>();
         for (int x = 0; x < width; x++) {
@@ -241,15 +216,6 @@ public class DungeonGenerator : MonoBehaviour {
         }
     }
 
-    // IEnumerator BakeAfterDelay() {
-    //     yield return null; // wait one frame for tilemap to finalize
-    //     Physics2D.SyncTransforms(); // ensure colliders are registered
-    //     yield return new WaitForFixedUpdate(); // ensure physics runs
-    //     //surface.BuildNavMesh();
-    //     //surface.BuildNavMeshAsync();
-    //     surface.UpdateNavMesh(surface.navMeshData);
-    // }
-
     void SpawnPlayer() {
         if (playerPrefab == null) {
             //playerPrefab = FindAnyObjectByType<PlayerMovement>().gameObject;
@@ -271,8 +237,6 @@ public class DungeonGenerator : MonoBehaviour {
         Vector2 spawnAt;
         spawnAt.x = worldPos.x;
         spawnAt.y = worldPos.y;
-        //Debug.Log(worldPos);
-        //Debug.Log(spawnAt);
 
         Instantiate(playerPrefab, worldPos + new Vector3(0.5f, 0.5f, 0), Quaternion.identity);
         playerPrefab.GetComponent<PlayerMovement>().InitiateAt(spawnAt);
@@ -310,15 +274,6 @@ public class DungeonGenerator : MonoBehaviour {
             default: return new Vector2Int(room.xMin, room.yMin); // fallback
         }
     }
-
-
-    // Vector2Int PosToWorld(Vector {
-    //     //return new Vector2Int(room.xMin + room.width / 2, room.yMin + room.height / 2);
-    //     Vector3Int sp3 = new Vector3Int(spawnPos.x, spawnPos.y, 0);
-    //     // this was converting to make the player inbetween four tiles (not ideal)
-    //     //Vector3 worldPos = gridTilemap.CellToWorld(new Vector3Int(spawnPos.x, spawnPos.y, 0));
-    //     Vector3 worldPos = gridTilemap.CellToWorld(sp3) + gridTilemap.cellSize / 2f;
-    // }
 
 
 }

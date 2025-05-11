@@ -56,8 +56,6 @@ public class PlayerMovement : MonoBehaviour {
     public void InitiateAt(Vector2 pos) {
         rb = GetComponent<Rigidbody2D>(); // apparently start() didnt get it
 
-        //Debug.Log(pos);
-        //transform.position = pos;
         rb.MovePosition(pos);
         SnapToGrid();
     }

@@ -49,14 +49,6 @@ public class EnterDungeon : MonoBehaviour {
     }
 
     private IEnumerator WaitForSeedGenerator() {
-        // Wait until SeedGenerator.Instance is initialized
-        // while (SeedGenerator.Instance == null)
-        // {
-        //     yield return null;
-        // }
-
-        // SeedGenerator.Instance.GenAndSetSeed(boardToSend);
-        // Debug.Log($"I set the seed to {SeedGenerator.Instance.globalSeed}");
 
         float timeout = 3f;
         float elapsed = 0f;
@@ -79,32 +71,4 @@ public class EnterDungeon : MonoBehaviour {
         //Destroy(gameObject); //safe to destroy
     }
 
-    // public void OnClick() {
-    //     DontDestroyOnLoad(this.gameObject); // keep this guy surviving between scenes
-
-    //     //SceneManager.sceneLoaded += OnSceneLoaded; // subscribe
-    //     SceneLoader.Instance.OpenDungeon();
-
-    //     // wait for instance to send its ready signal, then gen and set seed
-    //     StartCoroutine(WaitForSeedGen(() => SeedGenerator.Instance != null, () => {
-    //         SeedGenerator.Instance.GenAndSetSeed(boardToSend);
-    //         Debug.Log($"I set the seed to {SeedGenerator.Instance.globalSeed}");
-    //         Destroy(gameObject);
-    //     }));
-
-    // }
-
-    // public IEnumerator WaitForSeedGen(Func<bool> condition, Action onReady) {
-    //     yield return new WaitUntil(condition);
-    //     onReady?.Invoke();
-    // }
-
-    // void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
-    //     if (scene.name == "Dungeon") {
-    //         SeedGenerator.Instance.GenAndSetSeed(boardToSend);
-    //         Debug.Log($"I set the seed to {SeedGenerator.Instance.globalSeed}");
-
-    //         SceneManager.sceneLoaded -= OnSceneLoaded; // clean up
-    //     }
-    // }
 }

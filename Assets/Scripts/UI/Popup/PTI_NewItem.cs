@@ -24,8 +24,4 @@ public class PTI_NewItem : PopupTextInput {
         selfDestruct();
     }
 
-    // inherited
-    // private void onClickCancel() { selfDestruct(); }
-    // public void selfDestruct() { Destroy(gameObject);}
-
 }

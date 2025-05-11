@@ -6,8 +6,7 @@ public class BoardView : MonoBehaviour {
 
     public EnterDungeon enterDungeon;
 
-    //we want only one at runtime
-    public static BoardView Instance { get; private set; } // Singleton ("static")
+    public static BoardView Instance { get; private set; }
     void Awake() {
         if (Instance == null) {
             Instance = this;
@@ -36,7 +35,6 @@ public class BoardView : MonoBehaviour {
         nameLabel.text = BoardDataManager.Instance.currentlyOpenBoard.name;
         enterDungeon.SetBoard(BoardDataManager.Instance.currentlyOpenBoard);
 
-        //Debug.Log(contentPane);
         BoardDataManager.Instance.RefreshListIcons();
     }
 }

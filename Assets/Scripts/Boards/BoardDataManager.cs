@@ -311,14 +311,12 @@ public class BoardDataManager : MonoBehaviour {
             newIcon.name = "Icon_" + list.name;
             ListIcon icon = newIcon.GetComponent<ListIcon>();
             icon.SetName(list.name);
-            //icon.Initialize(); // update text label, etc. // moved to above
         }
         LoadListNames(); // hashset stuff
     }
 
     public void LoadAllTaskIcons(Transform contentArea, ListData listIn) {
         // designed to be called from the object that holds the container for the items
-        //Debug.Log($"loading task icons for {listIn.name}");
 
         // LOAD +NEW TASK FIRST
         GameObject newTaskBtn = Instantiate(newTaskPrefab, contentArea.transform);
@@ -332,21 +330,7 @@ public class BoardDataManager : MonoBehaviour {
             icon.SetName(item.name);
         }
     }
-
-    // public void ToggleTask(Item task, bool toggle) {
-    //     List<Item> items = AllItems(currentlyEditingList);
-    //     int index = items.IndexOf(task); 
-    //     if (index != -1) { // returns -1 if not in list
-    //         EditItem(task.name, item => {
-    //         item.isCompleted = toggle;
-    //     });
-
-    //     } else {
-    //         Debug.LogWarning("item is not in currently editing list.");
-    //     }
-    // }
-
-    public void RefreshTaskIcons(Transform contentArea, ListData listData) { // clear icons and reload
+        public void RefreshTaskIcons(Transform contentArea, ListData listData) { // clear icons and reload
         //Debug.Log("Refreshing task icons");
         // use boardview Instance to get where content area is
         foreach(Transform child in contentArea){

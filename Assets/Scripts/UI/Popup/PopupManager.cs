@@ -60,8 +60,6 @@ public class PopupManager : MonoBehaviour {
                 Debug.LogWarning("unknown type passed into ShowInputPopup()");
                 break;
         }
-
-        //Instantiate(newBoardPopupPrefab, this.transform);
     }
 
     // call it like

@@ -38,7 +38,6 @@ public class Player : MonoBehaviour {
         foundCam[0].SetPlayer(player);
 
         // initialise health
-        //FindFirstObjectByType<PlayerHealthBar>()?.SetTargetHealth(this.GetComponent<Health>());
         PlayerHealthBar.Instance.SetTargetHealth(GetComponent<Health>());
 
         EnemyHandler.Instance.SetPlayer(transform);

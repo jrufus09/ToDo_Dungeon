@@ -10,12 +10,6 @@ public class NewItem : MonoBehaviour {
         // Check for input
         GetComponent<Button>().onClick.AddListener(OnClick);
         parent = GetComponentInParent<ListIcon>();
-        // we climb
-        // Transform target = transform.parent?.parent?.parent;
-        // if (target != null && target.TryGetComponent(out ListIcon icon)) {
-        //     parent = icon;
-        // }
-        //Debug.Log("+task was clicked");
     }
 
     public void OnClick() {

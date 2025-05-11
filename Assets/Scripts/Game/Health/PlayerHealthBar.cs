@@ -20,10 +20,6 @@ public class PlayerHealthBar : HealthBar {
         if (fillImage == null) {
             fillImage = GetComponentInChildren<Image>();
         }
-
-        // player = Player.Instance.transform;
-        // targetHealth = Player.Instance.gameObject.GetComponent<Health>();
-
     }
 
     // // returns self as an object if needed, takes object in

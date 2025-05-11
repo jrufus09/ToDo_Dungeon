@@ -26,8 +26,6 @@ public class Enemy : MonoBehaviour, ITurnActor {
         rb = GetComponent<Rigidbody2D>();
 
         // snap to grid!
-        //Vector2Int gridPos = Cell.WorldToGrid(transform.position);
-        //rb.MovePosition(Cell.GridToWorldCentered(gridPos));
         rb.MovePosition(Cell.GridToWorldCenteredUnity(Cell.WorldToGrid(transform.position)));
 
 

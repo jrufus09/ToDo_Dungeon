@@ -24,12 +24,6 @@ public class DungeonUI : MonoBehaviour {
 
     void Start() {
 
-        //moveButtons = new Button[3]; // first 4 items
-        //var btns = GameObject.FindGameObjectsWithTag("MoveButton");
-        // for (int i = 0; i<moveButtons.Length; i++) {
-        //     moveButtons[i] = btns[i].GetComponent<Button>();
-        // }
-
         moveButtons = new Button[] {up, left, right, down};
         btnatk = attack.gameObject.GetComponent<ButtonAttack>();
 
@@ -42,18 +36,6 @@ public class DungeonUI : MonoBehaviour {
             btn.interactable = tf;
         }
     }
-
-    // public void EnableOneMoveButton(string dir, bool tf=true) {
-    //     if (dir.ToUpper() == "LEFT") {
-    //         left.interactable = tf;
-    //     } else if (dir.ToUpper() == "RIGHT") {
-    //         right.interactable = tf;
-    //     } else if (dir.ToUpper() == "UP") {
-    //         up.interactable = tf;
-    //     } else if (dir.ToUpper() == "DOWN") {
-    //         down.interactable = tf;
-    //     }
-    // }
 
     public void EnableMoveButton(Vector2 dir, bool tf=true) {
         if (dir == Vector2.left) {
@@ -76,15 +58,6 @@ public class DungeonUI : MonoBehaviour {
     public void DisableAttackButton() {
         attack.interactable = false;
         btnatk.directions = null;
-    }
-
-    void Update() {
-
-        // if (TurnManager.Instance.waitingForPlayer == false) {
-        //     DisableAllMoveButtons(true); // not waiting for player, don't let them move
-        // } else { 
-        //     DisableAllMoveButtons(false);
-        // }
     }
 
 }

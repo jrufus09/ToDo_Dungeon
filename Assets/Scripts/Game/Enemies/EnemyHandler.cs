@@ -26,11 +26,9 @@ public class EnemyHandler : MonoBehaviour {
     // influences WHICH SPECIFIC enemies generate and WHERE
 
     // dictionary spanning the dungeon's size which tells us where the enemies are
-    //public Dictionary<Vector2Int, Enemy> enemyMap;
     public Dictionary<Vector2Int, GameObject> enemyMap;
         // this WILL need to be updated at every turn
 
-    //public List<Vector2Int> walkableTiles = new List<Vector2Int>();
     public Transform player;
 
     public GameObject enemiesLayer;
@@ -65,24 +63,6 @@ public class EnemyHandler : MonoBehaviour {
         }
 
     }
-
-        // onstart: Decide upon a pool of enemies (hashset/array currentEnemies) from reference table
-        // Check every x s
-        // Generate a random one based off of rarity
-            // use cumulative rarity
-        // Find a random position to put it in (that isn't occupied)
-        // Generate it
-
-    // Subscribe to the signal that tells you when dungeon generation is complete
-    // void OnEnable() {
-    //     if (DungeonGenerator.Instance != null)
-    //         DungeonGenerator.Instance.OnGenerationComplete += BeginHandling;
-    // }
-
-    // void OnDisable() {
-    //     if (DungeonGenerator.Instance != null)
-    //         DungeonGenerator.Instance.OnGenerationComplete -= BeginHandling;
-    // }
 
     void BeginHandling() {
         //Debug.Log("begin handling");
@@ -121,16 +101,6 @@ public class EnemyHandler : MonoBehaviour {
         }
 
     }
-
-    // public void SpawnEnemies() {
-    //     // for (int i = 0; i < maxEnemies; i++) {
-    //     //     Vector2Int spawnPos = GetValidSpawnPosition();
-    //     //     Vector3 worldPos = new Vector3(spawnPos.x, spawnPos.y, 0);
-
-    //     //     //GameObject enemy = Instantiate(enemyPrefab, worldPos, Quaternion.identity);
-            
-    //     //     }
-    // }
 
     bool IsTooCloseToPlayer(Vector2Int pos) { // are you within the player's safe zone? don't spawn there!
         return (pos - Player.Instance.coordinates).sqrMagnitude <= safeRadius * safeRadius;
@@ -230,11 +200,6 @@ public class EnemyHandler : MonoBehaviour {
         }
     }
 
-    //public void EnemySpawned(Vector2Int pos, Enemy enemy) {
-    // public void EnemySpawned(Vector2Int pos, GameObject enemy) {
-    //     enemyMap[pos] = enemy;
-    // }
-
     public void EnemyMoved(Vector2Int oldPos, Vector2Int newPos) {
         if (!enemyMap.ContainsKey(oldPos)) {
             Debug.LogWarning($"EnemyMoved: No enemy found at {oldPos} — cannot move to {newPos}.");
@@ -255,8 +220,6 @@ public class EnemyHandler : MonoBehaviour {
         return enemyMap.ContainsKey(position);
     }
 
-    //public Enemy GetEnemyAt(Vector2Int position) {
-        //enemyMap.TryGetValue(position, out Enemy e);
     public GameObject GetEnemyAt(Vector2Int position) {
         var isThere = IsOccupied(position);
         Debug.Log($"Checking if there is an enemy at {position}: {isThere}");
@@ -277,12 +240,6 @@ public class EnemyHandler : MonoBehaviour {
     public void UnregisterEnemy(Vector2Int pos) {
         if (enemyMap.ContainsKey(pos)) enemyMap.Remove(pos);
     }
-
-    // accidentally made EnemyMovedV2
-    // public void UpdateEnemyPosition(Vector2Int oldPos, Vector2Int newPos, Enemy enemy) {
-    //     UnregisterEnemy(oldPos);
-    //     RegisterEnemy(newPos, enemy);
-    // }
 
 }
 

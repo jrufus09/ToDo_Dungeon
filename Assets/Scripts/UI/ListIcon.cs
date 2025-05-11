@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class ListIcon : MonoBehaviour {
 
     public TextMeshProUGUI nameLabel;
-    //public Image boardImage; // background
     private string listName;
     public Transform contentPane;
     public ListData thisList;
@@ -26,7 +25,6 @@ public class ListIcon : MonoBehaviour {
 
 
     void Awake() {
-        //GetComponent<Button>().onClick.AddListener(OnClick);
 
         if (contentPane == null) {
             ContentSizeFitter csf = GetComponentInChildren<ContentSizeFitter>();

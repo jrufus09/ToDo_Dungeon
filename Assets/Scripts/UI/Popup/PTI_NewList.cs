@@ -6,16 +6,6 @@ using Unity.VisualScripting.Dependencies.Sqlite;
 
 public class PTI_NewList : PopupTextInput {
 
-    // Inherited
-    // public GameObject okBtnObj;
-    // public GameObject cancelBtnObj;
-    // public GameObject inputFieldObj;
-    // private Button okBtn;
-    // //public Button cancelBtn;
-    // [SerializeField]private TMP_InputField inputField;
-    // private string currInput;
-    // start...
-
     public override void checkInput(string value) {
         // get unique list confirmation from board data manager
         if (value.Length >= 1) { // 1+  character AND board name is unique
@@ -38,9 +28,5 @@ public class PTI_NewList : PopupTextInput {
         BoardDataManager.Instance.RefreshListIcons(); // input field value -> new save data
         selfDestruct();
     }
-
-    // inherited
-    // private void onClickCancel() { selfDestruct(); }
-    // public void selfDestruct() { Destroy(gameObject);}
 
 }

@@ -8,7 +8,6 @@ public class SceneLoader : MonoBehaviour {
     public static SceneLoader Instance { get; private set; }
 
     // Scenes that are loaded or no
-    //public Scene persistentUI;
     public bool boardView_loaded = false; // keep only one open at once
 
     void Awake() {
@@ -25,25 +24,12 @@ public class SceneLoader : MonoBehaviour {
         //Debug.Log("I started the navbar scene");
     }
 
-    //public void OpenBoardView(bool setActive = false) { // this was optional before
     public void OpenBoardView() {
         // on top: can close down later
         if (boardView_loaded == false) {
-            //SceneManager.LoadScene("BoardView", LoadSceneMode.Additive); // moved to LoadThenActivate
-            // if this is single, make sure the event system is enabled
-
-            // if (setActive == true) {
-            //     // set the scene as active, but ONLY WHEN IT'S FINISHED LOADING
-            //     Scene.isLoaded
-            //     SceneManager.SetActiveScene(SceneManager.GetSceneByName("BoardView"));
-            // }
 
             StartCoroutine(LoadThenActivate("BoardView")); // yields - so continuing means it's done
             boardView_loaded = true;
-
-             // Make it so that the scene below cannot be interacted w temporarily
-            // find all <disableinteraction> scripts in the whole game, then call disable / enable
-            // moved to end
 
 
         } else {
@@ -80,7 +66,6 @@ public class SceneLoader : MonoBehaviour {
         }
     }
 
-    //StartCoroutine(LoadThenActivate(sceneName));
     private IEnumerator LoadThenActivate(string sceneName) {
 
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
@@ -91,12 +76,6 @@ public class SceneLoader : MonoBehaviour {
             yield return null;
         }
 
-        // Scene scene = SceneManager.GetSceneByName(sceneName);
-        // foreach (GameObject rootObj in scene.GetRootGameObjects()) {
-        //     Debug.Log("Root object: " + rootObj.name);
-        // }
-
-        //SetNewActiveScene(sceneName);
         RemoveTemporaryCameraIfNeeded();
     }
 
