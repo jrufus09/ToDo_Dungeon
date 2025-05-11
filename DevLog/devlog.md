@@ -127,3 +127,85 @@ Current bug that exists (still): stuff inside ListIcon doesn't register clicks.
 - task text can be changed
 - boards, lists and tasks can be deleted
 - beginning to think every task, list, board needs a unique ID :/ that way it's easier to remove
+
+### 30-April-2025
+- whole dungeon generation system complete: simple random room placement with dot leg algorithm to join room centres
+- player movement with buttons done
+- camera follows player
+- tile collisions are on the fence
+
+### 1-May-2025
+- fixed tile collisions + weird stickiness on walls
+- made player move around to open up fog
+- made health system
+- fixed alignment issues with tilemap and player
+
+### 2-May-2025
+- started on enemy
+- made TurnManager
+- made DungeonUI / for handling button inputs
+- made Enemy array, changed it to hashset, then changed it to a dictionary
+- made all this EnemyHandler generation code including the reference sheet and dictionary updating and then just never made a single enemy prefab
+- I made a whole scriptable object dictionary and it was cool
+- editor is now not allowing me to run play mode without freezing and crashing.
+- now need half my scripts to subscribe to "dungeon generation complete"
+
+### 3-May-2025
+- trying to work out why my navmeshes don't exist only to find out that unity's system is built for 3D and absolutely won't work with 2D projects and that I need to install another package from an external github.
+thanks man.
+https://github.com/h8man/NavMeshPlus/wiki/HOW-TO
+- nevermind it really doesn't want to work and I don't have all year to fix it. found another package to use
+- made a helper class for myself to convert transform.position to cell coordinates, as well as convert pathfinding
+- it's called Cell and it's in the Scripts/Game/Helper folder
+- fixed so that enemies now spawn successfully
+- simple synchronously-generated paths (A*) integrated
+
+### 4-May-2025
+- there is a problem with enemy collisions being kinematic and the player doesn't collide with them if that's the case.
+- it's time for manual collision detection :(
+
+### 5-May-2025
+- updating DungeonUI to remember what button is left, right, etc. instead of simply keeping them in a random array
+- updating to disable movement in a direction that is blocked
+- new bug! enemy can spawn in player's current location and trap them
+- updated spawning system to allow player safe area
+- made attack button that enables when enemy is nearby
+- resolving turnamanager issues which include: infinitely giving enemy turns
+
+### 6-May-2025
+- not feeling great today but made progress: the pathfinding package output diagonals regardless of the setting
+- had to edit the A* pathfinding algorithm (neighbour searching) to actually falsify diagonals
+- also had to re-orientate the bool map to make the pathfinder algo recognise it
+
+### 7-May-2025
+- major rework to enemyhandler's directory of what enemies are where. used to hold Enemy class, now holds gameobject
+- enemies now can take damage and die
+
+### 8-May-2025
+- made an exit to the dungeon
+- random seed generation script:
+    Unity's "randomness" can be configured with a seed (gives the same results every run)
+    my idea is to turn board data into a seed.
+    therefore, with the board in a certain state, it will always generate the same level
+    but when you change its state, the level also changes!
+    this promotes adding/completing tasks!
+
+### 9-May-2025
+- general debugging. adding "enter dungeon" to boardview
+- adding tasks doesn't actually work
+- discovered layoutelements, fixed tasks not showing up
+- made edit items function
+- the button that takes you to the dungeon is getting destroyed before it can finish its calls
+
+    important coordinate info
+    the tilemap's coordinates start at bottom left
+    the cell system that the A* pathfinder uses starts in the top left
+    hence two different conversion systems. pathfinder needs positon relative to NW(0,0)
+    however all other systems including walkable map need the "normal" coordinate positions
+
+    THIS MEANS PATH[] needs conversion OUT. so THAT'S why the enemy doesn't know where player is
+
+### 11 May 2025
+- added message popup
+- make player actually die
+- trying to fix the small camera issue where it says main camera is null for a time. worked out it becomes null right after the canvas group is disabled and in two frames before the new camera becomes real

@@ -25,10 +25,15 @@ public class TaskIcon : MonoBehaviour {
 
     public void SetName(string newName) {
         nameLabel.text = newName;
-    }
 
+        // manually set own size because unity ui hates me
+        //transform.localScale=new Vector3(1,1,1);
+    }
     
     public void OnToggle(bool value) {
-        Debug.Log("toggled");
+        BoardDataManager.Instance.EditItem(nameLabel.text, item => {
+            item.isCompleted = value;
+        });
+        BoardDataManager.Instance.SaveData();
     }
 }

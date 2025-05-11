@@ -9,6 +9,7 @@ public class PTI_NewItem : PopupTextInput {
 
     public override void checkInput(string value) {
         // do nothing; no need to validate uniqueness
+        okBtn.interactable = true;
     }
 
     public override void onClickOK() {

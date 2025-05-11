@@ -3,12 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.Collections;
 using System.IO;
+using NUnit.Framework.Constraints;
+using UnityEditor.Search;
+using System.Linq;
 
 public class BoardDataManager : MonoBehaviour {
 
     public static BoardDataManager Instance { get; private set; } // Singleton ("static")
 
-    void Start() {
+    public void Start() {
         Debug.Log($"persistent data path on {Application.platform} is: {Application.persistentDataPath}");
         
         currentSessionData = LoadData(folderPath);
@@ -100,7 +103,7 @@ public class BoardDataManager : MonoBehaviour {
         }
         string json = JsonUtility.ToJson(saveThis, true);
         File.WriteAllText(folderPath, json);
-        Debug.Log("data saved to " + folderPath);
+        Debug.Log("data saved to " + folderPath + " at " + System.DateTime.Now);
         LoadBoardNames();
     }
 
@@ -123,7 +126,7 @@ public class BoardDataManager : MonoBehaviour {
     private HashSet<string> boardNamesSet; // for quick lookup
     [SerializeField]private HashSet<string> listNamesSet;
 
-    private void LoadBoardNames() { // call this whenever json is loaded / updated
+    public void LoadBoardNames() { // call this whenever json is loaded / updated
         boardNamesSet = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         foreach (Board board in currentSessionData.boards) {
             boardNamesSet.Add(board.name);
@@ -216,11 +219,50 @@ public class BoardDataManager : MonoBehaviour {
         }
     }
 
+    public List<ListData> AllLists(Board fromBoard) {
+        List<ListData> listsOut = new List<ListData>();
+        if (fromBoard != null) {
+            // get each list in the board
+            foreach (ListData list in fromBoard.lists) {
+                //Debug.Log(list);
+                listsOut.Add(list);
+            }
+        } else {
+            Debug.LogWarning($"BoardDataManager/AllLists: board in is null");
+        }
+        return listsOut;
+    }
+
+    public List<Item> AllItems(ListData fromList) {
+        List<Item> itemsOut = new List<Item>();
+        if (fromList != null) {
+            // get each list in the board
+            foreach (Item item in fromList.items) {
+                //Debug.Log(list);
+                itemsOut.Add(item);
+            }
+        } else {
+            Debug.LogWarning($"BoardDataManager/AllLists: list in is null");
+        }
+        return itemsOut;
+    }
+
+    public int CountDoneTasks(ListData fromList) {
+        int doneCount = 0;
+        List<Item> itemsOut = AllItems(fromList);
+        foreach (Item item in fromList.items) {
+            if (item.isCompleted == true) {
+                doneCount++;
+            }
+        }
+        return doneCount;
+    }
+
     private IEnumerator AutoSaveRoutine() {
         while (true) {
             yield return new WaitForSeconds(saveInterval);
             SaveData();
-            Debug.Log("autosaved at " + System.DateTime.Now);
+            //Debug.Log("autosaved at " + System.DateTime.Now);
         }
     }
 
@@ -276,20 +318,33 @@ public class BoardDataManager : MonoBehaviour {
 
     public void LoadAllTaskIcons(Transform contentArea, ListData listIn) {
         // designed to be called from the object that holds the container for the items
-        //Debug.Log("loading task icons");
+        //Debug.Log($"loading task icons for {listIn.name}");
 
         // LOAD +NEW TASK FIRST
         GameObject newTaskBtn = Instantiate(newTaskPrefab, contentArea.transform);
 
         // iterate through given listdata for each task
         foreach (Item item in listIn.items) {
-            //Debug.Log(list.name);
-            GameObject newIcon = Instantiate(itemIconPrefab, contentArea.transform); //parent to content area
+            //Debug.Log(item.name);
+            GameObject newIcon = Instantiate(itemIconPrefab, contentArea.transform);
             newIcon.name = "Icon_" + item.name;
             TaskIcon icon = newIcon.GetComponent<TaskIcon>();
             icon.SetName(item.name);
         }
     }
+
+    // public void ToggleTask(Item task, bool toggle) {
+    //     List<Item> items = AllItems(currentlyEditingList);
+    //     int index = items.IndexOf(task); 
+    //     if (index != -1) { // returns -1 if not in list
+    //         EditItem(task.name, item => {
+    //         item.isCompleted = toggle;
+    //     });
+
+    //     } else {
+    //         Debug.LogWarning("item is not in currently editing list.");
+    //     }
+    // }
 
     public void RefreshTaskIcons(Transform contentArea, ListData listData) { // clear icons and reload
         //Debug.Log("Refreshing task icons");
@@ -299,6 +354,35 @@ public class BoardDataManager : MonoBehaviour {
         }
         LoadAllTaskIcons(contentArea, listData);
     }
+
+    public void EditItem(string itemName, Action<Item> editCallback) { // assumes current board, current list
+        // Step 1: Find the list
+        ListData targetList = currentlyEditingList;
+
+        if (targetList == null) {
+            Debug.LogWarning($"please set currentlyEditingList before updating items.");
+            return;
+        }
+
+        // Step 2: Find the item
+        Item targetItem = targetList.items.FirstOrDefault(i => i.name == itemName);
+
+        if (targetItem == null) {
+            Debug.LogWarning($"Item '{itemName}' not found ;-;");
+            return;
+        }
+
+        // Step 3: Edit it directly
+        editCallback?.Invoke(targetItem);
+
+        // example edit:
+        // EditItem("sit down and cry", item => {
+        //     item.isCompleted = true;
+        //     //item.dueDate = DateTime.Now.AddDays(2);
+        // });
+
+    }
+
 }
 
 

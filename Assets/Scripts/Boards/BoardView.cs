@@ -4,13 +4,14 @@ using TMPro;
 
 public class BoardView : MonoBehaviour {
 
+    public EnterDungeon enterDungeon;
 
     //we want only one at runtime
     public static BoardView Instance { get; private set; } // Singleton ("static")
     void Awake() {
         if (Instance == null) {
             Instance = this;
-            DontDestroyOnLoad(gameObject); // keep alive between scenes
+            //DontDestroyOnLoad(gameObject); // keep alive between scenes
         } else { Destroy(gameObject); }
     }
 
@@ -22,6 +23,9 @@ public class BoardView : MonoBehaviour {
             GameObject content = GetComponentInChildren<ContentSizeFitter>().gameObject;
             contentPane = content.transform;
         }
+        if (enterDungeon == null) {
+            enterDungeon = GetComponent<EnterDungeon>();
+        }
 
         Reload();
     }
@@ -30,6 +34,7 @@ public class BoardView : MonoBehaviour {
         
         // set name of board
         nameLabel.text = BoardDataManager.Instance.currentlyOpenBoard.name;
+        enterDungeon.SetBoard(BoardDataManager.Instance.currentlyOpenBoard);
 
         //Debug.Log(contentPane);
         BoardDataManager.Instance.RefreshListIcons();

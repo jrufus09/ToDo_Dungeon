@@ -45,6 +45,7 @@ public class SceneLoader : MonoBehaviour {
             // find all <disableinteraction> scripts in the whole game, then call disable / enable
             // moved to end
 
+
         } else {
             //Debug.Log("boardview is already loaded.");
             BoardView.Instance.Reload(); // re-set name and open lists and so on
@@ -81,10 +82,12 @@ public class SceneLoader : MonoBehaviour {
 
     //StartCoroutine(LoadThenActivate(sceneName));
     private IEnumerator LoadThenActivate(string sceneName) {
+
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
 
         // wait until the scene is done loading before cont - basically a while loop but better
         while (!asyncLoad.isDone) {
+            TempCameraManager.CreateTempCamera();
             yield return null;
         }
 
@@ -94,6 +97,7 @@ public class SceneLoader : MonoBehaviour {
         // }
 
         //SetNewActiveScene(sceneName);
+        RemoveTemporaryCameraIfNeeded();
     }
 
     public void SetNewActiveScene(string sceneName) {
@@ -114,4 +118,51 @@ public class SceneLoader : MonoBehaviour {
         }
 
     }
+
+    public void OpenToDo() {
+        Scene scene = SceneManager.GetSceneByName("ToDo");
+        if (scene.isLoaded) {
+            // persistent ui
+            SceneManager.LoadScene("PersistentUI", LoadSceneMode.Additive);
+            SetNewActiveScene("ToDo");
+        } else {
+            SceneManager.LoadScene("ToDo", LoadSceneMode.Single);
+            SceneManager.LoadScene("PersistentUI", LoadSceneMode.Additive);
+        }
+        EnableOnly(DisableInteraction.TypeOfCanvas.ToDo);
+        BoardDataManager.Instance.LoadBoardNames();
+        BoardDataManager.Instance.LoadAllBoardIcons();
+    }
+
+    public void OpenDungeon() {
+        Scene scene = SceneManager.GetSceneByName("Dungeon");
+        if (scene.isLoaded) {
+            SetNewActiveScene("Dungeon");
+        } else {
+            SceneManager.LoadScene("Dungeon", LoadSceneMode.Single);
+        }
+    }
+
+    private GameObject tempCameraObj;
+
+    private void EnsureTemporaryCamera() {
+        if (Camera.main == null) {
+            tempCameraObj = new GameObject("TempCamera");
+            var cam = tempCameraObj.AddComponent<Camera>();
+            cam.clearFlags = CameraClearFlags.SolidColor;
+            cam.backgroundColor = Color.black;
+            tempCameraObj.tag = "MainCamera"; // Make sure it's discoverable
+            DontDestroyOnLoad(tempCameraObj);
+        }
+    }
+
+    private void RemoveTemporaryCameraIfNeeded() {
+        if (tempCameraObj != null) {
+            Destroy(tempCameraObj);
+            tempCameraObj = null;
+        }
+    }
+
+
+
 }

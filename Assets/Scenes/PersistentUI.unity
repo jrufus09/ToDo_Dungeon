@@ -287,6 +287,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3074834162037104666, guid: 35aa284e374032947b7933139c86426d, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6091126715031501751, guid: 35aa284e374032947b7933139c86426d, type: 3}
       propertyPath: m_text
       value: Dungeon
@@ -395,6 +399,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2186998027166979207, guid: 35aa284e374032947b7933139c86426d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3074834162037104666, guid: 35aa284e374032947b7933139c86426d, type: 3}
+      propertyPath: m_Interactable
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6091126715031501751, guid: 35aa284e374032947b7933139c86426d, type: 3}

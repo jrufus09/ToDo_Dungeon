@@ -8,11 +8,13 @@ public class PopupManager : MonoBehaviour {
     public PopupTextInput newBoardPopupPrefab;
     public PopupTextInput newListPopupPrefab;
     public PopupTextInput newItemPopupPrefab;
+    public PopupMessage messagePrefab;
     public static PopupManager Instance { get; private set; } // Singleton ("static"), refer to me as PopupManager.instance
     
     void Awake(){
         if (Instance == null) {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
         } else {
             Destroy(gameObject);
         }
@@ -59,8 +61,14 @@ public class PopupManager : MonoBehaviour {
                 break;
         }
 
-
-
         //Instantiate(newBoardPopupPrefab, this.transform);
+    }
+
+    // call it like
+    //PopupManager.Instance.ShowMessagePopup("message text", DoThisWhenConfirmed);
+
+    public void ShowMessagePopup(string title, System.Action onConfirm) {
+        PopupMessage m = Instantiate(messagePrefab, this.transform);
+        m.SetText(title, onConfirm); // passes the method to call next into this instance
     }
 }
